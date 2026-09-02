@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1&amp;display=block" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;-webkit-font-smoothing:antialiased;color:#1F1F1F}
+a{color:#1F1F1F;text-decoration:none}
+a:hover{color:#C94219}
+:focus-visible{outline:3px solid #FFB72B;outline-offset:2px;border-radius:6px}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#FFFFFF;font-family:Inter,system-ui,sans-serif;zoom:{{ rootZoom }}">
+<dc-import name="Cabecalho" perfil="publico" hint-size="100%,126px"></dc-import>
+
+<main style="max-width:1600px;margin:0 auto;padding:0 20px 70px">
+  <a href="#campanha" aria-label="Banner: campanha seuchef" style="display:block;margin-top:{{ gap }};border-radius:16px;overflow:hidden;background:#FFF3DF;background-image:repeating-linear-gradient(135deg,rgba(31,31,31,0.055) 0 10px,rgba(31,31,31,0) 10px 20px)">
+    <div style="aspect-ratio:{{ bannerRatio }};display:flex;align-items:center;justify-content:center">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#9A938C">{{ bannerSlot }} · arte cadastrada no painel</span>
+    </div>
+  </a>
+
+  <div style="display:flex;gap:10px;background:#FFF3DF;padding:5px;border-radius:14px;margin-top:{{ gap }};width:fit-content">
+    <button type="button" onClick="{{ verEmpresas }}" aria-pressed="{{ isEmpresas }}" style="height:46px;padding:0 20px;border:0;border-radius:10px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:15px;background:{{ empBg }};box-shadow:{{ empShadow }};color:{{ empFg }}">Para empresas</button>
+    <button type="button" onClick="{{ verCandidatos }}" aria-pressed="{{ isCandidatos }}" style="height:46px;padding:0 20px;border:0;border-radius:10px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:15px;background:{{ candBg }};box-shadow:{{ candShadow }};color:{{ candFg }}">Para candidatos</button>
+  </div>
+
+  <section aria-labelledby="hero-h" style="margin-top:26px;display:grid;grid-template-columns:{{ heroCols }};gap:26px;align-items:center">
+    <div>
+      <h1 id="hero-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};line-height:1.06;letter-spacing:-0.03em;text-wrap:pretty">{{ heroTitle }}</h1>
+      <p style="margin:14px 0 0;font-family:Inter,sans-serif;font-size:16.5px;line-height:1.6;color:#6B6560;max-width:560px;text-wrap:pretty">{{ heroText }}</p>
+      <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">
+        <a href="{{ ctaHref }}" style="height:56px;padding:0 26px;border-radius:12px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;display:flex;align-items:center" style-hover="background:#FFC94F">{{ ctaLabel }}</a>
+        <a href="https://api.whatsapp.com/send?phone=5511921281639" style="height:56px;padding:0 20px;border:1.5px solid rgba(31,31,31,0.18);border-radius:12px;font-family:Sora,sans-serif;font-weight:600;font-size:16px;display:flex;align-items:center;gap:8px">
+          <span style="font-family:'Material Symbols Rounded';font-size:21px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">chat</span>Falar no WhatsApp</a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:22px">
+        <sc-for list="{{ areas }}" as="a" hint-placeholder-count="6">
+          <span style="display:flex;align-items:center;gap:7px;font-family:Inter,sans-serif;font-weight:700;font-size:13px;padding:9px 13px;border-radius:9px;background:#FFF3DF">
+            <span style="width:9px;height:9px;border-radius:50%;background:{{ a.color }}" aria-hidden="true"></span>{{ a.label }}
+          </span>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:{{ heroArtDisplay }};border-radius:18px;overflow:hidden;background:#FFF3DF;background-image:repeating-linear-gradient(135deg,rgba(31,31,31,0.055) 0 10px,rgba(31,31,31,0) 10px 20px);aspect-ratio:4 / 3;align-items:center;justify-content:center">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#9A938C">foto institucional · cozinha/salão</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="passos-h" style="margin-top:{{ gapBig }}">
+    <h2 id="passos-h" style="margin:0 0 18px;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em">{{ passosTitle }}</h2>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ passosCols }};gap:16px">
+      <sc-for list="{{ passos }}" as="p" hint-placeholder-count="4">
+        <li style="border:1.5px solid rgba(31,31,31,0.12);border-radius:16px;padding:22px">
+          <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#1F1F1F;color:#FFB72B;font-family:Sora,sans-serif;font-weight:800;font-size:17px">{{ p.n }}</span>
+          <h3 style="margin:16px 0 8px;font-family:Sora,sans-serif;font-weight:700;font-size:18px;letter-spacing:-0.01em">{{ p.title }}</h3>
+          <p style="margin:0;font-family:Inter,sans-serif;font-size:14.5px;line-height:1.6;color:#6B6560">{{ p.text }}</p>
+        </li>
+      </sc-for>
+    </ol>
+  </section>
+
+  <section aria-labelledby="planos-h" id="pacotes" style="margin-top:{{ gapBig }};display:{{ planosDisplay }}">
+    <h2 id="planos-h" style="margin:0 0 6px;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em">Nossos pacotes promocionais</h2>
+    <p style="margin:0 0 18px;font-family:Inter,sans-serif;font-size:15px;color:#6B6560">Sem contrato e sem mensalidade. Nos pacotes você tem 1 ano para publicar; cada vaga fica 30 dias no ar.</p>
+    <div style="display:grid;grid-template-columns:{{ planosCols }};gap:16px">
+      <sc-for list="{{ pacotes }}" as="p" hint-placeholder-count="4">
+        <div style="position:relative;border:{{ p.borderW }} solid {{ p.border }};border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:6px;background:{{ p.bg }};box-shadow:{{ p.shadow }}">
+          <sc-if value="{{ p.maisComprado }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;top:-13px;left:20px;height:26px;padding:0 12px;border-radius:13px;background:#1F1F1F;color:#FFB72B;font-family:Sora,sans-serif;font-weight:700;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;gap:6px">
+              <span style="font-family:'Material Symbols Rounded';font-size:14px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">star</span>Mais comprado
+            </span>
+          </sc-if>
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <span style="font-family:Sora,sans-serif;font-weight:700;font-size:16px">{{ p.nome }}</span>
+            <sc-if value="{{ p.temDesconto }}" hint-placeholder-val="{{ true }}">
+              <span style="flex:none;height:26px;padding:0 10px;border-radius:8px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:800;font-size:13px;display:flex;align-items:center">{{ p.off }}</span>
+            </sc-if>
+          </div>
+          <span style="font-family:Inter,sans-serif;font-size:13.5px;color:#6B6560">{{ p.detalhe }}</span>
+          <span style="margin-top:12px;font-family:Sora,sans-serif;font-weight:800;font-size:{{ precoSize }};letter-spacing:-0.02em">{{ p.preco }}</span>
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#9A938C">{{ p.obs }}</span>
+          <a href="Pacotes.dc.html#pacotes" style="margin-top:auto;padding-top:18px;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;color:#C94219">Ver detalhes →</a>
+        </div>
+      </sc-for>
+    </div>
+    <section id="assinatura" aria-labelledby="assin-h" style="margin-top:16px;background:#1F1F1F;color:#FFF3DF;border-radius:18px;padding:28px">
+      <h3 id="assin-h" style="font-family:Sora,sans-serif;font-weight:800;font-size:{{ h3 }};letter-spacing:-0.02em;margin:0">Seja assinante e tenha benefícios especiais</h3>
+      <p style="margin:8px 0 0;font-size:15px;color:rgba(255,243,223,0.78)">Para quem contrata com frequência e quer mais visibilidade.</p>
+
+      <div style="display:grid;grid-template-columns:{{ assinCols }};gap:26px;align-items:start;margin-top:22px">
+        <div style="border:1px solid rgba(255,243,223,0.16);border-radius:14px;padding:20px;background:rgba(255,243,223,0.03)">
+          <div style="font-family:Sora,sans-serif;font-weight:800;font-size:38px;letter-spacing:-0.03em;color:#FFB72B;line-height:1">R$ 129<span style="font-family:Inter,sans-serif;font-weight:400;font-size:15px;color:rgba(255,243,223,0.7);letter-spacing:0">/mês</span></div>
+          <a href="Pacotes.dc.html#assinatura" style="margin-top:20px;height:52px;border-radius:12px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:16px;display:flex;align-items:center;justify-content:center" style-hover="background:#FFC94F;color:#1F1F1F">Contratar agora</a>
+          <p style="margin:14px 0 0;font-size:13px;color:rgba(255,243,223,0.55);text-align:center">Renovação automática. Cancele quando quiser.</p>
+        </div>
+
+        <div>
+          <h4 style="font-family:Sora,sans-serif;font-weight:700;font-size:16px;margin:0 0 16px">O que está incluído:</h4>
+          <div style="display:grid;grid-template-columns:{{ beneficiosCols }};gap:14px 32px">
+            <sc-for list="{{ beneficiosAssin }}" as="b" hint-placeholder-count="8">
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:15px;color:#FFF3DF">
+                <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1.1;color:#FFB72B;flex:none" aria-hidden="true">check_circle</span>{{ b.label }}
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,243,223,0.14)">
+        <h4 style="font-family:Sora,sans-serif;font-weight:700;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;color:#FFB72B;margin:0 0 14px">Sem regras escondidas</h4>
+        <div style="display:grid;grid-template-columns:{{ regrasCols }};gap:12px 32px">
+          <sc-for list="{{ regrasAssin }}" as="r" hint-placeholder-count="7">
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(255,243,223,0.8);line-height:1.5">
+              <span style="width:5px;height:5px;border-radius:50%;background:rgba(255,243,223,0.45);flex:none;margin-top:8px"></span>{{ r.label }}
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section aria-labelledby="benef-h" style="margin-top:{{ gapBig }};background:#FFF3DF;border-radius:20px;padding:{{ padBig }}">
+    <h2 id="benef-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em">{{ benefTitle }}</h2>
+    <p style="margin:12px 0 0;font-family:Inter,sans-serif;font-size:16px;line-height:1.6;color:#6B6560;max-width:640px;text-wrap:pretty">{{ benefText }}</p>
+    <ul style="list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:{{ benefCols }};gap:14px">
+      <sc-for list="{{ beneficios }}" as="b" hint-placeholder-count="6">
+        <li style="display:flex;gap:11px;font-family:Inter,sans-serif;font-size:15px;line-height:1.5">
+          <span style="font-family:'Material Symbols Rounded';font-size:21px;font-variation-settings:'FILL' 1;line-height:1.3;color:#1F1F1F;flex:none" aria-hidden="true">check_circle</span>{{ b }}
+        </li>
+      </sc-for>
+    </ul>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:26px">
+      <a href="{{ ctaHref }}" style="height:56px;padding:0 26px;border-radius:12px;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;display:flex;align-items:center" style-hover="color:#FFB72B">{{ ctaLabel }}</a>
+      
+    </div>
+  </section>
+
+  <section aria-labelledby="ajuda-h" style="margin-top:{{ gapBig }};border:1.5px solid rgba(31,31,31,0.12);border-radius:20px;padding:{{ padBig }};display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between">
+    <div style="max-width:560px">
+      <h2 id="ajuda-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h3 }};letter-spacing:-0.02em">Precisa de ajuda?</h2>
+      <p style="margin:10px 0 0;font-family:Inter,sans-serif;font-size:15.5px;line-height:1.6;color:#6B6560">Tem dúvidas ou precisa de ajuda? Estamos aqui para ajudar. Fale com a nossa equipe de suporte pelo WhatsApp.</p>
+    </div>
+    <a href="https://api.whatsapp.com/send?phone=5511921281639" style="height:56px;padding:0 24px;border-radius:12px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;display:flex;align-items:center;gap:9px" style-hover="background:#FFC94F">
+      <span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">chat</span>11 92128-1639</a>
+  </section>
+</main>
+
+<dc-import name="Rodape" hint-size="100%,320px"></dc-import>
+</div>
+<div style="font-size: 16px; line-height: 1; font-family: Sora, sans-serif; position: absolute; left: 135px; top: 23px">Your text here</div></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200},&quot;aba&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;empresas&quot;,&quot;candidatos&quot;],&quot;default&quot;:&quot;empresas&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { w: 1440, aba: null };
+  componentDidMount() {
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+    const h = (window.location.hash || '').replace('#', '');
+    if (h === 'candidatos' || h === 'empresas') this.setState({ aba: h });
+    this.onHash = () => {
+      const k = (window.location.hash || '').replace('#', '');
+      if (k === 'candidatos' || k === 'empresas') this.setState({ aba: k });
+    };
+    window.addEventListener('hashchange', this.onHash);
+    setTimeout(() => this.setState({ w: window.innerWidth }), 40);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); }
+  bp() { const raw = this.state.w; if (raw < 768) return 'mobile'; return raw / 0.8 < 1200 ? 'tablet' : 'desktop'; }
+  renderVals() {
+    const bp = this.bp(), mobile = bp === 'mobile';
+    const emp = (this.state.aba || this.props.aba || 'empresas') === 'empresas';
+    return {
+      rootZoom: mobile ? 1 : 0.8,
+      gap: mobile ? '18px' : '26px',
+      gapBig: mobile ? '38px' : '56px',
+      padBig: mobile ? '22px' : '32px',
+      bannerRatio: mobile ? '3.2 / 1' : '8 / 1',
+      bannerSlot: mobile ? 'banner mobile · 720×225' : 'banner desktop · 1600×200',
+      h1: mobile ? '30px' : '44px',
+      h2: mobile ? '24px' : '32px',
+      h3: mobile ? '21px' : '26px',
+      precoSize: mobile ? '26px' : '32px',
+      heroCols: bp === 'desktop' ? '1.2fr 1fr' : '1fr',
+      heroArtDisplay: bp === 'desktop' ? 'flex' : 'none',
+      passosCols: mobile ? '1fr' : (bp === 'tablet' ? 'repeat(2,1fr)' : 'repeat(4,1fr)'),
+      benefCols: mobile ? '1fr' : 'repeat(2,1fr)',
+      planosCols: mobile ? '1fr' : (bp === 'tablet' ? 'repeat(2,1fr)' : 'repeat(4,1fr)'),
+      assinCols: mobile ? '1fr' : '300px 1fr',
+      beneficiosCols: mobile ? '1fr' : 'repeat(2,minmax(0,1fr))',
+      regrasCols: mobile ? '1fr' : 'repeat(2,minmax(0,1fr))',
+      beneficiosAssin: [
+        '1 vaga por mês', 'Desconto de 10% em qualquer compra',
+        'Selo Destaque em todas as vagas', '2 boosts por mês — vaga no topo do site por 48h',
+        'Atendimento exclusivo', 'Revisão de todos os seus anúncios',
+        'Prioridade em promoções gerais do site', 'Collab nas redes sociais'
+      ].map(t => ({ label: t })),
+      regrasAssin: [
+        '1 vaga por mês, não acumulativa.',
+        'Desconto de 10% na compra de vagas avulsas e pacotes.',
+        'O boost coloca a vaga no topo do site por 48 horas, a partir da ativação.',
+        'Inclui 2 boosts por mês; cada boost reposiciona a vaga no topo do site por 48 horas.',
+        'Atendimento exclusivo por reunião online, ligação, WhatsApp e e-mail.',
+        'Renovação automática; você pode cancelar a qualquer momento.',
+        'Ao cancelar, os benefícios são removidos, mas as vagas já publicadas continuam ativas sem destaques até o fim do período contratado.'
+      ].map(t => ({ label: t })),
+      isEmpresas: emp, isCandidatos: !emp,
+      empBg: emp ? '#1F1F1F' : 'transparent', candBg: emp ? 'transparent' : '#1F1F1F',
+      empFg: emp ? '#FFF3DF' : '#1F1F1F', candFg: emp ? '#1F1F1F' : '#FFF3DF',
+      empShadow: emp ? '0 1px 3px rgba(31,31,31,0.12)' : 'none',
+      candShadow: emp ? 'none' : '0 1px 3px rgba(31,31,31,0.12)',
+      verEmpresas: () => { if (window.history && window.history.replaceState) window.history.replaceState(null, '', '#empresas'); this.setState({ aba: 'empresas' }); },
+      verCandidatos: () => { if (window.history && window.history.replaceState) window.history.replaceState(null, '', '#candidatos'); this.setState({ aba: 'candidatos' }); },
+      planosDisplay: emp ? 'block' : 'none',
+      heroTitle: emp ? 'Contrate quem já é do setor da alimentação' : 'Encontre uma vaga na sua área, de graça',
+      heroText: emp
+        ? 'O seuchef é especializado em divulgar vagas de restaurantes, bares, lanchonetes, padarias e comércios da gastronomia. Você publica a vaga, recebe candidatos do setor e organiza os currículos em um só lugar.'
+        : 'Cadastre seu currículo em poucos minutos e candidate-se às vagas que aparecem todos os dias. O candidato não paga nada para usar o Seuchef.',
+      ctaLabel: emp ? 'Publicar vaga' : 'Encontrar vagas',
+      ctaHref: emp ? 'Pacotes.dc.html' : 'Home.dc.html',
+      areas: [
+        { label: 'Cozinha', color: '#C94219' }, { label: 'Salão', color: '#1A7A5E' },
+        { label: 'Bar', color: '#922B3E' }, { label: 'Gestão', color: '#1E4D6B' },
+        { label: 'Freelancer', color: '#7B4068' }, { label: 'Estoque', color: '#8A5A22' }
+      ],
+      passosTitle: emp ? 'Como funciona para empresas' : 'Como funciona para candidatos',
+      passos: emp ? [
+        { n: '1', title: 'Crie a conta do estabelecimento', text: 'Cadastre os dados da empresa e o responsável pelo processo seletivo.' },
+        { n: '2', title: 'Compre a vaga ou o pacote', text: 'Vaga avulsa, pacotes com desconto ou assinatura mensal. Pagamento por PIX ou cartão.' },
+        { n: '3', title: 'Publique a vaga', text: 'Use um modelo pronto ou preencha os campos. A vaga fica ativa por 30 dias.' },
+        { n: '4', title: 'Receba e organize os currículos', text: 'Veja quem se candidatou, abra os currículos e acompanhe pelo painel.' }
+      ] : [
+        { n: '1', title: 'Cadastre-se', text: 'É simples, rápido e gratuito. Sem cobrança nenhuma para o candidato.' },
+        { n: '2', title: 'Monte seu currículo', text: 'Preencha dados pessoais, experiência e escolaridade em três etapas.' },
+        { n: '3', title: 'Busque a vaga', text: 'Use a busca, os filtros ou o mapa para achar vagas perto de você.' },
+        { n: '4', title: 'Candidate-se e acompanhe', text: 'Veja em Minhas vagas quando a empresa visualizar seu currículo.' }
+      ],
+      benefTitle: emp ? 'Por que você vai nos amar' : 'O que você ganha com o Seuchef',
+      benefText: emp
+        ? 'Os empregadores se beneficiam de um design simples e ferramentas de contratação diretas, permitindo a fácil visualização, armazenamento e classificação de currículos. Sem perfis extravagantes, redes de alta manutenção ou caixas de entrada entupidas de currículos aleatórios e incompletos.'
+        : 'Busca segmentada só do setor da alimentação: você se candidata a vagas da sua área e vai se especializando nela, o que ajuda no desenvolvimento da sua carreira.',
+      beneficios: emp ? [
+        'Publicação de vaga simples e rápida',
+        'Candidatos do setor da alimentação',
+        'Visualização e armazenamento de currículos',
+        'Classificação dos currículos recebidos',
+        'Menos currículos aleatórios e incompletos',
+        'Divulgação também no Instagram e no Facebook'
+      ] : [
+        'Cadastro gratuito, sem cobrança para o candidato',
+        'Vagas publicadas todos os dias',
+        'Busca por cargo, cidade, região e mapa',
+        'Score de compatibilidade com o seu perfil',
+        'Acompanhamento das suas candidaturas',
+        'Atendimento por WhatsApp quando precisar'
+      ],
+      benefNota: emp ? 'A publicação da vaga avulsa é R$ 99,00, com prazo de 30 dias.' : 'O candidato nunca paga para usar o seuchef.',
+      pacotes: [
+        { nome: 'Vaga avulsa', detalhe: 'R$ 99,00 por vaga', preco: 'R$ 99,00', obs: '1 cargo por vaga · 30 dias no ar', off: '', temDesconto: false, maisComprado: false, border: 'rgba(31,31,31,0.12)', borderW: '1.5px', bg: '#FFFFFF', shadow: 'none' },
+        { nome: 'Pacote 3 vagas', detalhe: 'R$ 84,15 por vaga', preco: 'R$ 252,45', obs: 'de R$ 297,00 · 1 ano para publicar', off: '15% off', temDesconto: true, maisComprado: false, border: 'rgba(31,31,31,0.12)', borderW: '1.5px', bg: '#FFFFFF', shadow: 'none' },
+        { nome: 'Pacote 5 vagas', detalhe: 'R$ 74,25 por vaga', preco: 'R$ 371,25', obs: 'de R$ 495,00 · 1 ano para publicar', off: '20% off', temDesconto: true, maisComprado: true, border: '#FFB72B', borderW: '2.5px', bg: '#FFFDF7', shadow: '0 10px 30px rgba(255,183,43,0.32)' },
+        { nome: 'Pacote 10 vagas', detalhe: 'R$ 64,35 por vaga', preco: 'R$ 643,50', obs: 'de R$ 990,00 · 1 ano para publicar', off: '35% off', temDesconto: true, maisComprado: false, border: 'rgba(31,31,31,0.12)', borderW: '1.5px', bg: '#FFFFFF', shadow: 'none' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

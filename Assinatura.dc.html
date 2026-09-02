@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1&amp;display=block" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;-webkit-font-smoothing:antialiased;color:#1F1F1F}
+a{color:#1F1F1F;text-decoration:none}
+a:hover{color:#C94219}
+:focus-visible{outline:3px solid #FFB72B;outline-offset:2px;border-radius:6px}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#FFFFFF;font-family:Inter,system-ui,sans-serif;zoom:{{ rootZoom }}">
+<dc-import name="Cabecalho" perfil="{{ perfil }}" hint-size="100%,126px"></dc-import>
+
+<main style="max-width:1600px;margin:0 auto;padding:0 20px 70px">
+  <a href="#assinatura" aria-label="Banner: campanha seuchef" style="display:block;margin-top:{{ gap }};border-radius:16px;overflow:hidden;background:#FFF3DF;background-image:repeating-linear-gradient(135deg,rgba(31,31,31,0.05) 0 1px,transparent 1px 9px)">
+    <div style="aspect-ratio:{{ bannerRatio }};display:flex;align-items:center;justify-content:center">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#9A938C">{{ bannerSlot }} · arte cadastrada no painel</span>
+    </div>
+  </a>
+
+  <section aria-labelledby="hero-h" style="margin-top:20px">
+    <h1 id="hero-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};line-height:1.06;letter-spacing:-0.03em;text-wrap:pretty">Seja assinante e tenha benefícios especiais</h1>
+    <p style="margin:12px 0 0;font-family:Inter,sans-serif;font-size:16.5px;line-height:1.6;color:#6B6560;max-width:660px">Para quem contrata com frequência e quer mais visibilidade. Uma vaga por mês, selo Destaque, boosts e desconto em qualquer compra.</p>
+  </section>
+
+  <section id="assinatura" aria-labelledby="ass-h" style="margin-top:{{ gap }};background:#1F1F1F;color:#FFF3DF;border-radius:22px;padding:{{ padBig }}">
+    <h2 id="ass-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em">Assinatura mensal seuchef</h2>
+    <p style="margin:10px 0 0;font-family:Inter,sans-serif;font-size:16px;color:rgba(255,243,223,0.78)">Cancele quando quiser. Sem multa e sem fidelidade.</p>
+
+    <div style="display:grid;grid-template-columns:{{ assCols }};gap:24px;margin-top:26px;align-items:start">
+      <div style="background:rgba(255,243,223,0.07);border:1px solid rgba(255,243,223,0.18);border-radius:18px;padding:24px">
+        <span style="display:block;font-family:Sora,sans-serif;font-weight:800;font-size:{{ assPreco }};letter-spacing:-0.03em;color:#FFB72B">R$ 129<span style="font-family:Inter,sans-serif;font-weight:400;font-size:16px;color:rgba(255,243,223,0.7)"> /mês</span></span>
+        <button type="button" onClick="{{ contratar }}" style="margin-top:20px;width:100%;height:56px;border:0;border-radius:12px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;cursor:pointer" style-hover="background:#FFC94F">Contratar agora</button>
+        <p style="margin:14px 0 0;font-family:Inter,sans-serif;font-size:13px;color:rgba(255,243,223,0.62);text-align:center">Renovação automática. Cancele quando quiser.</p>
+      </div>
+      <div>
+        <h3 style="margin:0 0 14px;font-family:Sora,sans-serif;font-weight:700;font-size:17px">O que está incluído:</h3>
+        <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ assListCols }};gap:12px">
+          <sc-for list="{{ beneficios }}" as="b" hint-placeholder-count="8">
+            <li style="display:flex;gap:10px;font-family:Inter,sans-serif;font-size:15px;line-height:1.45">
+              <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1.3;color:#FFB72B;flex:none" aria-hidden="true">check_circle</span>{{ b }}
+            </li>
+          </sc-for>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,243,223,0.16)">
+      <h3 style="margin:0 0 14px;font-family:Sora,sans-serif;font-weight:700;font-size:15px;color:#FFB72B;letter-spacing:0.02em">SEM REGRAS ESCONDIDAS</h3>
+      <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ assListCols }};gap:11px">
+        <sc-for list="{{ regrasAssinatura }}" as="r" hint-placeholder-count="7">
+          <li style="display:flex;gap:9px;font-family:Inter,sans-serif;font-size:14px;line-height:1.5;color:rgba(255,243,223,0.75)">
+            <span aria-hidden="true" style="flex:none;width:6px;height:6px;border-radius:50%;background:rgba(255,243,223,0.5);margin-top:8px"></span>{{ r }}
+          </li>
+        </sc-for>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="comp-h" style="margin-top:{{ gapBig }}">
+    <h2 id="comp-h" style="margin:0 0 16px;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h3 }};letter-spacing:-0.02em">Assinatura ou compra avulsa?</h2>
+    <div style="display:grid;grid-template-columns:{{ compCols }};gap:16px">
+      <sc-for list="{{ comparativo }}" as="c" hint-placeholder-count="2">
+        <div style="border:1.5px solid {{ c.border }};border-radius:18px;padding:24px;background:{{ c.bg }}">
+          <h3 style="margin:0;font-family:Sora,sans-serif;font-weight:700;font-size:17px">{{ c.titulo }}</h3>
+          <p style="margin:8px 0 16px;font-family:Inter,sans-serif;font-size:14px;color:#6B6560">{{ c.sub }}</p>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ c.itens }}" as="i" hint-placeholder-count="4">
+              <li style="display:flex;gap:9px;font-family:Inter,sans-serif;font-size:14.5px;line-height:1.45">
+                <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1.3;color:{{ c.icoColor }};flex:none" aria-hidden="true">{{ c.ico }}</span>{{ i }}
+              </li>
+            </sc-for>
+          </ul>
+          <a href="{{ c.href }}" style="margin-top:20px;display:inline-flex;align-items:center;gap:8px;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;color:#C94219">{{ c.cta }} →</a>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-labelledby="faq-h" style="margin-top:{{ gapBig }}">
+    <h2 id="faq-h" style="margin:0 0 16px;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h3 }};letter-spacing:-0.02em">Perguntas frequentes</h2>
+    <div style="display:grid;grid-template-columns:{{ regrasCols }};gap:16px">
+      <sc-for list="{{ faq }}" as="f" hint-placeholder-count="4">
+        <div style="border:1.5px solid rgba(31,31,31,0.12);border-radius:16px;padding:20px">
+          <h3 style="margin:0 0 8px;font-family:Sora,sans-serif;font-weight:700;font-size:15.5px">{{ f.q }}</h3>
+          <p style="margin:0;font-family:Inter,sans-serif;font-size:14.5px;line-height:1.6;color:#6B6560">{{ f.a }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-labelledby="ajuda-h" style="margin-top:{{ gapBig }};background:#FFF3DF;border-radius:20px;padding:{{ padBig }};display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between">
+    <div style="max-width:560px">
+      <h2 id="ajuda-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h3 }};letter-spacing:-0.02em">Quer entender se vale para você?</h2>
+      <p style="margin:10px 0 0;font-family:Inter,sans-serif;font-size:15.5px;line-height:1.6;color:#6B6560">Fale com a nossa equipe pelo WhatsApp. A gente ajuda a escolher entre assinatura, pacote ou vaga avulsa.</p>
+    </div>
+    <a href="https://api.whatsapp.com/send?phone=5511921281639" style="height:56px;padding:0 24px;border-radius:12px;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;display:flex;align-items:center;gap:9px" style-hover="color:#FFB72B">
+      <span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">chat</span>11 92128-1639</a>
+  </section>
+</main>
+
+<sc-if value="{{ erroOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-labelledby="erro-h" style="position:fixed;inset:0;z-index:120;background:rgba(31,31,31,0.5);display:flex;align-items:center;justify-content:center;padding:20px">
+    <div style="background:#FFFFFF;border-radius:20px;max-width:460px;width:100%;padding:28px;box-shadow:0 24px 60px rgba(31,31,31,0.3)">
+      <span style="display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:rgba(233,64,42,0.1)">
+        <span style="font-family:'Material Symbols Rounded';font-size:28px;font-variation-settings:'FILL' 1;line-height:1;color:#E9402A" aria-hidden="true">error</span>
+      </span>
+      <h2 id="erro-h" style="margin:18px 0 8px;font-family:Sora,sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.02em">Não foi possível continuar</h2>
+      <p style="margin:0;font-family:Inter,sans-serif;font-size:15.5px;line-height:1.6;color:#6B6560">{{ erroTexto }}</p>
+      <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap">
+        <a href="Entrar e Cadastrar.dc.html" style="flex:1;min-width:160px;height:52px;border-radius:12px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:16px;display:flex;align-items:center;justify-content:center">Entrar como estabelecimento</a>
+        <button type="button" onClick="{{ fecharErro }}" style="height:52px;padding:0 20px;border:1.5px solid rgba(31,31,31,0.16);border-radius:12px;background:#FFFFFF;font-family:Sora,sans-serif;font-weight:600;font-size:16px;cursor:pointer">Fechar</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ checkoutOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-labelledby="check-h" style="position:fixed;inset:0;z-index:120;background:rgba(31,31,31,0.5);display:flex;align-items:{{ drawerAlign }};justify-content:{{ drawerJustify }}">
+    <div style="background:#FFFFFF;width:{{ drawerW }};max-width:100%;height:{{ drawerH }};max-height:94vh;border-radius:{{ drawerRadius }};display:flex;flex-direction:column">
+      <div style="padding:20px 24px;border-bottom:1px solid rgba(31,31,31,0.10);display:flex;align-items:center;justify-content:space-between">
+        <h2 id="check-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.02em">Finalizar assinatura</h2>
+        <button type="button" onClick="{{ fecharCheckout }}" aria-label="Fechar checkout" style="width:42px;height:42px;border:1px solid rgba(31,31,31,0.14);border-radius:11px;background:#FFFFFF;cursor:pointer;display:flex;align-items:center;justify-content:center">
+          <span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:20px">
+        <div style="border:1.5px solid rgba(31,31,31,0.12);border-radius:14px;padding:18px">
+          <span style="display:block;font-family:Sora,sans-serif;font-weight:700;font-size:16px">Assinatura mensal</span>
+          <span style="display:block;margin-top:4px;font-family:Inter,sans-serif;font-size:13.5px;color:#6B6560">1 vaga por mês, selo Destaque e 2 boosts</span>
+          <span style="display:block;margin-top:12px;font-family:Sora,sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.02em">R$ 129 /mês</span>
+        </div>
+        <div>
+          <h3 style="margin:0 0 10px;font-family:Sora,sans-serif;font-weight:700;font-size:15px">Forma de pagamento</h3>
+          <div style="display:flex;align-items:center;gap:10px;height:56px;padding:0 16px;border:1.5px solid #FFB72B;border-radius:12px;background:#FFF3DF;font-family:Inter,sans-serif;font-weight:700;font-size:15px">
+            <span style="font-family:'Material Symbols Rounded';font-size:21px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">credit_card</span>Cartão de crédito
+          </div>
+          <p style="margin:10px 0 0;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">A assinatura aceita apenas cartão de crédito, porque a renovação é automática.</p>
+        </div>
+        <div>
+          <h3 style="margin:0 0 10px;font-family:Sora,sans-serif;font-weight:700;font-size:15px">Cupom de desconto</h3>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <input type="text" value="{{ cupom }}" onChange="{{ onCupom }}" placeholder="Código do cupom" style="flex:1;min-width:180px;height:52px;border:1.5px solid rgba(31,31,31,0.16);border-radius:12px;padding:0 14px;font-family:Inter,sans-serif;font-size:15px;outline:none">
+            <button type="button" onClick="{{ aplicarCupom }}" style="height:52px;padding:0 18px;border:1.5px solid rgba(31,31,31,0.16);border-radius:12px;background:#FFFFFF;font-family:Sora,sans-serif;font-weight:600;font-size:15px;cursor:pointer">Aplicar</button>
+          </div>
+          <p style="margin:10px 0 0;font-family:Inter,sans-serif;font-size:13px;color:{{ cupomColor }}">{{ cupomMsg }}</p>
+        </div>
+      </div>
+      <div style="padding:18px 24px;border-top:1px solid rgba(31,31,31,0.10);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+        <button type="button" onClick="{{ fecharCheckout }}" style="height:52px;padding:0 18px;border:1.5px solid rgba(31,31,31,0.16);border-radius:12px;background:#FFFFFF;font-family:Sora,sans-serif;font-weight:600;font-size:16px;cursor:pointer">Cancelar</button>
+        <button type="button" onClick="{{ fecharCheckout }}" style="height:52px;padding:0 24px;border:0;border-radius:12px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:16px;cursor:pointer">Assinar</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<dc-import name="Rodape" hint-size="100%,320px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200},&quot;perfil&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;publico&quot;,&quot;candidato&quot;,&quot;empresa&quot;],&quot;default&quot;:&quot;publico&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estado do usuário&quot;}}">
+class Component extends DCLogic {
+  state = { w: 1440, erro: false, checkout: false, cupom: '', cupomMsg: '', cupomOk: false };
+  componentDidMount() {
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+    setTimeout(() => this.setState({ w: window.innerWidth }), 40);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); }
+  bp() { const raw = this.state.w; if (raw < 768) return 'mobile'; return raw / 0.8 < 1200 ? 'tablet' : 'desktop'; }
+  renderVals() {
+    const bp = this.bp(), mobile = bp === 'mobile', s = this.state;
+    const perfil = this.props.perfil || 'publico';
+    const podeComprar = perfil === 'empresa';
+    return {
+      rootZoom: mobile ? 1 : 0.8,
+      perfil: perfil,
+      gap: mobile ? '18px' : '26px',
+      bannerRatio: mobile ? '3.2 / 1' : '8 / 1',
+      bannerSlot: mobile ? 'banner mobile · 720×225' : 'banner desktop · 1600×200',
+      gapBig: mobile ? '38px' : '56px',
+      padBig: mobile ? '22px' : '32px',
+      h1: mobile ? '30px' : '42px',
+      h2: mobile ? '24px' : '32px',
+      h3: mobile ? '20px' : '24px',
+      assPreco: mobile ? '34px' : '44px',
+      assCols: bp === 'desktop' ? '340px 1fr' : '1fr',
+      assListCols: mobile ? '1fr' : 'repeat(2,1fr)',
+      regrasCols: mobile ? '1fr' : 'repeat(2,1fr)',
+      compCols: mobile ? '1fr' : 'repeat(2,1fr)',
+      beneficios: [
+        '1 vaga por mês', 'Desconto de 10% em qualquer compra',
+        'Selo Destaque em todas as vagas', '2 boosts por mês — vaga no topo do site por 48h',
+        'Atendimento exclusivo', 'Revisão de todos os seus anúncios',
+        'Prioridade em promoções gerais do site', 'Collab nas redes sociais'
+      ],
+      regrasAssinatura: [
+        '1 vaga por mês, não acumulativa.',
+        'Desconto de 10% na compra de vagas avulsas e pacotes.',
+        'O boost coloca a vaga no topo do site por 48 horas, a partir da ativação.',
+        'Inclui 2 boosts por mês; cada boost reposiciona a vaga no topo do site por 48 horas.',
+        'Atendimento exclusivo por reunião online, ligação, WhatsApp e e-mail.',
+        'Renovação automática; você pode cancelar a qualquer momento.',
+        'Ao cancelar, os benefícios são removidos, mas as vagas já publicadas continuam ativas sem destaques até o fim do período contratado.'
+      ],
+      comparativo: [
+        {
+          titulo: 'Assinatura mensal — R$ 129/mês', sub: 'Para quem contrata todo mês.',
+          itens: ['1 vaga por mês incluída', 'Selo Destaque e 2 boosts por mês', '10% de desconto em vagas e pacotes', 'Atendimento e revisão dos anúncios'],
+          ico: 'check_circle', icoColor: '#1A7A5E', bg: '#FFF3DF', border: '#FFB72B',
+          cta: 'Contratar assinatura', href: '#assinatura'
+        },
+        {
+          titulo: 'Vagas e pacotes — a partir de R$ 64,35', sub: 'Para quem contrata de vez em quando.',
+          itens: ['Compra sem mensalidade', 'Créditos válidos por 1 ano', 'Desconto de 15%, 20% ou 35% no pacote', 'Sem selo Destaque nem boosts'],
+          ico: 'radio_button_checked', icoColor: '#9A938C', bg: '#FFFFFF', border: 'rgba(31,31,31,0.12)',
+          cta: 'Ver pacotes', href: 'Pacotes.dc.html#pacotes'
+        }
+      ],
+      faq: [
+        { q: 'A vaga do mês acumula?', a: 'Não. A vaga incluída é de uso no mês vigente e não passa para o mês seguinte.' },
+        { q: 'Como funciona o boost?', a: 'Cada boost coloca a vaga no topo do site por 48 horas a partir da ativação. A assinatura inclui 2 por mês.' },
+        { q: 'Posso cancelar quando quiser?', a: 'Sim. O cancelamento é imediato e sem multa; as vagas já publicadas seguem ativas até o fim dos 30 dias, sem os destaques.' },
+        { q: 'O desconto vale para pacotes?', a: 'Vale. Assinantes têm 10% de desconto em vagas avulsas e em qualquer pacote.' }
+      ],
+      contratar: () => podeComprar ? (window.location.href = 'Checkout.dc.html?item=assinatura') : this.setState({ erro: true }),
+      erroOpen: s.erro,
+      erroTexto: perfil === 'candidato'
+        ? 'A assinatura é exclusiva para estabelecimentos. Sua conta está logada como candidato.'
+        : 'Para contratar a assinatura, realize o login do seu estabelecimento.',
+      fecharErro: () => this.setState({ erro: false }),
+      checkoutOpen: s.checkout,
+      fecharCheckout: () => this.setState({ checkout: false }),
+      drawerJustify: mobile ? 'center' : 'flex-end',
+      drawerAlign: mobile ? 'flex-end' : 'stretch',
+      drawerW: mobile ? '100%' : '460px',
+      drawerH: mobile ? 'auto' : '100%',
+      drawerRadius: mobile ? '20px 20px 0 0' : '20px 0 0 20px',
+      cupom: s.cupom,
+      onCupom: e => this.setState({ cupom: e.target.value }),
+      aplicarCupom: () => this.setState(p => ({
+        cupomOk: p.cupom.trim().length > 3,
+        cupomMsg: p.cupom.trim().length > 3 ? 'Cupom aplicado. O desconto aparece no checkout.' : 'Digite um código de cupom válido.'
+      })),
+      cupomMsg: s.cupomMsg || 'Se você recebeu um cupom, aplique antes de finalizar a assinatura.',
+      cupomColor: s.cupomMsg ? (s.cupomOk ? '#1A7A5E' : '#E9402A') : '#6B6560'
+    };
+  }
+}
+</script>
+</body>
+</html>

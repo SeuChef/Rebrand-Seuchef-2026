@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1&display=block" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;-webkit-font-smoothing:antialiased;color:#1F1F1F}
+a{color:#1F1F1F;text-decoration:none}
+a:hover{color:#C94219}
+:focus-visible{outline:3px solid #FFB72B;outline-offset:2px;border-radius:6px}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#FFFFFF;font-family:Inter,system-ui,sans-serif;zoom:{{ rootZoom }}">
+<dc-import name="Cabecalho" perfil="empresa" nome="Café Bica" hint-size="100%,126px"></dc-import>
+
+<main style="max-width:1600px;margin:0 auto;padding:0 20px 70px">
+  <nav aria-label="Área da empresa" style="margin-top:{{ gap }};border-bottom:1px solid rgba(31,31,31,0.12);display:flex;gap:6px;overflow-x:auto">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+      <button type="button" onClick="{{ t.pick }}" aria-current="{{ t.on }}" style="flex:none;display:flex;align-items:center;gap:8px;height:52px;padding:0 15px;border:0;background:none;cursor:pointer;font-family:Sora,sans-serif;font-weight:{{ t.weight }};font-size:14.5px;color:{{ t.color }};box-shadow:{{ t.underline }};white-space:nowrap">
+        <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1;color:{{ t.icoColor }}" aria-hidden="true">{{ t.icon }}</span>{{ t.label }}
+      </button>
+    </sc-for>
+  </nav>
+
+  <sc-if value="{{ isVagas }}" hint-placeholder-val="{{ true }}">
+    <section aria-labelledby="ev-h" style="margin-top:26px">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;justify-content:space-between">
+        <div>
+          <h1 id="ev-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};letter-spacing:-0.03em">Minhas vagas</h1>
+          <p style="margin:6px 0 0;font-family:Inter,sans-serif;font-weight:700;font-size:14.5px;color:#6B6560">{{ contador }}</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:#FFF3DF;border-radius:14px;padding:14px 18px">
+          <span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;line-height:1;color:#1F1F1F" aria-hidden="true">confirmation_number</span>
+          <span><span style="display:block;font-family:Sora,sans-serif;font-weight:700;font-size:15px">{{ saldoLabel }}</span><span style="display:block;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">{{ saldoSub }}</span></span>
+        </div>
+      </div>
+
+      <sc-if value="{{ semCredito }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="margin-top:18px;border:1.5px solid #FFB72B;background:#FFF3DF;border-radius:16px;padding:20px 22px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+          <div style="display:flex;gap:12px;align-items:flex-start;min-width:260px;flex:1">
+            <span style="font-family:'Material Symbols Rounded';font-size:24px;font-variation-settings:'FILL' 1;line-height:1.1;color:#C94219;flex:none" aria-hidden="true">error</span>
+            <span>
+              <span style="display:block;font-family:Sora,sans-serif;font-weight:700;font-size:16px">Você não tem créditos para publicar</span>
+              <span style="display:block;margin-top:4px;font-family:Inter,sans-serif;font-size:14px;line-height:1.5;color:#6B6560">Compre uma vaga avulsa ou um pacote para voltar a publicar. Suas vagas já ativas continuam no ar normalmente.</span>
+            </span>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a href="Pacotes.dc.html#pacotes" style="height:48px;padding:0 20px;border-radius:11px;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:15px;display:flex;align-items:center" style-hover="background:#3A3A3A;color:#FFF3DF">Comprar créditos</a>
+            <a href="Pacotes.dc.html#assinatura" style="height:48px;padding:0 20px;border-radius:11px;border:1.5px solid rgba(31,31,31,0.22);font-family:Sora,sans-serif;font-weight:600;font-size:15px;display:flex;align-items:center" style-hover="border-color:#1F1F1F">Ver assinatura</a>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+        <div style="flex:1;min-width:240px;display:flex;align-items:center;gap:10px;border:1.5px solid rgba(31,31,31,0.16);border-radius:12px;padding:0 14px;height:52px">
+          <span style="font-family:'Material Symbols Rounded';font-size:21px;font-variation-settings:'FILL' 1;line-height:1;color:#6B6560" aria-hidden="true">search</span>
+          <label for="busca-emp" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Código ou nome da vaga</label>
+          <input id="busca-emp" type="text" value="{{ q }}" onChange="{{ onQ }}" onKeyDown="{{ onKey }}" placeholder="Código ou nome da vaga" style="flex:1;border:0;outline:none;font-family:Inter,sans-serif;font-size:15px;background:transparent;min-width:0">
+        </div>
+        <button type="button" onClick="{{ pesquisar }}" style="height:52px;padding:0 24px;border:0;border-radius:12px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:15.5px;cursor:pointer">Pesquisar</button>
+      </div>
+
+      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:14px">
+        <sc-for list="{{ statusFiltros }}" as="f" hint-placeholder-count="3">
+          <button type="button" onClick="{{ f.pick }}" aria-pressed="{{ f.on }}" style="height:44px;padding:0 15px;border-radius:11px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14px;border:{{ f.border }};background:{{ f.bg }};color:{{ f.fg }}">{{ f.label }}</button>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:{{ cardCols }};gap:16px;margin-top:22px">
+        <div style="border:1.5px dashed #FFB72B;background:#FFF3DF;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px;justify-content:center">
+          <h2 style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:19px;letter-spacing:-0.02em">Precisa contratar?</h2>
+          <p style="margin:0;font-family:Inter,sans-serif;font-size:14px;line-height:1.5;color:#6B6560">{{ contratarTexto }}</p>
+          <button type="button" onClick="{{ irPublicar }}" style="margin-top:6px;height:48px;border:0;border-radius:11px;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:15px;cursor:pointer">{{ contratarBtn }}</button>
+        </div>
+
+        <sc-for list="{{ vagas }}" as="v" hint-placeholder-count="5">
+          <div style="position:relative;border:1.5px solid {{ v.border }};background:{{ v.bg }};border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:11px">
+            <span title="Código da vaga" style="position:absolute;top:13px;right:14px;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;font-weight:700;color:#9A938C">{{ v.ref }}</span>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;padding-right:56px">
+              <span style="display:flex;align-items:center;gap:5px;font-family:Inter,sans-serif;font-weight:700;font-size:11px;letter-spacing:0.03em;padding:5px 9px;border-radius:6px;background:{{ v.statusBg }};color:{{ v.statusFg }}">
+                <span style="font-family:'Material Symbols Rounded';font-size:14px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">{{ v.statusIcon }}</span>{{ v.status }}</span>
+              <span style="display:{{ v.seloDisplay }};align-items:center;gap:4px;font-family:Sora,sans-serif;font-weight:700;font-size:11px;padding:5px 9px;border-radius:6px;background:{{ v.seloBg }};color:{{ v.seloFg }}">{{ v.selo }}</span>
+            </div>
+            <h3 style="margin:0;font-family:Sora,sans-serif;font-weight:700;font-size:17.5px;line-height:1.2;letter-spacing:-0.015em">{{ v.cargo }}</h3>
+            <div style="display:flex;flex-direction:column;gap:6px;font-family:Inter,sans-serif;font-size:13.5px;color:#1F1F1F">
+              <span style="display:flex;align-items:center;gap:7px"><span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">location_on</span>{{ v.local }}</span>
+              <span style="display:flex;align-items:center;gap:7px;font-weight:700"><span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">payments</span>{{ v.salario }}</span>
+              <span style="display:flex;align-items:center;gap:7px"><span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">play_circle</span>Ativada em {{ v.ativacao }}</span>
+              <span style="display:flex;align-items:center;gap:7px;color:{{ v.prazoColor }}"><span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:{{ v.prazoIcoColor }}" aria-hidden="true">event_available</span>{{ v.validade }}</span>
+              <sc-if value="{{ v.mostrarReativar }}" hint-placeholder-val="{{ false }}">
+                <span style="display:flex;align-items:flex-start;gap:7px;background:#FFF3DF;border-radius:9px;padding:9px 10px;font-size:12.5px;line-height:1.4;color:#6B6560">
+                  <span style="font-family:'Material Symbols Rounded';font-size:16px;font-variation-settings:'FILL' 1;line-height:1.2;color:#C94219;flex:none" aria-hidden="true">info</span>{{ v.avisoReativar }}
+                </span>
+              </sc-if>
+            </div>
+            <button type="button" onClick="{{ v.verCurriculos }}" style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:#FFF3DF;border:0;border-radius:11px;padding:12px 14px;cursor:pointer;text-align:left;width:100%" style-hover="background:#FFE9C2">
+              <span style="font-family:Sora,sans-serif;font-weight:700;font-size:14px">{{ v.candidatos }}</span>
+              <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1;color:#6B6560" aria-hidden="true">chevron_right</span>
+            </button>
+            <div style="margin-top:auto;padding-top:11px;border-top:1px solid rgba(31,31,31,0.09);display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ v.acoes }}" as="a" hint-placeholder-count="4">
+                <button type="button" onClick="{{ a.run }}" aria-label="{{ a.aria }}" style="display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border:{{ a.border }};border-radius:10px;background:{{ a.bg }};cursor:pointer;font-family:Inter,sans-serif;font-weight:700;font-size:12.5px;color:{{ a.color }}" style-hover="border-color:#1F1F1F">
+                  <span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">{{ a.icon }}</span>{{ a.label }}
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isPublicar }}" hint-placeholder-val="{{ false }}">
+    <section aria-labelledby="pv-h" style="margin-top:26px">
+      <button type="button" onClick="{{ voltarVagas }}" style="display:flex;align-items:center;gap:6px;border:0;background:none;padding:0;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14px;color:#6B6560">
+        <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">arrow_back</span>Voltar</button>
+      <h1 id="pv-h" style="margin:14px 0 0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};letter-spacing:-0.03em">Publicar vaga</h1>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <span style="display:flex;align-items:center;gap:7px;font-family:Inter,sans-serif;font-weight:700;font-size:13px;padding:9px 13px;border-radius:9px;background:#FFF3DF">
+          <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">event_available</span>Válida por 30 dias</span>
+        <span style="display:flex;align-items:center;gap:7px;font-family:Inter,sans-serif;font-weight:700;font-size:13px;padding:9px 13px;border-radius:9px;background:#FFF3DF">
+          <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">confirmation_number</span>{{ saldoPublicar }}</span>
+      </div>
+
+      <div style="margin-top:20px;border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:{{ padBig }};display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;gap:8px;flex:none">
+            <div style="width:88px;height:88px;border-radius:14px;background:#FFF3DF;background-image:repeating-linear-gradient(135deg,rgba(31,31,31,0.055) 0 8px,rgba(31,31,31,0) 8px 16px);display:flex;align-items:center;justify-content:center">
+              <span style="font-family:'Material Symbols Rounded';font-size:26px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">add_photo_alternate</span>
+            </div>
+            <button type="button" style="height:36px;padding:0 10px;border:1.5px solid rgba(31,31,31,0.2);border-radius:9px;background:#FFFFFF;font-family:Sora,sans-serif;font-weight:600;font-size:12.5px;cursor:pointer;white-space:nowrap" style-hover="border-color:#1F1F1F">Enviar logo</button>
+          </div>
+          <div style="flex:1;min-width:260px">
+            <h2 style="margin:0 0 4px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">Estabelecimento</h2>
+            <p style="margin:0 0 14px;font-family:Inter,sans-serif;font-size:13.5px;color:#6B6560">PNG, JPG ou JPEG até 200kb. O logo aparece no anúncio da vaga.</p>
+          <div style="display:grid;grid-template-columns:{{ formCols }};gap:16px">
+            <sc-for list="{{ camposEstab }}" as="f" hint-placeholder-count="2">
+              <div style="grid-column:{{ f.span }};display:flex;flex-direction:column;gap:7px">
+                <label for="{{ f.id }}" style="font-family:Inter,sans-serif;font-weight:700;font-size:13px;color:#6B6560">{{ f.label }}</label>
+                <sc-if value="{{ f.isSelect }}" hint-placeholder-val="{{ false }}">
+                  <select id="{{ f.id }}" style="height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 12px;font-family:Inter,sans-serif;font-size:15px;outline:none;background:#FFFFFF">
+                    <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="3">
+                      <option>{{ o }}</option>
+                    </sc-for>
+                  </select>
+                </sc-if>
+                <sc-if value="{{ f.isText }}" hint-placeholder-val="{{ true }}">
+                  <input id="{{ f.id }}" type="text" placeholder="{{ f.ph }}" style="height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 14px;font-family:Inter,sans-serif;font-size:15px;outline:none">
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid rgba(31,31,31,0.10);padding-top:20px">
+          <h2 style="margin:0 0 14px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">Responsável pela vaga</h2>
+          <div style="display:grid;grid-template-columns:{{ formCols }};gap:16px">
+            <sc-for list="{{ camposResp }}" as="f" hint-placeholder-count="5">
+              <div style="grid-column:{{ f.span }};display:flex;flex-direction:column;gap:7px">
+                <label for="{{ f.id }}" style="font-family:Inter,sans-serif;font-weight:700;font-size:13px;color:#6B6560">{{ f.label }}</label>
+                <sc-if value="{{ f.isSelect }}" hint-placeholder-val="{{ false }}">
+                  <select id="{{ f.id }}" style="height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 12px;font-family:Inter,sans-serif;font-size:15px;outline:none;background:#FFFFFF">
+                    <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="3">
+                      <option>{{ o }}</option>
+                    </sc-for>
+                  </select>
+                </sc-if>
+                <sc-if value="{{ f.isText }}" hint-placeholder-val="{{ true }}">
+                  <input id="{{ f.id }}" type="text" placeholder="{{ f.ph }}" style="height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 14px;font-family:Inter,sans-serif;font-size:15px;outline:none">
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:{{ padBig }}">
+        <h2 style="margin:0 0 6px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">Modelo de vaga</h2>
+        <p style="margin:0 0 14px;font-family:Inter,sans-serif;font-size:14px;color:#6B6560">Escolha um modelo cadastrado e preencha os campos automaticamente, ou preencha tudo manualmente.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <select aria-label="Modelo de vaga" style="flex:1;min-width:220px;height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 12px;font-family:Inter,sans-serif;font-size:15px;background:#FFFFFF">
+            <option>Selecione um modelo</option>
+            <option>Atendente — cafeteria</option>
+            <option>Garçom — restaurante</option>
+            <option>Auxiliar de cozinha — padaria</option>
+          </select>
+          <button type="button" style="height:50px;padding:0 20px;border:0;border-radius:11px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;cursor:pointer">Preencher informações</button>
+          <button type="button" style="height:50px;padding:0 18px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;background:#FFFFFF;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;cursor:pointer">Reiniciar preenchimento</button>
+        </div>
+      </div>
+
+      <sc-for list="{{ blocos }}" as="b" hint-placeholder-count="4">
+        <div style="margin-top:16px;border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:{{ padBig }}">
+          <h2 style="margin:0 0 18px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">{{ b.titulo }}</h2>
+          <div style="display:grid;grid-template-columns:{{ formCols }};gap:16px">
+            <sc-for list="{{ b.campos }}" as="f" hint-placeholder-count="4">
+              <div style="grid-column:{{ f.span }};display:flex;flex-direction:column;gap:7px">
+                <label for="{{ f.id }}" style="font-family:Inter,sans-serif;font-weight:700;font-size:13px;color:#6B6560">{{ f.label }}</label>
+                <sc-if value="{{ f.isArea }}" hint-placeholder-val="{{ false }}">
+                  <textarea id="{{ f.id }}" rows="6" placeholder="{{ f.ph }}" style="border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:12px 14px;font-family:Inter,sans-serif;font-size:15px;outline:none;resize:vertical"></textarea>
+                </sc-if>
+                <sc-if value="{{ f.isSelect }}" hint-placeholder-val="{{ false }}">
+                  <select id="{{ f.id }}" style="height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 12px;font-family:Inter,sans-serif;font-size:15px;outline:none;background:#FFFFFF">
+                    <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="3">
+                      <option>{{ o }}</option>
+                    </sc-for>
+                  </select>
+                </sc-if>
+                <sc-if value="{{ f.isHora }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                    <span style="font-family:Inter,sans-serif;font-size:14px;color:#6B6560">Das</span>
+                    <input id="{{ f.id }}" type="time" value="14:00" aria-label="Horário de início" style="flex:1;min-width:120px;height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 14px;font-family:Inter,sans-serif;font-size:15px;outline:none">
+                    <span style="font-family:Inter,sans-serif;font-size:14px;color:#6B6560">às</span>
+                    <input type="time" value="22:00" aria-label="Horário de término" style="flex:1;min-width:120px;height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 14px;font-family:Inter,sans-serif;font-size:15px;outline:none">
+                  </div>
+                </sc-if>
+                <sc-if value="{{ f.isText }}" hint-placeholder-val="{{ true }}">
+                  <input id="{{ f.id }}" type="text" placeholder="{{ f.ph }}" style="height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 14px;font-family:Inter,sans-serif;font-size:15px;outline:none">
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+
+      <div style="margin-top:16px;border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:{{ padBig }}">
+        <h2 style="margin:0 0 14px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">Benefícios oferecidos</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ beneficios }}" as="b" hint-placeholder-count="6">
+            <button type="button" onClick="{{ b.pick }}" aria-pressed="{{ b.on }}" style="height:44px;padding:0 15px;border-radius:11px;cursor:pointer;font-family:Inter,sans-serif;font-weight:700;font-size:13.5px;border:{{ b.border }};background:{{ b.bg }};color:#1F1F1F">{{ b.label }}</button>
+          </sc-for>
+        </div>
+
+        <h2 style="margin:26px 0 14px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">Configurações especiais</h2>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <sc-for list="{{ configs }}" as="c" hint-placeholder-count="3">
+            <button type="button" onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;cursor:pointer;text-align:left;border:{{ c.border }};background:{{ c.bg }}">
+              <span style="width:22px;height:22px;flex:none;border-radius:6px;border:1.5px solid rgba(31,31,31,0.25);background:{{ c.box }};display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;color:#1F1F1F" aria-hidden="true">{{ c.check }}</span>
+              <span>
+                <span style="display:block;font-family:Sora,sans-serif;font-weight:700;font-size:15px">{{ c.label }}</span>
+                <span style="display:block;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">{{ c.desc }}</span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:{{ padBig }}">
+        <h2 style="margin:0 0 6px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">Perguntas ao candidato</h2>
+        <p style="margin:0 0 14px;font-family:Inter,sans-serif;font-size:14px;color:#6B6560">Perguntas curtas ajudam a filtrar quem tem o perfil da vaga.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <input type="text" value="{{ pergunta }}" onChange="{{ onPergunta }}" placeholder="Ex.: Tem experiência com caixa?" aria-label="Nova pergunta" style="flex:1;min-width:220px;height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 14px;font-family:Inter,sans-serif;font-size:15px;outline:none">
+          <button type="button" onClick="{{ addPergunta }}" style="height:50px;padding:0 20px;border:1.5px solid #1F1F1F;border-radius:11px;background:#FFFFFF;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;cursor:pointer">Adicionar</button>
+        </div>
+        <ul style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:9px">
+          <sc-for list="{{ perguntas }}" as="p" hint-placeholder-count="2">
+            <li style="display:flex;align-items:center;gap:10px;background:#FFF3DF;border-radius:11px;padding:13px 14px">
+              <span style="flex:1;font-family:Inter,sans-serif;font-size:14.5px">{{ p.texto }}</span>
+              <button type="button" onClick="{{ p.remove }}" aria-label="Remover pergunta" style="width:34px;height:34px;border:0;border-radius:8px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6B6560">
+                <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">delete</span>
+              </button>
+            </li>
+          </sc-for>
+        </ul>
+      </div>
+
+      <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <button type="button" onClick="{{ criarVaga }}" style="height:58px;padding:0 30px;border:0;border-radius:12px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:17px;cursor:pointer">Criar vaga</button>
+        <p style="margin:0;font-family:Inter,sans-serif;font-size:13.5px;color:#6B6560">Ao criar a vaga, 1 crédito é consumido e a vaga fica ativa por 30 dias.</p>
+      </div>
+
+      <sc-if value="{{ criada }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="margin-top:16px;display:flex;align-items:center;gap:10px;background:rgba(26,122,94,0.08);border:1px solid rgba(26,122,94,0.35);border-radius:12px;padding:16px;font-family:Inter,sans-serif;font-size:14.5px">
+          <span style="font-family:'Material Symbols Rounded';font-size:21px;font-variation-settings:'FILL' 1;line-height:1;color:#1A7A5E" aria-hidden="true">check_circle</span>
+          Vaga criada com sucesso e já ativa no site. Saldo restante: 3 vagas.
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isCurriculos }}" hint-placeholder-val="{{ false }}">
+    <section aria-labelledby="cur-h" style="margin-top:26px">
+      <button type="button" onClick="{{ voltarVagas }}" style="display:flex;align-items:center;gap:6px;border:0;background:none;padding:0;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14px;color:#6B6560">
+        <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">arrow_back</span>Voltar para minhas vagas</button>
+
+      <div style="margin-top:14px;border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:22px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:flex-start">
+        <div style="min-width:260px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="display:flex;align-items:center;gap:5px;font-family:Inter,sans-serif;font-weight:700;font-size:11px;letter-spacing:0.03em;padding:5px 9px;border-radius:6px;background:{{ vagaStatusBg }};color:{{ vagaStatusFg }}">{{ vagaStatus }}</span>
+            <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;font-weight:700;color:#9A938C">{{ vagaRef }}</span>
+          </div>
+          <h1 id="cur-h" style="margin:10px 0 0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};letter-spacing:-0.03em">{{ vagaAtual }}</h1>
+          <div style="display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:10px;font-family:Inter,sans-serif;font-size:13.5px;color:#1F1F1F">
+            <span style="display:flex;align-items:center;gap:7px"><span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">location_on</span>{{ vagaLocal }}</span>
+            <span style="display:flex;align-items:center;gap:7px;font-weight:700"><span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">payments</span>{{ vagaSalario }}</span>
+            <span style="display:flex;align-items:center;gap:7px"><span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">play_circle</span>Ativada em {{ vagaAtivacao }}</span>
+            <span style="display:flex;align-items:center;gap:7px"><span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">event_available</span>{{ vagaValidade }}</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:#FFF3DF;border-radius:14px;padding:14px 18px">
+          <span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">folder_shared</span>
+          <span>
+            <span style="display:block;font-family:Sora,sans-serif;font-weight:700;font-size:15px">{{ totalCandidatos }}</span>
+            <span style="display:block;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">{{ resumoCandidatos }}</span>
+          </span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:{{ curCols }};gap:16px;margin-top:16px;align-items:start">
+        <aside aria-label="Filtros de candidatos" style="border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <h2 style="margin:0;font-family:Sora,sans-serif;font-weight:700;font-size:16px">Filtros</h2>
+            <button type="button" onClick="{{ limparFiltrosCur }}" style="border:0;background:none;padding:0;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:13px;color:#C94219">Limpar</button>
+          </div>
+          <sc-for list="{{ filtrosCur }}" as="fl" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <label for="{{ fl.id }}" style="font-family:Inter,sans-serif;font-weight:700;font-size:12.5px;color:#6B6560">{{ fl.label }}</label>
+              <select id="{{ fl.id }}" value="{{ fl.value }}" onChange="{{ fl.onChange }}" style="height:46px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 12px;font-family:Inter,sans-serif;font-size:14.5px;background:#FFFFFF;outline:none">
+                <sc-for list="{{ fl.options }}" as="o" hint-placeholder-count="4">
+                  <option>{{ o }}</option>
+                </sc-for>
+              </select>
+            </div>
+          </sc-for>
+          <button type="button" onClick="{{ toggleBloqueados }}" aria-pressed="{{ verBloqueados }}" style="display:flex;align-items:center;gap:11px;padding:13px;border-radius:12px;cursor:pointer;text-align:left;border:{{ blqBorder }};background:{{ blqBg }}">
+            <span style="width:22px;height:22px;flex:none;border-radius:6px;border:1.5px solid rgba(31,31,31,0.25);background:{{ blqBox }};display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;color:#1F1F1F" aria-hidden="true">{{ blqCheck }}</span>
+            <span>
+              <span style="display:block;font-family:Sora,sans-serif;font-weight:700;font-size:14px">Exibir bloqueados</span>
+              <span style="display:block;font-family:Inter,sans-serif;font-size:12.5px;color:#6B6560">{{ blqResumo }}</span>
+            </span>
+          </button>
+        </aside>
+
+        <div>
+          <div style="display:flex;gap:9px;flex-wrap:wrap">
+            <sc-for list="{{ ordenacoes }}" as="o" hint-placeholder-count="3">
+              <button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height:44px;padding:0 15px;border-radius:11px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14px;border:{{ o.border }};background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</button>
+            </sc-for>
+          </div>
+
+          <ul style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ candidatos }}" as="c" hint-placeholder-count="5">
+              <li style="border:1.5px solid {{ c.border }};border-radius:16px;padding:18px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;background:{{ c.bg }};opacity:{{ c.opacity }}">
+                <div style="width:52px;height:52px;border-radius:50%;flex:none;background:#FFF3DF;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:800;font-size:18px">{{ c.inicial }}</div>
+                <div style="flex:1;min-width:220px">
+                  <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+                    <p style="margin:0;font-family:Sora,sans-serif;font-weight:700;font-size:17px;letter-spacing:-0.01em">{{ c.nome }}</p>
+                    <span style="display:{{ c.favDisplay }};align-items:center;gap:4px;font-family:Inter,sans-serif;font-weight:700;font-size:11px;padding:4px 8px;border-radius:6px;background:#FFB72B;color:#1F1F1F">FAVORITO</span>
+                    <span style="display:{{ c.blqDisplay }};align-items:center;gap:4px;font-family:Inter,sans-serif;font-weight:700;font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(233,64,42,0.12);color:#E9402A">BLOQUEADO</span>
+                    <sc-if value="{{ c.isPre }}" hint-placeholder-val="{{ false }}">
+                      <span style="display:flex;align-items:center;gap:5px;font-family:Inter,sans-serif;font-weight:700;font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(30,77,107,0.12);color:#1E4D6B">
+                        <span style="font-family:'Material Symbols Rounded';font-size:14px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">bookmark_check</span>PRÉ-SELECIONADO</span>
+                    </sc-if>
+                    <sc-if value="{{ c.isEntrevista }}" hint-placeholder-val="{{ false }}">
+                      <span style="display:flex;align-items:center;gap:5px;font-family:Inter,sans-serif;font-weight:700;font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(26,122,94,0.14);color:#1A7A5E">
+                        <span style="font-family:'Material Symbols Rounded';font-size:14px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">event</span>ENTREVISTA</span>
+                    </sc-if>
+                  </div>
+                  <p style="margin:5px 0 0;font-family:Inter,sans-serif;font-size:13.5px;color:#6B6560">{{ c.meta }}</p>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+                    <sc-for list="{{ c.tags }}" as="t" hint-placeholder-count="4">
+                      <span style="display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:8px;background:#F7F5F2;font-family:Inter,sans-serif;font-size:12.5px;color:#1F1F1F">
+                        <span style="font-family:'Material Symbols Rounded';font-size:16px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">{{ t.icon }}</span>{{ t.label }}
+                      </span>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="flex:none;min-width:150px">
+                  <p style="margin:0;font-family:Inter,sans-serif;font-weight:700;font-size:13px;color:#1F1F1F">{{ c.score }}</p>
+                  <div style="margin-top:6px;height:6px;width:140px;border-radius:3px;background:rgba(31,31,31,0.09);overflow:hidden">
+                    <div style="height:100%;border-radius:3px;background:#1F1F1F;width:{{ c.scoreW }}"></div>
+                  </div>
+                  <span style="display:inline-flex;margin-top:10px;align-items:center;gap:5px;font-family:Inter,sans-serif;font-weight:700;font-size:11px;letter-spacing:0.03em;padding:6px 10px;border-radius:6px;background:{{ c.statusBg }};color:{{ c.statusFg }}">{{ c.status }}</span>
+                </div>
+                <div style="flex:none;display:flex;gap:8px;flex-wrap:wrap">
+                  <button type="button" onClick="{{ c.abrir }}" style="height:44px;padding:0 18px;border:0;border-radius:11px;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:14px;cursor:pointer" style-hover="color:#FFB72B">Ver currículo</button>
+                  <button type="button" onClick="{{ c.preSelecionar }}" aria-pressed="{{ c.isPre }}" style="height:44px;padding:0 14px;border:{{ c.preBorder }};border-radius:11px;background:{{ c.preBg }};color:{{ c.preFg }};cursor:pointer;display:flex;align-items:center;gap:7px;font-family:Sora,sans-serif;font-weight:600;font-size:13.5px">
+                    <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">bookmark_check</span>Pré-selecionar
+                  </button>
+                  <button type="button" onClick="{{ c.chamarEntrevista }}" aria-pressed="{{ c.isEntrevista }}" style="height:44px;padding:0 14px;border:{{ c.entBorder }};border-radius:11px;background:{{ c.entBg }};color:{{ c.entFg }};cursor:pointer;display:flex;align-items:center;gap:7px;font-family:Sora,sans-serif;font-weight:600;font-size:13.5px">
+                    <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">event</span>Chamar p/ entrevista
+                  </button>
+                  <button type="button" onClick="{{ c.favoritar }}" aria-pressed="{{ c.favorito }}" aria-label="Favoritar candidato" style="width:44px;height:44px;border:{{ c.favBorder }};border-radius:11px;background:{{ c.favBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;color:{{ c.favColor }}">
+                    <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">star</span>
+                  </button>
+                  <button type="button" onClick="{{ c.bloquear }}" aria-pressed="{{ c.bloqueado }}" aria-label="Bloquear candidato" style="width:44px;height:44px;border:{{ c.blqBorder }};border-radius:11px;background:{{ c.blqBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;color:{{ c.blqColor }}">
+                    <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">block</span>
+                  </button>
+                  <a href="https://api.whatsapp.com/send?phone=5511921281639" aria-label="Falar com {{ c.nome }} no WhatsApp" style="width:44px;height:44px;border:1.5px solid rgba(31,31,31,0.14);border-radius:11px;display:flex;align-items:center;justify-content:center;color:#1A7A5E" style-hover="border-color:#1A7A5E;background:rgba(26,122,94,0.08)">
+                    <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.13.82.84-3.05-.2-.31a8.19 8.19 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.22-8.24 8.22z"/></svg>
+                  </a>
+                </div>
+              </li>
+            </sc-for>
+          </ul>
+
+          <sc-if value="{{ semCandidatos }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:16px;border:1.5px dashed rgba(31,31,31,0.18);border-radius:16px;padding:38px 22px;text-align:center">
+              <span style="font-family:'Material Symbols Rounded';font-size:34px;font-variation-settings:'FILL' 1;line-height:1;color:#FFB72B" aria-hidden="true">person_search</span>
+              <h3 style="margin:10px 0 6px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">Nenhum candidato com esses filtros</h3>
+              <p style="margin:0;font-family:Inter,sans-serif;font-size:14px;color:#6B6560">Amplie a distância, a faixa de idade ou a escolaridade.</p>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isDados }}" hint-placeholder-val="{{ false }}">
+    <section aria-labelledby="md-h" style="margin-top:26px;display:grid;grid-template-columns:{{ dadosCols }};gap:16px;align-items:start">
+      <div style="border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:{{ padBig }}">
+        <h1 id="md-h" style="margin:0 0 20px;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};letter-spacing:-0.03em">Meus dados</h1>
+        <div style="display:grid;grid-template-columns:{{ formCols }};gap:16px">
+          <sc-for list="{{ camposEmpresa }}" as="f" hint-placeholder-count="8">
+            <div style="grid-column:{{ f.span }};display:flex;flex-direction:column;gap:7px">
+              <label for="{{ f.id }}" style="font-family:Inter,sans-serif;font-weight:700;font-size:13px;color:#6B6560">{{ f.label }}</label>
+              <input id="{{ f.id }}" type="text" placeholder="{{ f.ph }}" style="height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 14px;font-family:Inter,sans-serif;font-size:15px;outline:none">
+            </div>
+          </sc-for>
+        </div>
+        <button type="button" style="margin-top:24px;height:54px;padding:0 26px;border:0;border-radius:12px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:16px;cursor:pointer">Salvar dados</button>
+      </div>
+
+      <div id="email" style="border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:{{ padBig }}">
+        <h2 style="margin:0 0 6px;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em">Preferências de e-mail</h2>
+        <p style="margin:0 0 18px;font-family:Inter,sans-serif;font-size:14px;color:#6B6560">Escolha o que você quer receber no e-mail do estabelecimento.</p>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <sc-for list="{{ prefs }}" as="p" hint-placeholder-count="4">
+            <button type="button" onClick="{{ p.pick }}" aria-pressed="{{ p.on }}" style="display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;cursor:pointer;text-align:left;border:{{ p.border }};background:{{ p.bg }}">
+              <span style="width:44px;height:26px;flex:none;border-radius:13px;background:{{ p.trackBg }};position:relative;transition:background .15s" aria-hidden="true">
+                <span style="position:absolute;top:3px;left:{{ p.knobLeft }};width:20px;height:20px;border-radius:50%;background:#FFFFFF;box-shadow:0 1px 3px rgba(31,31,31,0.3);transition:left .15s"></span>
+              </span>
+              <span>
+                <span style="display:block;font-family:Sora,sans-serif;font-weight:700;font-size:15px">{{ p.label }}</span>
+                <span style="display:block;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">{{ p.desc }}</span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+  <sc-if value="{{ isPaginaVagas }}" hint-placeholder-val="{{ false }}">
+    <section aria-labelledby="pv-h" style="margin-top:26px;display:flex;flex-direction:column;gap:16px">
+      <div>
+        <h1 id="pv-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};letter-spacing:-0.03em">Página de vagas</h1>
+        <p style="margin:6px 0 0;font-family:Inter,sans-serif;font-size:15px;line-height:1.6;color:#6B6560;max-width:660px">Uma página só sua com todas as vagas ativas. Cadastre a descrição do estabelecimento, escolha os contatos que aparecem e compartilhe o link.</p>
+      </div>
+      <div style="border:1.5px solid rgba(31,31,31,0.12);border-radius:16px;padding:20px 22px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+        <div style="display:flex;gap:12px;align-items:flex-start;min-width:280px;flex:1">
+          <span style="font-family:'Material Symbols Rounded';font-size:24px;font-variation-settings:'FILL' 1;line-height:1.1;color:#1F1F1F;flex:none" aria-hidden="true">share</span>
+          <span>
+            <span style="display:block;font-family:Sora,sans-serif;font-weight:700;font-size:16px">Página pública das suas vagas</span>
+            <span style="display:block;margin-top:4px;font-family:Inter,sans-serif;font-size:14px;line-height:1.5;color:#6B6560">Um link só seu com todas as vagas ativas. Compartilhe nas redes, no WhatsApp ou na vitrine da loja.</span>
+            <span style="display:block;margin-top:10px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#6B6560;background:#FFF3DF;border-radius:9px;padding:10px 12px;width:fit-content;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ linkEmpresa }}</span>
+          </span>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button type="button" onClick="{{ copiarLinkEmpresa }}" style="height:48px;padding:0 20px;border:0;border-radius:11px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:15px;cursor:pointer;display:flex;align-items:center;gap:8px" style-hover="background:#FFC94F">
+            <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">{{ copiarIconEmpresa }}</span>{{ copiarLabelEmpresa }}
+          </button>
+          <a href="{{ compartilharWhats }}" style="height:48px;padding:0 18px;border:1.5px solid rgba(31,31,31,0.18);border-radius:11px;font-family:Sora,sans-serif;font-weight:600;font-size:15px;display:flex;align-items:center;gap:8px" style-hover="border-color:#1F1F1F">
+            <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">chat</span>Enviar no WhatsApp
+          </a>
+          <a href="Vagas da Empresa.dc.html" style="height:48px;padding:0 18px;border:1.5px solid rgba(31,31,31,0.18);border-radius:11px;font-family:Sora,sans-serif;font-weight:600;font-size:15px;display:flex;align-items:center" style-hover="border-color:#1F1F1F">Abrir página</a>
+        </div>
+      </div>
+
+      <div id="pagina-publica" style="border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:{{ padBig }}">
+        <h2 style="margin:0 0 6px;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em">Informações da empresa</h2>
+        <p style="margin:0 0 18px;font-family:Inter,sans-serif;font-size:14px;line-height:1.55;color:#6B6560;max-width:640px">Estas informações aparecem em <a href="Vagas da Empresa.dc.html" style="text-decoration:underline">{{ linkEmpresa }}</a>, a página com todas as suas vagas.</p>
+
+        <div style="display:grid;grid-template-columns:{{ formCols }};gap:16px">
+          <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:7px">
+            <label for="pp-desc" style="font-family:Inter,sans-serif;font-weight:700;font-size:13px;color:#6B6560">Descrição da empresa</label>
+            <textarea id="pp-desc" rows="4" value="{{ ppDesc }}" onChange="{{ onPpDesc }}" placeholder="Conte em poucas linhas como é trabalhar no seu estabelecimento: tipo de cozinha, tamanho da equipe, diferenciais." style="border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:12px 14px;font-family:Inter,sans-serif;font-size:15px;outline:none;resize:vertical"></textarea>
+            <span style="font-family:Inter,sans-serif;font-size:12.5px;color:#9A938C">{{ ppDescContador }}</span>
+          </div>
+          <sc-for list="{{ camposPublicos }}" as="f" hint-placeholder-count="4">
+            <div style="grid-column:{{ f.span }};display:flex;flex-direction:column;gap:7px">
+              <label for="{{ f.id }}" style="font-family:Inter,sans-serif;font-weight:700;font-size:13px;color:#6B6560">{{ f.label }}</label>
+              <input id="{{ f.id }}" type="{{ f.type }}" placeholder="{{ f.ph }}" style="height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;padding:0 14px;font-family:Inter,sans-serif;font-size:15px;outline:none">
+              <span style="font-family:Inter,sans-serif;font-size:12.5px;color:#9A938C">{{ f.hint }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <h3 style="margin:24px 0 12px;font-family:Sora,sans-serif;font-weight:700;font-size:15px">O que mostrar na página</h3>
+        <div style="display:grid;grid-template-columns:{{ formCols }};gap:11px">
+          <sc-for list="{{ visibilidade }}" as="v" hint-placeholder-count="4">
+            <button type="button" onClick="{{ v.pick }}" aria-pressed="{{ v.on }}" style="display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;cursor:pointer;text-align:left;border:{{ v.border }};background:{{ v.bg }}">
+              <span style="width:44px;height:26px;flex:none;border-radius:13px;background:{{ v.trackBg }};position:relative;transition:background .15s" aria-hidden="true">
+                <span style="position:absolute;top:3px;left:{{ v.knobLeft }};width:20px;height:20px;border-radius:50%;background:#FFFFFF;box-shadow:0 1px 3px rgba(31,31,31,0.3);transition:left .15s"></span>
+              </span>
+              <span>
+                <span style="display:block;font-family:Sora,sans-serif;font-weight:700;font-size:15px">{{ v.label }}</span>
+                <span style="display:block;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">{{ v.desc }}</span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px">
+          <button type="button" style="height:54px;padding:0 26px;border:0;border-radius:12px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:16px;cursor:pointer">Salvar página pública</button>
+          <a href="Vagas da Empresa.dc.html" style="height:54px;padding:0 20px;border:1.5px solid rgba(31,31,31,0.18);border-radius:12px;font-family:Sora,sans-serif;font-weight:600;font-size:16px;display:flex;align-items:center;gap:8px" style-hover="border-color:#1F1F1F">
+            <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">visibility</span>Ver como fica
+          </a>
+        </div>
+      </div>
+
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isAssinatura }}" hint-placeholder-val="{{ false }}">
+    <section aria-labelledby="as-h" style="margin-top:26px">
+      <button type="button" onClick="{{ voltarVagas }}" style="display:flex;align-items:center;gap:6px;border:0;background:none;padding:0;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14px;color:#6B6560">
+        <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">arrow_back</span>Voltar</button>
+      <h1 id="as-h" style="margin:14px 0 0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};letter-spacing:-0.03em">Minha assinatura</h1>
+
+      <div style="margin-top:20px;display:grid;grid-template-columns:{{ dadosCols }};gap:16px;align-items:start">
+        <div style="background:#1F1F1F;color:#FFF3DF;border-radius:18px;padding:24px">
+          <span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:8px;background:rgba(26,122,94,0.22);color:#7FD3B4;font-family:Sora,sans-serif;font-weight:700;font-size:12px">
+            <span style="font-family:'Material Symbols Rounded';font-size:16px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">verified</span>Assinatura ativa
+          </span>
+          <div style="margin-top:14px;font-family:Sora,sans-serif;font-weight:800;font-size:38px;letter-spacing:-0.03em;color:#FFB72B;line-height:1">R$ 129<span style="font-family:Inter,sans-serif;font-weight:400;font-size:15px;color:rgba(255,243,223,0.7);letter-spacing:0">/mês</span></div>
+          <p style="margin:12px 0 0;font-family:Inter,sans-serif;font-size:14px;color:rgba(255,243,223,0.72);line-height:1.55">Próxima cobrança em 01/10/2026 · Cartão final 4412<br>Assinante desde 01/05/2026</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+            <button type="button" style="height:46px;padding:0 18px;border:0;border-radius:11px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;cursor:pointer" style-hover="background:#FFC94F">Trocar cartão</button>
+            <button type="button" style="height:46px;padding:0 18px;border:1.5px solid rgba(255,243,223,0.3);border-radius:11px;background:transparent;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;cursor:pointer" style-hover="border-color:#E9402A;color:#E9402A">Cancelar assinatura</button>
+          </div>
+        </div>
+
+        <div style="border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:24px">
+          <h2 style="margin:0 0 16px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">Benefícios do seu plano</h2>
+          <div style="display:grid;grid-template-columns:{{ formCols }};gap:12px 24px">
+            <sc-for list="{{ beneficiosAssinatura }}" as="b" hint-placeholder-count="8">
+              <div style="display:flex;align-items:flex-start;gap:10px;font-family:Inter,sans-serif;font-size:14.5px;line-height:1.45">
+                <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1.2;color:#FFB72B;flex:none" aria-hidden="true">check_circle</span>{{ b.label }}
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:24px">
+        <h2 style="margin:0 0 4px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">Pagamentos</h2>
+        <p style="margin:0 0 16px;font-family:Inter,sans-serif;font-size:14px;color:#6B6560">Histórico das cobranças da sua assinatura mensal.</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1.4fr 0.8fr;gap:12px;padding:0 14px 8px;font-family:Inter,sans-serif;font-weight:700;font-size:12px;color:#9A938C;letter-spacing:0.03em;text-transform:uppercase">
+            <span>Data</span><span>Valor</span><span>Forma de pagamento</span><span>Status</span>
+          </div>
+          <sc-for list="{{ pagamentos }}" as="p" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1.4fr 0.8fr;gap:12px;align-items:center;border:1px solid rgba(31,31,31,0.10);border-radius:12px;padding:14px;font-family:Inter,sans-serif;font-size:14px">
+              <span style="font-weight:700">{{ p.data }}</span>
+              <span>{{ p.valor }}</span>
+              <span style="color:#6B6560">{{ p.metodo }}</span>
+              <span style="justify-self:start;height:26px;padding:0 10px;border-radius:8px;display:flex;align-items:center;font-weight:700;font-size:12.5px;background:{{ p.statusBg }};color:{{ p.statusFg }}">{{ p.status }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+</main>
+
+<dc-import name="Rodape" hint-size="100%,320px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200},&quot;tela&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;vagas&quot;,&quot;publicar&quot;,&quot;curriculos&quot;,&quot;dados&quot;,&quot;assinatura&quot;],&quot;default&quot;:&quot;vagas&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tela&quot;},&quot;creditos&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:4,&quot;min&quot;:0,&quot;max&quot;:20,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Tela&quot;},&quot;assinante&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Tela&quot;}}">
+class Component extends DCLogic {
+  state = {
+    w: 1440, tab: null, status: 'Todas', q: '', aq: '', criada: false,
+    vagaAtual: 'Atendente', ordem: 'Score',
+    beneficios: ['Vale-transporte', 'Refeição no local'],
+    configs: ['Aceitar candidatos sem experiência'],
+    perguntas: [{ texto: 'Tem experiência com caixa?' }, { texto: 'Tem disponibilidade para o turno da tarde?' }],
+    pergunta: '', prefs: ['Novos candidatos', 'Vaga expirando'], semCredito: false,
+    favoritos: ['Giovana Rodrigues'], bloqueados: ['Rafael Lima'],
+    situacoes: { 'Giovana Rodrigues': 'entrevista', 'Ana Paula Souza': 'pre' },
+    cf: { sexo: 'Todos', idade: 'Todas', dist: 'Todas', esc: 'Todas', situacao: 'Todos', verBloqueados: false }
+  };
+
+  VAGAS = [
+    ['Atendente', 'Pinheiros, São Paulo/SP', 1800, 2608148, 'ativa', 'boost', 'Expira em 22/09/2026', 14, '23/08/2026'],
+    ['Barista', 'Pinheiros, São Paulo/SP', 2200, 2608155, 'ativa', 'destaque', 'Expira em 24/09/2026', 8, '25/08/2026'],
+    ['Auxiliar de cozinha', 'Pinheiros, São Paulo/SP', 2050, 2608160, 'ativa', '', 'Expira em 26/09/2026', 21, '27/08/2026'],
+    ['Caixa', 'Savassi, Belo Horizonte/MG', 1900, 2607988, 'pausada', '', 'Pausada em 12/08/2026', 5, '05/08/2026'],
+    ['Garçom', 'Pinheiros, São Paulo/SP', 2200, 2607690, 'expirada', '', 'Expirou em 30/07/2026', 32, '30/06/2026']
+  ];
+
+  componentDidMount() {
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+    const h = (window.location.hash || '').replace('#', '');
+    if (h === 'dados' || h === 'email') this.setState({ tab: 'dados' });
+    if (h === 'publicar') {
+      const cred = this.props.creditos == null ? 4 : this.props.creditos;
+      if (cred > 0) this.setState({ tab: 'publicar' });
+      else this.setState({ tab: 'vagas', semCredito: true });
+    }
+    setTimeout(() => this.setState({ w: window.innerWidth }), 40);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); }
+  bp() { const raw = this.state.w; if (raw < 768) return 'mobile'; return raw / 0.8 < 1200 ? 'tablet' : 'desktop'; }
+  money(n) { return 'R$ ' + n.toLocaleString('pt-BR'); }
+
+  toggle(key, v) {
+    this.setState(p => {
+      const arr = p[key];
+      return { [key]: arr.indexOf(v) >= 0 ? arr.filter(x => x !== v) : arr.concat([v]) };
+    });
+  }
+
+  renderVals() {
+    const DESC_PADRAO = 'Cafeteria de bairro com três unidades em São Paulo. Trabalhamos com café especial, padaria própria e equipe fixa — a maioria das promoções vem de dentro de casa.';
+    const bp = this.bp(), mobile = bp === 'mobile', s = this.state;
+    const cred = this.props.creditos == null ? 4 : this.props.creditos;
+    const semCred = cred <= 0;
+    const assinante = this.props.assinante == null ? true : !!this.props.assinante;
+    let tab = s.tab || this.props.tela || 'vagas';
+    if (tab === 'assinatura' && !assinante) tab = 'vagas';
+    if (tab === 'publicar' && semCred) tab = 'vagas';
+    const mkTab = (key, label, icon) => {
+      const on = tab === key;
+      return {
+        label: label, icon: icon, on: on ? 'page' : 'false',
+        weight: on ? 700 : 500, color: on ? '#1F1F1F' : '#6B6560',
+        icoColor: on ? '#C94219' : '#9A938C',
+        underline: on ? 'inset 0 -3px 0 #C94219' : 'none',
+        pick: () => this.setState({ tab: key, criada: false })
+      };
+    };
+    const STATUS = {
+      ativa: { label: 'ATIVA', icon: 'play_circle', bg: '#1A7A5E', fg: '#FFFFFF' },
+      pausada: { label: 'PAUSADA', icon: 'pause_circle', bg: '#FFF3DF', fg: '#1F1F1F' },
+      expirada: { label: 'EXPIRADA', icon: 'do_not_disturb_on', bg: 'rgba(31,31,31,0.10)', fg: '#6B6560' }
+    };
+    const filtros = ['Todas', 'Ativas', 'Pausadas', 'Expiradas'];
+    const mapa = { Ativas: 'ativa', Pausadas: 'pausada', Expiradas: 'expirada' };
+    const q = s.aq.trim().toLowerCase();
+    const lista = this.VAGAS.filter(v => {
+      if (s.status !== 'Todas' && v[4] !== mapa[s.status]) return false;
+      if (q && (v[0] + ' ' + v[3]).toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+    const addDias = (br, dias) => {
+      const p = br.split('/');
+      const d = new Date(Number(p[2]), Number(p[1]) - 1, Number(p[0]));
+      d.setDate(d.getDate() + dias);
+      const pad = n => (n < 10 ? '0' : '') + n;
+      return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear();
+    };
+    const vagas = lista.map(v => {
+      const st = STATUS[v[4]], exp = v[4] === 'expirada';
+      const ativacao = v[8] || '—';
+      const expira = v[8] ? addDias(v[8], 30) : '—';
+      const pausada = v[4] === 'pausada';
+      const boostOn = v[5] === 'boost';
+      const acoes = [
+        { label: 'Editar', icon: 'edit', color: '#1F1F1F', bg: '#FFFFFF', border: '1.5px solid rgba(31,31,31,0.14)', aria: 'Editar vaga ' + v[0], run: () => this.setState({ tab: 'publicar' }) },
+        { label: v[4] === 'pausada' ? 'Reativar' : 'Pausar', icon: v[4] === 'pausada' ? 'play_arrow' : 'pause', color: '#1F1F1F', bg: '#FFFFFF', border: '1.5px solid rgba(31,31,31,0.14)', aria: 'Pausar vaga', run: () => { } },
+        { label: boostOn ? 'Boost ativo' : 'Ativar boost', icon: 'bolt', color: boostOn ? '#1F1F1F' : '#C94219', bg: boostOn ? '#FFB72B' : '#FFFFFF', border: boostOn ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.14)', aria: boostOn ? 'Boost ativo nesta vaga' : 'Ativar boost nesta vaga', run: () => { } },
+        { label: 'Duplicar', icon: 'content_copy', color: '#1F1F1F', bg: '#FFFFFF', border: '1.5px solid rgba(31,31,31,0.14)', aria: 'Duplicar vaga', run: () => { } }
+      ];
+      return {
+        cargo: v[0], local: v[1], salario: v[2] ? this.money(v[2]) : 'Salário não informado',
+        ref: String(v[3]),
+        ativacao: ativacao,
+        validade: exp ? ('Expirou em ' + expira) : ('Expira em ' + expira),
+        prazoColor: pausada ? '#C94219' : '#1F1F1F',
+        prazoIcoColor: pausada ? '#C94219' : '#9A938C',
+        mostrarReativar: pausada,
+        avisoReativar: 'Pausada em ' + v[6].replace('Pausada em ', '') + '. Só pode ser reativada até ' + expira + ' (30 dias após a ativação).',
+        candidatos: v[7] === 1 ? '1 currículo recebido' : v[7] + ' currículos recebidos',
+        status: st.label, statusIcon: st.icon, statusBg: st.bg, statusFg: st.fg,
+        selo: v[5] === 'boost' ? 'BOOST' : 'Destaque',
+        seloDisplay: v[5] ? 'flex' : 'none',
+        seloBg: v[5] === 'boost' ? '#1F1F1F' : '#FFB72B',
+        seloFg: v[5] === 'boost' ? '#FFFFFF' : '#1F1F1F',
+        border: exp ? 'rgba(31,31,31,0.10)' : 'rgba(31,31,31,0.12)',
+        bg: exp ? '#F7F5F2' : '#FFFFFF',
+        acoes: acoes,
+        verCurriculos: () => this.setState({ tab: 'curriculos', vagaAtual: v[0] })
+      };
+    });
+
+    const mk = arr => arr.map(f2 => ({
+      id: f2.id, label: f2.label, ph: f2.ph || '', span: f2.span || 'auto',
+      isText: !!f2.isText, isSelect: !!f2.isSelect, isArea: !!f2.isArea, isHora: !!f2.isHora, options: f2.options || []
+    }));
+
+    const camposEstab = mk([
+      { id: 'estab', label: 'Nome do estabelecimento', ph: 'Café Bica', isText: true },
+      { id: 'site', label: 'Site do estabelecimento', ph: 'www.cafebica.com.br', isText: true }
+    ]);
+    const camposResp = mk([
+      { id: 'rnome', label: 'Nome', ph: 'Nome do responsável', isText: true },
+      { id: 'rsobre', label: 'Sobrenome', ph: 'Sobrenome', isText: true },
+      { id: 'rtel', label: 'Telefone / WhatsApp', ph: '(11) 99999-0000', isText: true },
+      { id: 'remail', label: 'E-mail', ph: 'contato@empresa.com.br', isText: true },
+      { id: 'rcpf', label: 'CPF', ph: '000.000.000-00', isText: true }
+    ]);
+
+    const blocos = [
+      { titulo: 'Detalhes da vaga', campos: mk([
+        { id: 'titulo', label: 'Título da vaga', ph: 'Ex.: Atendente para cafeteria', span: '1 / -1', isText: true },
+        { id: 'area', label: 'Área', isSelect: true, options: ['Cozinha', 'Salão', 'Bar', 'Gestão', 'Freelancer', 'Estoque'] },
+        { id: 'cargo2', label: 'Cargo', isSelect: true, options: ['Atendente', 'Garçom', 'Cozinheiro', 'Auxiliar de cozinha', 'Caixa', 'Barista', 'Estoquista'] },
+        { id: 'contrato', label: 'Tipo de contrato', isSelect: true, options: ['CLT', 'PJ', 'Temporário', 'Freelancer'] },
+        { id: 'salario', label: 'Salário', ph: 'Salário + gorjeta', isText: true },
+        { id: 'jornada', label: 'Horário de trabalho', isHora: true },
+        { id: 'esc2', label: 'Escolaridade mínima', isSelect: true, options: ['Fundamental', 'Médio', 'Técnico', 'Superior'] },
+        { id: 'desc', label: 'Descrição da vaga', ph: 'Conte como é o trabalho no dia a dia, atividades e requisitos.', span: '1 / -1', isArea: true }
+      ]) },
+      { titulo: 'Endereço da vaga', campos: mk([
+        { id: 'ecep', label: 'CEP', ph: '00000-000', isText: true },
+        { id: 'erua', label: 'Rua', ph: 'Nome da rua', isText: true },
+        { id: 'enum', label: 'Número', ph: '000', isText: true },
+        { id: 'ebairro', label: 'Bairro', ph: 'Pinheiros', isText: true },
+        { id: 'ecidade', label: 'Cidade', ph: 'São Paulo', isText: true },
+        { id: 'euf', label: 'Estado', isSelect: true, options: ['SP', 'RJ', 'MG', 'PR', 'RS', 'BA', 'PE', 'CE'] }
+      ]) }
+    ];
+
+    const benefNomes = ['Vale-transporte', 'Refeição no local', 'Vale-refeição', 'Comissão', 'Gorjeta', 'Plano de saúde', 'Uniforme', 'Ajuda de custo'];
+    const configNomes = [
+      { label: 'Aceitar candidatos sem experiência', desc: 'A vaga aparece também para quem está começando na área.' },
+      { label: 'Ocultar nome do estabelecimento', desc: 'A vaga é publicada como confidencial.' }
+    ];
+    const prefNomes = [
+      { label: 'Novos candidatos', desc: 'Aviso quando alguém se candidatar às suas vagas.' },
+      { label: 'Vaga expirando', desc: 'Lembrete 3 dias antes de a vaga sair do ar.' },
+      { label: 'Promoções e pacotes', desc: 'Ofertas de vagas, pacotes e assinatura.' },
+      { label: 'Novidades do seuchef', desc: 'Novidades do produto e do blog.' }
+    ];
+
+    const CANDS = [
+      ['Giovana Rodrigues', 'Atendente', 3, 'Pinheiros, SP', 2.4, 27, 'Médio', 'Feminino', 87, 'visto'],
+      ['Marcos Silva', 'Balconista', 2, 'Butantã, SP', 6.1, 34, 'Médio', 'Masculino', 81, 'novo'],
+      ['Ana Paula Souza', 'Caixa', 4, 'Lapa, SP', 9.3, 41, 'Técnico', 'Feminino', 76, 'novo'],
+      ['Rafael Lima', 'Garçom', 1, 'Perdizes, SP', 4.8, 22, 'Médio', 'Masculino', 68, 'visto'],
+      ['Carla Mendes', 'Atendente', 0, 'Pinheiros, SP', 1.2, 19, 'Fundamental', 'Feminino', 54, 'novo'],
+      ['Diego Torres', 'Auxiliar de cozinha', 5, 'Osasco, SP', 14.7, 38, 'Fundamental', 'Masculino', 63, 'novo'],
+      ['Juliana Prado', 'Barista', 2, 'Vila Madalena, SP', 3.6, 29, 'Superior', 'Feminino', 72, 'visto']
+    ];
+
+    const cf = s.cf;
+    const faixaIdade = { 'Todas': null, '18 a 24': [18, 24], '25 a 34': [25, 34], '35 a 44': [35, 44], '45 ou mais': [45, 120] };
+    const faixaDist = { 'Todas': null, 'Até 5 km': 5, 'Até 10 km': 10, 'Até 20 km': 20 };
+    const ordemEsc = ['Fundamental', 'Médio', 'Técnico', 'Superior'];
+
+    const candFiltrados = CANDS.filter(c => {
+      const bloq = s.bloqueados.indexOf(c[0]) >= 0;
+      if (bloq && !cf.verBloqueados) return false;
+      if (cf.sexo !== 'Todos' && c[7] !== cf.sexo) return false;
+      const fi = faixaIdade[cf.idade];
+      if (fi && (c[5] < fi[0] || c[5] > fi[1])) return false;
+      const fd = faixaDist[cf.dist];
+      if (fd && c[4] > fd) return false;
+      if (cf.esc !== 'Todas' && ordemEsc.indexOf(c[6]) < ordemEsc.indexOf(cf.esc)) return false;
+      const sit = s.situacoes[c[0]] || '';
+      if (cf.situacao === 'Sem marcação' && sit) return false;
+      if (cf.situacao === 'Pré-selecionados' && sit !== 'pre') return false;
+      if (cf.situacao === 'Chamados para entrevista' && sit !== 'entrevista') return false;
+      if (cf.situacao === 'Favoritados' && s.favoritos.indexOf(c[0]) < 0) return false;
+      return true;
+    });
+
+    const ordenado = candFiltrados.slice().sort((a, b) => {
+      if (s.ordem === 'Não vistos') return (a[9] === 'novo' ? 0 : 1) - (b[9] === 'novo' ? 0 : 1) || b[8] - a[8];
+      if (s.ordem === 'Mais recentes') return 0;
+      return b[8] - a[8];
+    });
+
+    const vagaBase = this.VAGAS.filter(v => v[0] === s.vagaAtual)[0] || this.VAGAS[0];
+    const vagaSt = STATUS[vagaBase[4]];
+    const novosCount = CANDS.filter(c => c[9] === 'novo' && s.bloqueados.indexOf(c[0]) < 0).length;
+    const preCount = CANDS.filter(c => s.situacoes[c[0]] === 'pre').length;
+    const entrevistaCount = CANDS.filter(c => s.situacoes[c[0]] === 'entrevista').length;
+    const setSituacao = (nome, valor) => this.setState(p => {
+      const next = Object.assign({}, p.situacoes);
+      if (next[nome] === valor) delete next[nome]; else next[nome] = valor;
+      return { situacoes: next };
+    });
+
+    const setCf = (k, v) => this.setState(p => ({ cf: Object.assign({}, p.cf, { [k]: v }) }));
+
+    return {
+      rootZoom: mobile ? 1 : 0.8,
+      gap: mobile ? '18px' : '26px',
+      padBig: mobile ? '20px' : '28px',
+      bannerRatio: mobile ? '2 / 1' : '4.5 / 1',
+      bannerSlot: mobile ? 'banner mobile · 720×360' : 'banner desktop · 1600×356',
+      h1: mobile ? '26px' : '32px',
+      h2: mobile ? '21px' : '24px',
+      cardCols: mobile ? '1fr' : (bp === 'tablet' ? 'repeat(2,minmax(0,1fr))' : 'repeat(3,minmax(0,1fr))'),
+      formCols: mobile ? '1fr' : 'repeat(2,minmax(0,1fr))',
+      dadosCols: bp === 'desktop' ? '1.3fr 1fr' : '1fr',
+
+      tabs: [
+        mkTab('vagas', 'Vagas', 'work'),
+        mkTab('publicar', 'Publicar vaga', 'add_circle'),
+        mkTab('pagina', 'Página de vagas', 'share'),
+        mkTab('dados', 'Meus dados', 'person'),
+        assinante
+          ? { label: 'Assinante ativo', icon: 'verified', on: tab === 'assinatura' ? 'page' : 'false', weight: tab === 'assinatura' ? 700 : 500, color: '#1A7A5E', icoColor: '#1A7A5E', underline: tab === 'assinatura' ? 'inset 0 -3px 0 #1A7A5E' : 'none', pick: () => this.setState({ tab: 'assinatura' }) }
+          : { label: 'Seja um assinante, clique aqui', icon: 'workspace_premium', on: 'false', weight: 700, color: '#C94219', icoColor: '#C94219', underline: 'none', pick: () => { window.location.href = 'Pacotes.dc.html#assinatura'; } }
+      ],
+      isVagas: tab === 'vagas', isPublicar: tab === 'publicar', isAssinatura: tab === 'assinatura', isPaginaVagas: tab === 'pagina',
+      beneficiosAssinatura: [
+        '1 vaga por mês', 'Desconto de 10% em qualquer compra',
+        'Selo Destaque em todas as vagas', '2 boosts por mês — vaga no topo do site por 48h',
+        'Atendimento exclusivo', 'Revisão de todos os seus anúncios',
+        'Prioridade em promoções gerais do site', 'Collab nas redes sociais'
+      ].map(t => ({ label: t })),
+      pagamentos: [
+        ['01/09/2026', 'R$ 129,00', 'Cartão final 4412', 'Pago'],
+        ['01/08/2026', 'R$ 129,00', 'Cartão final 4412', 'Pago'],
+        ['01/07/2026', 'R$ 129,00', 'Cartão final 4412', 'Pago'],
+        ['01/06/2026', 'R$ 129,00', 'Cartão final 4412', 'Pago'],
+        ['01/05/2026', 'R$ 129,00', 'Cartão final 4412', 'Pago']
+      ].map(p => ({
+        data: p[0], valor: p[1], metodo: p[2], status: p[3],
+        statusBg: p[3] === 'Pago' ? 'rgba(26,122,94,0.10)' : 'rgba(233,64,42,0.10)',
+        statusFg: p[3] === 'Pago' ? '#1A7A5E' : '#E9402A'
+      })),
+      isCurriculos: tab === 'curriculos', isDados: tab === 'dados',
+
+      contador: lista.length === 1 ? '1 vaga' : lista.length + ' vagas',
+      linkEmpresa: 'seuchef.com.br/empresa/cafe-bica',
+      irMeusDados: () => this.setState({ tab: 'dados' }),
+      ppDesc: s.ppDesc === undefined ? DESC_PADRAO : s.ppDesc,
+      onPpDesc: e => this.setState({ ppDesc: e.target.value }),
+      ppDescContador: (s.ppDesc === undefined ? DESC_PADRAO.length : s.ppDesc.length) + ' de 600 caracteres',
+      camposPublicos: [
+        { id: 'pp-insta', label: 'Instagram (opcional)', ph: '@cafebica', type: 'text', hint: 'Só o @, sem link.', span: 'auto' },
+        { id: 'pp-tel', label: 'Telefone para candidatos (opcional)', ph: '(11) 99999-0000', type: 'tel', hint: 'Em branco, usamos o telefone da aba Meus dados.', span: 'auto' },
+        { id: 'pp-email', label: 'E-mail para candidatos (opcional)', ph: 'vagas@cafebica.com.br', type: 'email', hint: 'Em branco, usamos o e-mail da aba Meus dados.', span: 'auto' }
+      ],
+      visibilidade: [
+        { key: 'pagina', label: 'Página pública ativa', desc: 'Desligue para tirar o link do ar.' },
+        { key: 'contato', label: 'Mostrar telefone e e-mail', desc: 'Candidatos podem falar direto com você.' },
+        { key: 'redes', label: 'Mostrar site e Instagram', desc: 'Exibe os links no topo da página.' }
+      ].map(v => {
+        const on = (s.vis || {})[v.key] !== false;
+        return {
+          label: v.label, desc: v.desc, on: on,
+          bg: on ? '#FFF3DF' : '#FFFFFF',
+          border: on ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.14)',
+          trackBg: on ? '#1F1F1F' : 'rgba(31,31,31,0.2)',
+          knobLeft: on ? '21px' : '3px',
+          pick: () => this.setState(st => {
+            const vis = Object.assign({}, st.vis || {});
+            vis[v.key] = !( vis[v.key] !== false );
+            return { vis: vis };
+          })
+        };
+      }),
+      copiarLabelEmpresa: s.linkCopiado ? 'Link copiado' : 'Copiar link',
+      copiarIconEmpresa: s.linkCopiado ? 'check_circle' : 'link',
+      copiarLinkEmpresa: () => {
+        if (navigator.clipboard) navigator.clipboard.writeText('https://seuchef.com.br/empresa/cafe-bica');
+        this.setState({ linkCopiado: true });
+        setTimeout(() => this.setState({ linkCopiado: false }), 2600);
+      },
+      compartilharWhats: 'https://api.whatsapp.com/send?text=' + encodeURIComponent('Estamos contratando! Veja nossas vagas abertas: https://seuchef.com.br/empresa/cafe-bica'),
+      q: s.q,
+      onQ: e => this.setState({ q: e.target.value }),
+      onKey: e => { if (e.key === 'Enter') this.setState({ aq: s.q }); },
+      pesquisar: () => this.setState({ aq: s.q }),
+      statusFiltros: filtros.map(n => {
+        const on = s.status === n;
+        return {
+          label: n, on: on,
+          bg: on ? '#1F1F1F' : '#FFFFFF', fg: on ? '#FFF3DF' : '#1F1F1F',
+          border: on ? '1.5px solid #1F1F1F' : '1.5px solid rgba(31,31,31,0.14)',
+          pick: () => this.setState({ status: n })
+        };
+      }),
+      vagas: vagas,
+      irPublicar: () => {
+        if (semCred) { window.location.href = 'Pacotes.dc.html#pacotes'; return; }
+        this.setState({ tab: 'publicar', criada: false, semCredito: false });
+      },
+      semCredito: semCred && (s.semCredito || tab === 'vagas'),
+      saldoLabel: semCred ? 'Sem créditos disponíveis' : ('Saldo: ' + cred + (cred === 1 ? ' vaga disponível' : ' vagas disponíveis')),
+      saldoSub: semCred ? 'Compre uma vaga ou pacote para publicar' : 'Cada crédito publica 1 vaga por 30 dias',
+      saldoPublicar: semCred ? 'Sem créditos disponíveis' : ('Saldo: você tem ' + cred + (cred === 1 ? ' vaga disponível' : ' vagas disponíveis') + ' para uso'),
+      contratarTexto: semCred ? 'Seus créditos acabaram. Compre uma vaga avulsa ou um pacote para publicar de novo.' : ('Você tem ' + cred + (cred === 1 ? ' crédito' : ' créditos') + '. Publique agora e receba currículos do setor.'),
+      contratarBtn: semCred ? 'Comprar créditos' : 'Publicar vaga',
+      voltarVagas: () => this.setState({ tab: 'vagas' }),
+
+      blocos: blocos, camposEstab: camposEstab, camposResp: camposResp,
+      beneficios: benefNomes.map(n => {
+        const on = s.beneficios.indexOf(n) >= 0;
+        return {
+          label: n, on: on, bg: on ? '#FFB72B' : '#FFFFFF',
+          border: on ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.16)',
+          pick: () => this.toggle('beneficios', n)
+        };
+      }),
+      configs: configNomes.map(c => {
+        const on = s.configs.indexOf(c.label) >= 0;
+        return {
+          label: c.label, desc: c.desc, on: on,
+          box: on ? '#FFB72B' : '#FFFFFF', check: on ? 'check' : '',
+          bg: on ? '#FFF3DF' : '#FFFFFF',
+          border: on ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.14)',
+          pick: () => this.toggle('configs', c.label)
+        };
+      }),
+      pergunta: s.pergunta,
+      onPergunta: e => this.setState({ pergunta: e.target.value }),
+      addPergunta: () => this.setState(p => p.pergunta.trim()
+        ? { perguntas: p.perguntas.concat([{ texto: p.pergunta.trim() }]), pergunta: '' } : {}),
+      perguntas: s.perguntas.map((p, i) => ({
+        texto: p.texto,
+        remove: () => this.setState(st => ({ perguntas: st.perguntas.filter((_, j) => j !== i) }))
+      })),
+      criarVaga: () => { if (semCred) { this.setState({ tab: 'vagas', semCredito: true }); return; } this.setState({ criada: true }); },
+      criada: s.criada,
+
+      vagaAtual: s.vagaAtual,
+      vagaRef: String(vagaBase[3]),
+      vagaLocal: vagaBase[1],
+      vagaSalario: vagaBase[2] ? this.money(vagaBase[2]) : 'Salário não informado',
+      vagaAtivacao: vagaBase[8] || '—',
+      vagaValidade: 'Expira em ' + (vagaBase[8] ? addDias(vagaBase[8], 30) : '—'),
+      vagaStatus: vagaSt.label, vagaStatusBg: vagaSt.bg, vagaStatusFg: vagaSt.fg,
+      totalCandidatos: CANDS.length === 1 ? '1 currículo recebido' : CANDS.length + ' currículos recebidos',
+      resumoCandidatos: novosCount + ' não vistos · ' + preCount + ' pré-selecionados · ' + entrevistaCount + ' em entrevista',
+      curCols: bp === 'desktop' ? '288px 1fr' : '1fr',
+      semCandidatos: ordenado.length === 0,
+
+      filtrosCur: [
+        { id: 'fl-sit', label: 'Situação do candidato', value: cf.situacao, options: ['Todos', 'Sem marcação', 'Pré-selecionados', 'Chamados para entrevista', 'Favoritados'], onChange: e => setCf('situacao', e.target.value) },
+        { id: 'fl-sexo', label: 'Sexo', value: cf.sexo, options: ['Todos', 'Feminino', 'Masculino'], onChange: e => setCf('sexo', e.target.value) },
+        { id: 'fl-idade', label: 'Faixa de idade', value: cf.idade, options: ['Todas', '18 a 24', '25 a 34', '35 a 44', '45 ou mais'], onChange: e => setCf('idade', e.target.value) },
+        { id: 'fl-dist', label: 'Distância até a vaga', value: cf.dist, options: ['Todas', 'Até 5 km', 'Até 10 km', 'Até 20 km'], onChange: e => setCf('dist', e.target.value) },
+        { id: 'fl-esc', label: 'Escolaridade mínima', value: cf.esc, options: ['Todas', 'Fundamental', 'Médio', 'Técnico', 'Superior'], onChange: e => setCf('esc', e.target.value) }
+      ],
+      limparFiltrosCur: () => this.setState({ cf: { sexo: 'Todos', idade: 'Todas', dist: 'Todas', esc: 'Todas', situacao: 'Todos', verBloqueados: false } }),
+      verBloqueados: cf.verBloqueados,
+      toggleBloqueados: () => setCf('verBloqueados', !cf.verBloqueados),
+      blqBox: cf.verBloqueados ? '#FFB72B' : '#FFFFFF',
+      blqCheck: cf.verBloqueados ? 'check' : '',
+      blqBg: cf.verBloqueados ? '#FFF3DF' : '#FFFFFF',
+      blqBorder: cf.verBloqueados ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.14)',
+      blqResumo: s.bloqueados.length === 1 ? '1 candidato bloqueado' : s.bloqueados.length + ' candidatos bloqueados',
+
+      ordenacoes: ['Score', 'Mais recentes', 'Não vistos'].map(n => {
+        const on = s.ordem === n;
+        return {
+          label: n, on: on,
+          bg: on ? '#1F1F1F' : '#FFFFFF', fg: on ? '#FFF3DF' : '#1F1F1F',
+          border: on ? '1.5px solid #1F1F1F' : '1.5px solid rgba(31,31,31,0.14)',
+          pick: () => this.setState({ ordem: n })
+        };
+      }),
+      candidatos: ordenado.map(c => {
+        const fav = s.favoritos.indexOf(c[0]) >= 0;
+        const blq = s.bloqueados.indexOf(c[0]) >= 0;
+        return {
+          nome: c[0], inicial: c[0].slice(0, 1),
+          meta: c[1] + ' · ' + (c[2] === 0 ? 'sem experiência' : (c[2] === 1 ? '1 ano de experiência' : c[2] + ' anos de experiência')) + ' · ' + c[3],
+          tags: [
+            { icon: 'cake', label: c[5] + ' anos' },
+            { icon: 'school', label: c[6] },
+            { icon: 'near_me', label: String(c[4]).replace('.', ',') + ' km da vaga' },
+            { icon: 'wc', label: c[7] }
+          ],
+          score: c[8] + '% de compatibilidade', scoreW: c[8] + '%',
+          status: c[9] === 'novo' ? 'NÃO VISTO' : 'CURRÍCULO VISTO',
+          statusBg: c[9] === 'novo' ? '#FFF3DF' : 'rgba(31,31,31,0.08)',
+          statusFg: c[9] === 'novo' ? '#1F1F1F' : '#6B6560',
+          border: blq ? 'rgba(233,64,42,0.35)' : (c[9] === 'novo' ? '#FFB72B' : 'rgba(31,31,31,0.12)'),
+          bg: blq ? '#FCF7F6' : '#FFFFFF',
+          opacity: blq ? '0.72' : '1',
+          favorito: fav, bloqueado: blq,
+          favDisplay: fav ? 'flex' : 'none',
+          blqDisplay: blq ? 'flex' : 'none',
+          favBg: fav ? '#FFB72B' : '#FFFFFF',
+          favBorder: fav ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.14)',
+          favColor: fav ? '#1F1F1F' : '#9A938C',
+          blqBg: blq ? 'rgba(233,64,42,0.12)' : '#FFFFFF',
+          blqBorder: blq ? '1.5px solid rgba(233,64,42,0.4)' : '1.5px solid rgba(31,31,31,0.14)',
+          blqColor: blq ? '#E9402A' : '#9A938C',
+          sit: s.situacoes[c[0]] || '',
+          isPre: (s.situacoes[c[0]] || '') === 'pre',
+          isEntrevista: (s.situacoes[c[0]] || '') === 'entrevista',
+          preBg: (s.situacoes[c[0]] || '') === 'pre' ? '#1E4D6B' : '#FFFFFF',
+          preFg: (s.situacoes[c[0]] || '') === 'pre' ? '#FFFFFF' : '#1F1F1F',
+          preBorder: (s.situacoes[c[0]] || '') === 'pre' ? '1.5px solid #1E4D6B' : '1.5px solid rgba(31,31,31,0.14)',
+          entBg: (s.situacoes[c[0]] || '') === 'entrevista' ? '#1A7A5E' : '#FFFFFF',
+          entFg: (s.situacoes[c[0]] || '') === 'entrevista' ? '#FFFFFF' : '#1F1F1F',
+          entBorder: (s.situacoes[c[0]] || '') === 'entrevista' ? '1.5px solid #1A7A5E' : '1.5px solid rgba(31,31,31,0.14)',
+          preSelecionar: () => setSituacao(c[0], 'pre'),
+          chamarEntrevista: () => setSituacao(c[0], 'entrevista'),
+          favoritar: () => this.setState(p => ({ favoritos: fav ? p.favoritos.filter(x => x !== c[0]) : p.favoritos.concat([c[0]]) })),
+          bloquear: () => this.setState(p => ({
+            bloqueados: blq ? p.bloqueados.filter(x => x !== c[0]) : p.bloqueados.concat([c[0]]),
+            favoritos: blq ? p.favoritos : p.favoritos.filter(x => x !== c[0])
+          })),
+          abrir: () => { window.location.href = 'Painel Candidato.dc.html#ver-empresa'; }
+        };
+      }),
+
+      camposEmpresa: [
+        { id: 'dnome', label: 'Nome do estabelecimento', ph: 'Café Bica', span: 'auto' },
+        { id: 'dcnpj', label: 'CNPJ', ph: '00.000.000/0000-00', span: 'auto' },
+        { id: 'dresp', label: 'Responsável', ph: 'Nome e sobrenome', span: 'auto' },
+        { id: 'dtel', label: 'Telefone / WhatsApp', ph: '(11) 99999-0000', span: 'auto' },
+        { id: 'demail', label: 'E-mail', ph: 'contato@empresa.com.br', span: 'auto' },
+        { id: 'dsite', label: 'Site', ph: 'www.cafebica.com.br', span: 'auto' },
+        { id: 'dcep', label: 'CEP', ph: '00000-000', span: 'auto' },
+        { id: 'dcidade', label: 'Cidade', ph: 'São Paulo', span: 'auto' }
+      ],
+      prefs: prefNomes.map(p => {
+        const on = s.prefs.indexOf(p.label) >= 0;
+        return {
+          label: p.label, desc: p.desc, on: on,
+          trackBg: on ? '#1A7A5E' : 'rgba(31,31,31,0.2)',
+          knobLeft: on ? '21px' : '3px',
+          bg: on ? '#FFFFFF' : '#FFFFFF',
+          border: on ? '1.5px solid rgba(26,122,94,0.4)' : '1.5px solid rgba(31,31,31,0.14)',
+          pick: () => this.toggle('prefs', p.label)
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

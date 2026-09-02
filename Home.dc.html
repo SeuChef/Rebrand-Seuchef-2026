@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1&display=block" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;-webkit-font-smoothing:antialiased;color:#1F1F1F}
+a{color:#1F1F1F;text-decoration:none}
+a:hover{color:#C94219}
+:focus-visible{outline:3px solid #FFB72B;outline-offset:2px;border-radius:6px}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#FFFFFF;font-family:Inter,system-ui,sans-serif;zoom:{{ rootZoom }}">
+
+<header style="position:sticky;top:0;z-index:60;background:#1F1F1F">
+  <div style="display:flex;align-items:center;gap:8px;height:34px;padding:0 20px;background:#FFFFFF;color:#1F1F1F;border-bottom:1px solid rgba(31,31,31,0.10);font-size:11.5px;font-weight:500;justify-content:{{ topbarJustify }}">
+    <span style="font-family:Sora,sans-serif;font-weight:600;letter-spacing:0.01em">Simples para quem procura. Prático para quem contrata.</span>
+    <div style="display:flex;align-items:center;gap:14px;display:{{ showTopLinks }}">
+      <a href="https://api.whatsapp.com/send?phone=5511921281639" aria-label="Atendimento por WhatsApp" style="color:#6B6560;display:flex;align-items:center;gap:5px;font-size:11.5px">
+        <span style="font-family:'Material Symbols Rounded';font-size:15px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">chat</span>WhatsApp</a>
+      <a href="https://instagram.com/" aria-label="Instagram do seuchef" style="color:#6B6560;font-size:11.5px">Instagram</a>
+      <a href="https://facebook.com/" aria-label="Facebook do seuchef" style="color:#6B6560;font-size:11.5px">Facebook</a>
+    </div>
+  </div>
+  <div style="max-width:1600px;margin:0 auto;padding:0 20px;height:{{ headerH }};display:flex;align-items:center;gap:36px">
+    <div aria-hidden="true" style="display:{{ burgerDisplay }};flex:1 1 0"></div>
+    <nav aria-label="Navegação principal" style="display:{{ navDisplay }};align-items:center;gap:22px;flex:1 1 0;min-width:0">
+      <div style="position:relative">
+        <button type="button" onClick="{{ toggleComo }}" aria-expanded="{{ comoOpen }}" style="display:flex;align-items:center;gap:4px;background:none;border:0;padding:6px 0;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;color:#FFF3DF">
+          Como funciona
+          <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">expand_more</span>
+        </button>
+        <sc-if value="{{ comoOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:38px;left:-14px;width:262px;background:#FFFFFF;border:1px solid rgba(31,31,31,0.12);border-radius:14px;box-shadow:0 18px 40px rgba(31,31,31,0.14);padding:8px;z-index:70">
+            <a href="Como funciona.dc.html#candidatos" style="display:block;padding:11px 12px;border-radius:9px;font-size:14px" style-hover="background:#FFF3DF">Como funciona para candidatos</a>
+            <a href="Como funciona.dc.html#empresas" style="display:block;padding:11px 12px;border-radius:9px;font-size:14px" style-hover="background:#FFF3DF">Como funciona para empresas</a>
+          </div>
+        </sc-if>
+      </div>
+      <a href="Pacotes.dc.html#pacotes" style="font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;color:#FFF3DF" style-hover="color:#FFB72B">Pacotes</a>
+      <a href="Assinatura.dc.html" style="font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;color:#FFF3DF" style-hover="color:#FFB72B">Assinatura</a>
+    </nav>
+
+    <a href="#" aria-label="seuchef — página inicial" style="font-family:Sora,sans-serif;font-weight:800;font-size:{{ logoSize }};letter-spacing:-0.049em;text-transform:lowercase;line-height:1;flex:none;color:#FFF3DF" style-hover="color:#FFF3DF">seuchef<span style="color:#FFB72B">.</span></a>
+
+    <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;flex:1 1 0;min-width:0;order:2">
+      <sc-if value="{{ deslogado }}" hint-placeholder-val="{{ true }}">
+        <a href="Entrar e Cadastrar.dc.html" style="display:{{ navDisplay }};font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;padding:10px 14px;color:#FFF3DF" style-hover="color:#FFB72B">Entrar</a>
+        <a href="Entrar e Cadastrar.dc.html?modo=cadastro" style="display:{{ navDisplay }};font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;background:#FFB72B;color:#1F1F1F;padding:12px 18px;border-radius:10px" style-hover="background:#FFC94F">Cadastrar</a>
+      </sc-if>
+      <sc-if value="{{ logado }}" hint-placeholder-val="{{ false }}">
+        <div style="display:{{ navDisplay }};align-items:center;gap:10px">
+          <a href="{{ contaHref }}" aria-label="Notificações" style="position:relative;width:44px;height:44px;border-radius:11px;border:1px solid rgba(255,243,223,0.22);display:flex;align-items:center;justify-content:center;color:#FFF3DF" style-hover="border-color:#FFB72B;color:#FFB72B">
+            <span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">notifications</span>
+            <span style="position:absolute;top:8px;right:9px;width:8px;height:8px;border-radius:50%;background:#FFB72B;display:{{ alertaDot }}"></span>
+          </a>
+          <div style="position:relative">
+            <button type="button" onClick="{{ toggleConta }}" aria-expanded="{{ contaOpen }}" style="display:flex;align-items:center;gap:9px;height:44px;padding:0 12px 0 6px;border:1px solid rgba(255,243,223,0.22);border-radius:11px;background:transparent;cursor:pointer;color:#FFF3DF" style-hover="border-color:#FFB72B">
+              <span style="width:32px;height:32px;border-radius:9px;background:#FFB72B;color:#1F1F1F;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:13px;letter-spacing:0.02em">{{ contaIniciais }}</span>
+              <span style="font-family:Sora,sans-serif;font-weight:600;font-size:14px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ contaNome }}</span>
+              <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1;opacity:0.7" aria-hidden="true">expand_more</span>
+            </button>
+            <sc-if value="{{ contaOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:52px;right:0;width:268px;background:#FFFFFF;border:1px solid rgba(31,31,31,0.12);border-radius:14px;box-shadow:0 18px 44px rgba(31,31,31,0.16);padding:8px;z-index:80">
+                <div style="padding:10px 12px 12px;border-bottom:1px solid rgba(31,31,31,0.08);margin-bottom:6px">
+                  <div style="font-family:Sora,sans-serif;font-weight:700;font-size:14.5px">{{ contaNome }}</div>
+                  <div style="font-size:12.5px;color:#6B6560;margin-top:2px">{{ contaSub }}</div>
+                </div>
+                <sc-for list="{{ contaMenu }}" as="m" hint-placeholder-count="4">
+                  <a href="{{ m.href }}" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:9px;font-size:14px" style-hover="background:#FFF3DF">
+                    <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1;color:#6B6560" aria-hidden="true">{{ m.icon }}</span>{{ m.label }}
+                  </a>
+                </sc-for>
+                <button type="button" onClick="{{ sair }}" style="width:100%;display:flex;align-items:center;gap:10px;padding:11px 12px;margin-top:4px;border:0;border-top:1px solid rgba(31,31,31,0.08);border-radius:0 0 9px 9px;background:none;cursor:pointer;font-family:Inter,sans-serif;font-size:14px;color:#C94219;text-align:left">
+                  <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">logout</span>Sair
+                </button>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+      <button type="button" onClick="{{ toggleMenu }}" aria-label="Abrir menu" aria-expanded="{{ menuOpen }}" style="display:{{ burgerDisplay }};align-items:center;justify-content:center;width:46px;height:46px;border:1px solid rgba(255,243,223,0.28);border-radius:11px;background:transparent;cursor:pointer;color:#FFF3DF">
+        <span style="font-family:'Material Symbols Rounded';font-size:26px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="border-top:1px solid rgba(255,243,223,0.14);padding:14px 20px 22px;display:flex;flex-direction:column;gap:2px;background:#1F1F1F">
+      <a href="Como funciona.dc.html#candidatos" style="font-size:15px;padding:12px 4px;color:rgba(255,243,223,0.72)">Como funciona para candidatos</a>
+      <a href="Como funciona.dc.html#empresas" style="font-size:15px;padding:12px 4px;color:rgba(255,243,223,0.72)">Como funciona para empresas</a>
+      <a href="Pacotes.dc.html#pacotes" style="font-size:15px;padding:12px 4px;color:rgba(255,243,223,0.72)">Planos</a>
+      <sc-if value="{{ deslogado }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:10px;margin-top:12px">
+          <a href="Entrar e Cadastrar.dc.html" style="flex:1;text-align:center;font-family:Sora,sans-serif;font-weight:600;font-size:16px;padding:15px;border:1.5px solid rgba(255,243,223,0.4);border-radius:11px;color:#FFF3DF">Entrar</a>
+          <a href="Entrar e Cadastrar.dc.html?modo=cadastro" style="flex:1;text-align:center;font-family:Sora,sans-serif;font-weight:600;font-size:16px;padding:15px;background:#FFB72B;border-radius:11px">Cadastrar</a>
+        </div>
+      </sc-if>
+      <sc-if value="{{ logado }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:14px;border-top:1px solid rgba(255,243,223,0.14);padding-top:14px;display:flex;flex-direction:column;gap:2px">
+          <div style="display:flex;align-items:center;gap:11px;padding:6px 4px 12px">
+            <span style="width:40px;height:40px;border-radius:11px;background:#FFB72B;color:#1F1F1F;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:15px">{{ contaIniciais }}</span>
+            <span style="display:flex;flex-direction:column">
+              <span style="font-family:Sora,sans-serif;font-weight:700;font-size:15.5px;color:#FFF3DF">{{ contaNome }}</span>
+              <span style="font-size:12.5px;color:rgba(255,243,223,0.6)">{{ contaSub }}</span>
+            </span>
+          </div>
+          <sc-for list="{{ contaMenu }}" as="m" hint-placeholder-count="4">
+            <a href="{{ m.href }}" style="display:flex;align-items:center;gap:10px;font-size:15px;padding:13px 4px;color:rgba(255,243,223,0.82)">
+              <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1;opacity:0.7" aria-hidden="true">{{ m.icon }}</span>{{ m.label }}
+            </a>
+          </sc-for>
+          <button type="button" onClick="{{ sair }}" style="display:flex;align-items:center;gap:10px;font-size:15px;padding:13px 4px;border:0;background:none;cursor:pointer;color:#FFB72B;font-family:Inter,sans-serif;text-align:left">
+            <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">logout</span>Sair
+          </button>
+        </div>
+      </sc-if>
+      <a href="https://api.whatsapp.com/send?phone=5511921281639" style="margin-top:14px;display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,243,223,0.72)">
+        <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">chat</span>Falar no WhatsApp</a>
+    </div>
+  </sc-if>
+</header>
+
+<main style="max-width:1600px;margin:0 auto;padding:0 20px 60px">
+
+  <sc-if value="{{ isCandidato }}" hint-placeholder-val="{{ false }}">
+    <section aria-label="Seu painel de candidato" style="margin-top:22px;background:#FFF3DF;border-radius:18px;padding:20px 22px;display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between">
+      <div style="min-width:220px">
+        <h2 style="font-family:Sora,sans-serif;font-weight:800;font-size:21px;margin:0 0 4px;letter-spacing:-0.02em">Olá, {{ primeiroNome }}</h2>
+        <p style="margin:0;font-size:14px;color:#6B6560">Currículo 80% completo, complete para aumentar suas chances de ser selecionado.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:26px;align-items:center">
+        <a href="Painel Candidato.dc.html" style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-family:Sora,sans-serif;font-weight:800;font-size:24px;line-height:1">4</span>
+          <span style="font-size:12.5px;color:#6B6560">candidaturas ativas</span>
+        </a>
+        <a href="Painel Candidato.dc.html" style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-family:Sora,sans-serif;font-weight:800;font-size:24px;line-height:1">2</span>
+          <span style="font-size:12.5px;color:#6B6560">vagas salvas</span>
+        </a>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="Painel Candidato.dc.html" style="height:46px;padding:0 18px;border-radius:11px;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;display:flex;align-items:center" style-hover="background:#3A3A3A;color:#FFF3DF">Minhas candidaturas</a>
+          <a href="Painel Candidato.dc.html" style="height:46px;padding:0 18px;border-radius:11px;border:1.5px solid rgba(31,31,31,0.2);font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;display:flex;align-items:center" style-hover="border-color:#1F1F1F">Editar currículo</a>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isEmpresa }}" hint-placeholder-val="{{ false }}">
+    <section aria-label="Seu painel de empresa" style="margin-top:22px;background:#1F1F1F;color:#FFF3DF;border-radius:18px;padding:20px 22px;display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between">
+      <div style="min-width:220px">
+        <h2 style="font-family:Sora,sans-serif;font-weight:800;font-size:21px;margin:0 0 4px;letter-spacing:-0.02em;color:#FFF3DF">Olá, {{ primeiroNome }}</h2>
+        <p style="margin:0;font-size:14px;color:rgba(255,243,223,0.66)">Você tem 2 créditos de publicação disponíveis.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:26px;align-items:center">
+        <a href="Painel Empresa.dc.html" style="display:flex;flex-direction:column;gap:2px;color:#FFF3DF" style-hover="color:#FFB72B">
+          <span style="font-family:Sora,sans-serif;font-weight:800;font-size:24px;line-height:1">3</span>
+          <span style="font-size:12.5px;color:rgba(255,243,223,0.6)">vagas ativas</span>
+        </a>
+        <a href="Painel Empresa.dc.html" style="display:flex;flex-direction:column;gap:2px;color:#FFB72B" style-hover="color:#FFC94F">
+          <span style="font-family:Sora,sans-serif;font-weight:800;font-size:24px;line-height:1">12</span>
+          <span style="font-size:12.5px;color:rgba(255,243,223,0.6)">currículos novos</span>
+        </a>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="Painel Empresa.dc.html#publicar" style="height:46px;padding:0 18px;border-radius:11px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;display:flex;align-items:center" style-hover="background:#FFC94F">Publicar vaga</a>
+          <a href="Painel Empresa.dc.html" style="height:46px;padding:0 18px;border-radius:11px;border:1.5px solid rgba(255,243,223,0.3);color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;display:flex;align-items:center" style-hover="border-color:#FFB72B;color:#FFB72B">Ver currículos</a>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <section id="busca" aria-labelledby="busca-h" style="margin-top:{{ gapLg }}">
+    <h1 id="busca-h" style="font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1Size }};line-height:1.05;letter-spacing:-0.03em;margin:0 0 8px;text-align:center;text-wrap:pretty">Encontre sua próxima vaga sem enrolação!</h1>
+    <p style="margin:0 auto 22px;font-size:15px;color:#6B6560;text-align:center;margin-bottom:44px">Vagas em restaurantes, bares, padarias, cafés, hotéis e cozinhas.</p>
+
+
+    <div aria-label="Escolha sua área" style="margin-top:8px">
+      <div style="display:flex;flex-wrap:wrap;gap:{{ catGap }};justify-content:{{ catJustify }}">
+        <sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
+          <button type="button" onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="flex:none;display:flex;flex-direction:column;align-items:center;gap:9px;width:{{ catW }};padding:0;border:0;background:none;cursor:pointer">
+            <span style="width:{{ catIcoBox }};height:{{ catIcoBox }};border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{ c.icoBg }};box-shadow:{{ c.ring }};transition:transform .12s" style-hover="transform:translateY(-3px)">
+              <span style="font-family:'Material Symbols Rounded';font-size:{{ catIcoSize }};font-variation-settings:'FILL' 1;line-height:1;color:{{ c.icoColor }}" aria-hidden="true">{{ c.icon }}</span>
+            </span>
+            <span style="font-family:Sora,sans-serif;font-weight:{{ c.weight }};font-size:{{ catLabelSize }};letter-spacing:0.01em;color:{{ c.fg }};text-align:center">{{ c.label }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div aria-label="Filtros" style="margin-top:18px;margin-bottom:26px;position:relative;z-index:30">
+    <div style="display:flex;gap:9px;flex-wrap:wrap;padding-bottom:4px;align-items:center;justify-content:center">
+      <div style="position:relative;flex:none">
+        <button type="button" onClick="{{ popCargo }}" style="display:flex;align-items:center;gap:7px;height:44px;padding:0 15px;border-radius:11px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;border:{{ cargoBorder }};background:{{ cargoBg }};color:#1F1F1F">
+          {{ cargoLabel }}
+          <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1;opacity:0.5" aria-hidden="true">expand_more</span>
+        </button>
+        <sc-if value="{{ isCargo }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:52px;left:0;width:280px;background:#FFFFFF;border:1px solid rgba(31,31,31,0.12);border-radius:14px;box-shadow:0 18px 44px rgba(31,31,31,0.16);padding:8px;z-index:80">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 4px 6px 10px">
+              <span style="font-family:Sora,sans-serif;font-weight:700;font-size:13px;color:#6B6560">Cargo</span>
+              <button type="button" onClick="{{ closePop }}" aria-label="Fechar filtro de cargo" style="width:30px;height:30px;border:0;border-radius:8px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6B6560" style-hover="background:#FFF3DF;color:#1F1F1F">
+                <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">close</span>
+              </button>
+            </div>
+            <div style="max-height:290px;overflow-y:auto">
+            <sc-for list="{{ cargoOpts }}" as="o" hint-placeholder-count="6">
+              <button type="button" onClick="{{ o.pick }}" style="width:100%;display:flex;align-items:center;gap:10px;padding:11px 10px;border:0;background:none;border-radius:9px;cursor:pointer;font-family:Inter,sans-serif;font-size:14.5px;text-align:left;color:#1F1F1F" style-hover="background:#FFF3DF">
+                <span style="width:19px;height:19px;border-radius:5px;flex:none;border:1.5px solid rgba(31,31,31,0.25);background:{{ o.box }};display:flex;align-items:center;justify-content:center;color:#1F1F1F;font-family:'Material Symbols Rounded';font-size:15px;font-variation-settings:'FILL' 1" aria-hidden="true">{{ o.check }}</span>
+                {{ o.label }}
+              </button>
+            </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="position:relative;flex:none">
+        <button type="button" onClick="{{ popSal }}" style="display:flex;align-items:center;gap:7px;height:44px;padding:0 15px;border-radius:11px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;border:{{ salBorder }};background:{{ salBg }};color:#1F1F1F">
+          <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">payments</span>{{ salLabel }}
+          <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1;opacity:0.5" aria-hidden="true">expand_more</span>
+        </button>
+        <sc-if value="{{ isSal }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:52px;left:0;width:328px;background:#FFFFFF;border:1px solid rgba(31,31,31,0.12);border-radius:14px;box-shadow:0 18px 44px rgba(31,31,31,0.16);padding:18px;z-index:80">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+              <span style="font-family:Sora,sans-serif;font-weight:700;font-size:16px">{{ salRangeLabel }}</span>
+              <button type="button" onClick="{{ closePop }}" aria-label="Fechar filtro de salário" style="width:30px;height:30px;margin:-4px -6px 0 0;border:0;border-radius:8px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6B6560" style-hover="background:#FFF3DF;color:#1F1F1F">
+                <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">close</span>
+              </button>
+            </div>
+            <div ref="{{ trackRef }}" onPointerDown="{{ trackDown }}" style="position:relative;height:34px;cursor:pointer;touch-action:none">
+              <div style="position:absolute;top:15px;left:0;right:0;height:5px;border-radius:3px;background:rgba(31,31,31,0.12)"></div>
+              <div style="position:absolute;top:15px;height:5px;border-radius:3px;background:#FFB72B;left:{{ salLeft }};right:{{ salRight }}"></div>
+              <div role="slider" tabIndex="0" aria-label="Salário mínimo" aria-valuenow="{{ salMinV }}" onKeyDown="{{ keyMin }}" onPointerDown="{{ downMin }}" style="position:absolute;top:6px;left:{{ salLeft }};width:24px;height:24px;margin-left:-12px;border-radius:50%;background:#1F1F1F;border:4px solid #FFB72B;cursor:grab;touch-action:none"></div>
+              <div role="slider" tabIndex="0" aria-label="Salário máximo" aria-valuenow="{{ salMaxV }}" onKeyDown="{{ keyMax }}" onPointerDown="{{ downMax }}" style="position:absolute;top:6px;right:{{ salRight }};width:24px;height:24px;margin-right:-12px;border-radius:50%;background:#1F1F1F;border:4px solid #FFB72B;cursor:grab;touch-action:none"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#9A938C;margin-top:2px">
+              <span>R$ 1.200</span><span>R$ 8.000+</span>
+            </div>
+            <div style="display:flex;gap:9px;margin-top:16px">
+              <button type="button" onClick="{{ clearSal }}" style="flex:1;height:44px;border:1.5px solid rgba(31,31,31,0.16);border-radius:10px;background:#FFFFFF;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;cursor:pointer">Limpar</button>
+              <button type="button" onClick="{{ applySal }}" style="flex:1.4;height:44px;border:0;border-radius:10px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;cursor:pointer">Aplicar</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="position:relative;flex:none">
+        <button type="button" onClick="{{ popCtr }}" style="display:flex;align-items:center;gap:7px;height:44px;padding:0 15px;border-radius:11px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;border:{{ ctrBorder }};background:{{ ctrBg }};color:#1F1F1F">
+          <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">task_alt</span>{{ ctrLabel }}
+          <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1;opacity:0.5" aria-hidden="true">expand_more</span>
+        </button>
+        <sc-if value="{{ isCtr }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:52px;left:0;width:250px;background:#FFFFFF;border:1px solid rgba(31,31,31,0.12);border-radius:14px;box-shadow:0 18px 44px rgba(31,31,31,0.16);padding:8px;z-index:80">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 4px 6px 10px">
+              <span style="font-family:Sora,sans-serif;font-weight:700;font-size:13px;color:#6B6560">Tipo de contrato</span>
+              <button type="button" onClick="{{ closePop }}" aria-label="Fechar filtro de contrato" style="width:30px;height:30px;border:0;border-radius:8px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6B6560" style-hover="background:#FFF3DF;color:#1F1F1F">
+                <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">close</span>
+              </button>
+            </div>
+            <sc-for list="{{ ctrOpts }}" as="o" hint-placeholder-count="4">
+              <button type="button" onClick="{{ o.pick }}" style="width:100%;display:flex;align-items:center;gap:10px;padding:11px 10px;border:0;background:none;border-radius:9px;cursor:pointer;font-family:Inter,sans-serif;font-size:14.5px;text-align:left;color:#1F1F1F" style-hover="background:#FFF3DF">
+                <span style="width:19px;height:19px;border-radius:5px;flex:none;border:1.5px solid rgba(31,31,31,0.25);background:{{ o.box }};display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:15px;font-variation-settings:'FILL' 1" aria-hidden="true">{{ o.check }}</span>
+                {{ o.label }}
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+
+      <button type="button" onClick="{{ openMore }}" style="flex:none;display:flex;align-items:center;gap:7px;height:44px;padding:0 15px;border-radius:11px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;border:{{ moreBorder }};background:{{ moreBg }};color:#1F1F1F">
+        <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">tune</span>Mais filtros{{ moreCount }}
+      </button>
+    </div>
+
+    <sc-if value="{{ hasFilters }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-top:12px">
+        <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="2">
+          <button type="button" onClick="{{ ch.remove }}" aria-label="{{ ch.aria }}" style="display:flex;align-items:center;gap:7px;height:34px;padding:0 8px 0 12px;border-radius:9px;border:0;background:#FFF3DF;cursor:pointer;font-family:Inter,sans-serif;font-weight:700;font-size:12.5px;color:#1F1F1F">
+            {{ ch.label }}
+            <span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;opacity:0.6" aria-hidden="true">close</span>
+          </button>
+        </sc-for>
+        <button type="button" onClick="{{ clearAll }}" style="height:34px;padding:0 10px;border:0;background:none;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:13px;color:#C94219;text-decoration:underline">Limpar filtros</button>
+      </div>
+    </sc-if>
+    </div>
+
+    <div style="background:#1F1F1F;border-radius:18px;padding:14px;display:flex;flex-direction:{{ searchDir }};gap:10px;align-items:stretch">
+      <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFFFF;border-radius:12px;padding:0 8px 0 14px;height:64px;min-width:0">
+        <span style="font-family:'Material Symbols Rounded';font-size:21px;font-variation-settings:'FILL' 1;line-height:1;color:#6B6560" aria-hidden="true">search</span>
+        <label for="f-busca" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Buscar por código, cargo, palavra-chave, cidade ou bairro</label>
+        <input id="f-busca" type="text" value="{{ q }}" onChange="{{ onQ }}" onKeyDown="{{ onKey }}" placeholder="Ex.: Cozinheiro em São Paulo no bairro da Mooca" style="flex:1;border:0;outline:none;font-family:Inter,sans-serif;font-size:17px;color:#1F1F1F;background:transparent;min-width:0">
+        <sc-if value="{{ hasQ }}" hint-placeholder-val="{{ false }}">
+          <button type="button" onClick="{{ clearQ }}" aria-label="Limpar busca" style="width:40px;height:40px;flex:none;border:0;background:none;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6B6560" style-hover="background:#FFF3DF">
+            <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">close</span>
+          </button>
+        </sc-if>
+      </div>
+      <div style="display:flex;gap:10px;flex:none">
+        <button type="button" onClick="{{ doSearch }}" style="flex:1;height:64px;padding:0 26px;border:0;border-radius:12px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:16px;cursor:pointer;white-space:nowrap" style-hover="background:#FFC94F">Buscar</button>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px">
+      <span style="font-size:13px;color:#6B6560">Busque como você fala:</span>
+      <sc-for list="{{ exemplos }}" as="e" hint-placeholder-count="3">
+        <button type="button" onClick="{{ e.pick }}" style="height:32px;padding:0 12px;border-radius:8px;border:1px solid rgba(31,31,31,0.14);background:#FFFFFF;cursor:pointer;font-family:Inter,sans-serif;font-size:13px;color:#1F1F1F" style-hover="background:#FFF3DF;border-color:#FFB72B">{{ e.label }}</button>
+      </sc-for>
+    </div>
+
+  </section>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:26px;flex-wrap:wrap">
+    <div>
+      <p style="margin:0;font-family:Inter,sans-serif;font-weight:700;font-size:14.5px;color:#1F1F1F">{{ countLabel }}</p>
+    </div>
+    <div style="display:flex;gap:8px;background:#FFF3DF;padding:4px;border-radius:12px;flex:none">
+      <button type="button" onClick="{{ goLista }}" aria-pressed="{{ isLista }}" style="display:flex;align-items:center;gap:6px;height:40px;padding:0 16px;border:0;border-radius:9px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14px;background:{{ listaBg }};color:#1F1F1F;box-shadow:{{ listaShadow }}">
+        <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">view_agenda</span>Lista</button>
+      <button type="button" onClick="{{ openMap }}" aria-pressed="{{ isMapa }}" style="display:flex;align-items:center;gap:6px;height:40px;padding:0 16px;border:0;border-radius:9px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14px;background:{{ mapaBg }};color:#1F1F1F;box-shadow:{{ mapaShadow }}">
+        <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">map</span>Mapa</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:20px;margin-top:18px;align-items:flex-start">
+    <div style="flex:1;min-width:0;display:{{ listDisplay }}">
+      <sc-if value="{{ showError }}" hint-placeholder-val="{{ false }}">
+        <div style="border:1px solid rgba(233,64,42,0.3);background:rgba(233,64,42,0.05);border-radius:16px;padding:36px 24px;text-align:center">
+          <span style="font-family:'Material Symbols Rounded';font-size:38px;font-variation-settings:'FILL' 1;line-height:1;color:#E9402A" aria-hidden="true">wifi_off</span>
+          <h3 style="font-family:Sora,sans-serif;font-weight:700;font-size:19px;margin:10px 0 6px">Não conseguimos carregar as vagas</h3>
+          <p style="margin:0 0 18px;font-size:14.5px;color:#6B6560">Verifique sua conexão e tente de novo. Seus filtros continuam salvos.</p>
+          <button type="button" onClick="{{ retry }}" style="height:48px;padding:0 24px;border:0;border-radius:11px;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:15px;cursor:pointer">Tentar novamente</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="border:1px dashed rgba(31,31,31,0.18);border-radius:16px;padding:44px 24px;text-align:center">
+          <span style="font-family:'Material Symbols Rounded';font-size:38px;font-variation-settings:'FILL' 1;line-height:1;color:#FFB72B" aria-hidden="true">search_off</span>
+          <h3 style="font-family:Sora,sans-serif;font-weight:700;font-size:19px;margin:10px 0 6px">Nenhuma vaga com esses filtros</h3>
+          <p style="margin:0 0 18px;font-size:14.5px;color:#6B6560">Tente ampliar a região, mudar o cargo ou baixar o salário mínimo.</p>
+          <button type="button" onClick="{{ clearAll }}" style="height:48px;padding:0 24px;border:0;border-radius:11px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:15px;cursor:pointer">Limpar filtros</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showGrid }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:{{ gridCols }};grid-auto-flow:row dense;gap:16px">
+          <sc-for list="{{ feed }}" as="v" hint-placeholder-count="9">
+            <div style="position:relative;grid-column:{{ v.span }}">
+              <sc-if value="{{ v.isBanner }}" hint-placeholder-val="{{ false }}">
+                <a href="#campanha" aria-label="Banner: campanha seuchef" style="display:block;height:{{ v.bannerH }};min-height:{{ v.bannerMin }};border-radius:16px;overflow:hidden;background:#FFF3DF;background-image:repeating-linear-gradient(135deg,rgba(31,31,31,0.055) 0 10px,rgba(31,31,31,0) 10px 20px)">
+                  <div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:22px">
+                    <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#6B6560">{{ v.bannerSlot }}</span>
+                    <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#9A938C">arte de marketing · 1 posição do grid</span>
+                  </div>
+                </a>
+              </sc-if>
+
+              <sc-if value="{{ v.isVaga }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ v.open }}" style="height:100%;background:#FFFFFF;border:1.5px solid {{ v.cardBorder }};border-radius:16px;padding:15px;display:flex;flex-direction:column;gap:11px;cursor:pointer;position:relative;box-shadow:{{ v.cardShadow }};transition:box-shadow .15s,transform .15s" style-hover="box-shadow:0 12px 28px rgba(31,31,31,0.12);transform:translateY(-2px)">
+                  <span title="Código da vaga" style="position:absolute;top:13px;right:14px;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;font-weight:700;letter-spacing:0.02em;color:#9A938C">{{ v.ref }}</span>
+                  <div style="display:flex;align-items:flex-start;gap:11px">
+                    <div style="width:64px;height:64px;border-radius:14px;flex:none;background:{{ v.logoBg }};display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.049em;color:{{ v.logoFg }};overflow:hidden">{{ v.logoText }}<span style="color:#FFB72B;display:{{ v.logoDot }}">.</span></div>
+                    <div style="flex:1;min-width:0">
+                      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px;padding-right:62px;min-height:{{ v.badgeH }}">
+                        <sc-if value="{{ v.boost }}" hint-placeholder-val="{{ false }}">
+                          <span style="display:flex;align-items:center;gap:4px;background:#1F1F1F;color:#FFFFFF;font-family:Sora,sans-serif;font-weight:700;font-size:11px;padding:4px 8px;border-radius:6px;letter-spacing:0.02em">
+                            <span style="font-family:'Material Symbols Rounded';font-size:14px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">bolt</span>BOOST</span>
+                        </sc-if>
+                        <sc-if value="{{ v.destaque }}" hint-placeholder-val="{{ false }}">
+                          <span style="display:flex;align-items:center;gap:4px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:700;font-size:11px;padding:4px 8px;border-radius:6px;letter-spacing:0.02em">
+                            <span style="font-family:'Material Symbols Rounded';font-size:14px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">star</span>Destaque</span>
+                        </sc-if>
+                        <span style="display:flex;align-items:center;gap:5px;font-family:Inter,sans-serif;font-weight:700;font-size:11px;padding:4px 8px;border-radius:6px;background:{{ v.catColor }};color:#FFFFFF">{{ v.catLabel }}</span>
+                      </div>
+                      <h3 style="margin:0;font-family:Sora,sans-serif;font-weight:700;font-size:18.5px;line-height:1.2;letter-spacing:-0.015em;text-wrap:pretty">
+                        <a href="Página da Vaga.dc.html" style="color:#1F1F1F">{{ v.cargo }}</a>
+                      </h3>
+                      <p style="margin:4px 0 0;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">{{ v.empresa }}</p>
+                    </div>
+                  </div>
+
+                  <div style="display:flex;flex-direction:column;gap:7px">
+                    <div style="display:flex;align-items:center;gap:7px;font-family:Inter,sans-serif;font-size:13.5px;color:#1F1F1F">
+                      <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">location_on</span>{{ v.local }}
+                    </div>
+                    <div style="display:flex;align-items:center;gap:7px;font-family:Inter,sans-serif;font-weight:700;font-size:14px;color:{{ v.salColor }}">
+                      <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">payments</span>{{ v.salario }}
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">
+                      <span style="display:flex;align-items:center;gap:6px">
+                        <span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">task_alt</span>{{ v.contrato }}</span>
+                      <span style="display:flex;align-items:center;gap:6px">
+                        <span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">schedule</span>{{ v.turno }}</span>
+                    </div>
+                  </div>
+
+                  <div style="margin-top:auto;padding-top:11px;border-top:1px solid rgba(31,31,31,0.09);display:flex;align-items:center;gap:10px">
+                    <div style="flex:1;min-width:0">
+                      <p style="margin:0;font-family:Inter,sans-serif;font-weight:700;font-size:12.5px;color:#1F1F1F">{{ v.scoreLabel }}</p>
+                      <p style="margin:2px 0 0;font-family:Inter,sans-serif;font-size:12px;color:#9A938C">{{ v.publicado }}</p>
+                    </div>
+                    <button type="button" onClick="{{ v.share }}" aria-label="Compartilhar vaga de {{ v.cargo }}" style="width:40px;height:40px;flex:none;border:0;border-radius:10px;background:#FFFFFF;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6B6560" style-hover="background:#FFF3DF;color:#1F1F1F">
+                      <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">share</span>
+                    </button>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ v.sharing }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;right:14px;bottom:62px;width:210px;background:#FFFFFF;border:1px solid rgba(31,31,31,0.12);border-radius:12px;box-shadow:0 16px 36px rgba(31,31,31,0.18);padding:6px;z-index:40">
+                  <button type="button" onClick="{{ v.wpp }}" style="width:100%;display:flex;align-items:center;gap:9px;padding:11px 10px;border:0;background:none;border-radius:8px;cursor:pointer;font-family:Inter,sans-serif;font-size:14px;text-align:left;color:#1F1F1F" style-hover="background:#FFF3DF">
+                    <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">chat</span>WhatsApp</button>
+                  <button type="button" onClick="{{ v.copy }}" style="width:100%;display:flex;align-items:center;gap:9px;padding:11px 10px;border:0;background:none;border-radius:8px;cursor:pointer;font-family:Inter,sans-serif;font-size:14px;text-align:left;color:#1F1F1F" style-hover="background:#FFF3DF">
+                    <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">link</span>Copiar link</button>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+
+          <sc-for list="{{ skeletons }}" as="s" hint-placeholder-count="0">
+            <div aria-hidden="true" style="border:1.5px solid rgba(31,31,31,0.08);border-radius:16px;padding:16px;min-height:{{ s.h }};display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:11px">
+                <div style="width:46px;height:46px;border-radius:11px;background:linear-gradient(90deg,#F1EEE9 25%,#F8F6F2 50%,#F1EEE9 75%);background-size:200% 100%;animation:shim 1.3s linear infinite"></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+                  <div style="height:14px;width:70%;border-radius:5px;background:linear-gradient(90deg,#F1EEE9 25%,#F8F6F2 50%,#F1EEE9 75%);background-size:200% 100%;animation:shim 1.3s linear infinite"></div>
+                  <div style="height:11px;width:45%;border-radius:5px;background:#F1EEE9"></div>
+                </div>
+              </div>
+              <div style="height:11px;width:60%;border-radius:5px;background:#F1EEE9"></div>
+              <div style="height:11px;width:40%;border-radius:5px;background:#F1EEE9"></div>
+              <div style="margin-top:auto;height:44px;border-radius:10px;background:linear-gradient(90deg,#F1EEE9 25%,#F8F6F2 50%,#F1EEE9 75%);background-size:200% 100%;animation:shim 1.3s linear infinite"></div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div ref="{{ sentinelRef }}" style="height:1px"></div>
+        <p style="text-align:center;margin:24px 0 0;font-family:Inter,sans-serif;font-size:13px;color:#9A938C">{{ endLabel }}</p>
+      </sc-if>
+    </div>
+
+    <div style="display:{{ mapDisplay }};flex:0 0 45%;position:sticky;top:{{ mapTop }};height:{{ mapH }};border-radius:16px;overflow:hidden;border:1.5px solid rgba(31,31,31,0.12);background:#FFF3DF">
+      <sc-if value="{{ mapLoading }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#FFF3DF;z-index:20">
+          <span style="font-family:'Material Symbols Rounded';font-size:32px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">map</span>
+          <span style="font-family:Inter,sans-serif;font-size:13.5px;color:#6B6560">Carregando o mapa…</span>
+        </div>
+      </sc-if>
+      <div onPointerDown="{{ mapDown }}" style="position:absolute;inset:0;cursor:grab;touch-action:none;background-color:#FBF7EF;background-image:linear-gradient(rgba(31,31,31,0.055) 1px,transparent 1px),linear-gradient(90deg,rgba(31,31,31,0.055) 1px,transparent 1px),linear-gradient(rgba(31,31,31,0.11) 1px,transparent 1px),linear-gradient(90deg,rgba(31,31,31,0.11) 1px,transparent 1px);background-size:28px 28px,28px 28px,140px 140px,140px 140px;background-position:{{ mapBgPos }}">
+        <sc-for list="{{ markers }}" as="m" hint-placeholder-count="0">
+          <button type="button" onClick="{{ m.pick }}" aria-label="Vaga: {{ m.cargo }} em {{ m.local }}" style="position:absolute;left:{{ m.x }};top:{{ m.y }};transform:translate(-50%,-100%);border:0;cursor:pointer;background:{{ m.bg }};color:{{ m.fg }};font-family:Sora,sans-serif;font-weight:700;font-size:12.5px;padding:7px 11px;border-radius:9px;box-shadow:0 4px 12px rgba(31,31,31,0.22);white-space:nowrap;z-index:{{ m.z }}">{{ m.pin }}</button>
+        </sc-for>
+        <sc-if value="{{ hasSelected }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:16px;right:16px;bottom:16px;background:#FFFFFF;border:1.5px solid rgba(31,31,31,0.14);border-radius:14px;box-shadow:0 16px 36px rgba(31,31,31,0.18);padding:14px;display:flex;align-items:center;gap:14px;z-index:30">
+            <div style="flex:1;min-width:0">
+              <h4 style="margin:0;font-family:Sora,sans-serif;font-weight:700;font-size:16.5px;letter-spacing:-0.01em">{{ sel.cargo }}</h4>
+              <p style="margin:3px 0 0;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">{{ sel.empresa }}</p>
+              <p style="margin:6px 0 0;font-family:Inter,sans-serif;font-weight:700;font-size:14px">{{ sel.salario }}</p>
+            </div>
+            <a href="Página da Vaga.dc.html" style="flex:none;height:44px;padding:0 18px;border-radius:10px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;display:flex;align-items:center">Ver vaga</a>
+            <button type="button" onClick="{{ closeSel }}" aria-label="Fechar" style="position:absolute;top:-10px;right:-10px;width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(31,31,31,0.14);background:#FFFFFF;cursor:pointer;display:flex;align-items:center;justify-content:center">
+              <span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">close</span>
+            </button>
+          </div>
+        </sc-if>
+      </div>
+      <sc-if value="{{ mapEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:26px;z-index:15">
+          <span style="font-family:'Material Symbols Rounded';font-size:32px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">location_off</span>
+          <span style="font-family:Sora,sans-serif;font-weight:700;font-size:16px">Nenhuma vaga nesta área</span>
+          <span style="font-family:Inter,sans-serif;font-size:13.5px;color:#6B6560">Afaste o mapa ou ajuste os filtros.</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ mapCTA }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ searchArea }}" style="position:absolute;top:14px;left:50%;transform:translateX(-50%);height:44px;padding:0 20px;border:0;border-radius:22px;white-space:nowrap;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;cursor:pointer;box-shadow:0 8px 22px rgba(31,31,31,0.28);display:flex;align-items:center;gap:8px;z-index:35">
+          <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1;color:#FFB72B" aria-hidden="true">refresh</span>{{ mapCTALabel }}</button>
+      </sc-if>
+    </div>
+  </div>
+</main>
+
+<sc-if value="{{ moreOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:100;background:rgba(31,31,31,0.45);display:flex;justify-content:{{ drawerJustify }};align-items:{{ drawerAlign }}">
+    <div style="background:#FFFFFF;width:{{ drawerW }};max-width:100%;height:{{ drawerH }};max-height:92vh;border-radius:{{ drawerRadius }};display:flex;flex-direction:column">
+      <div style="padding:20px 22px;border-bottom:1px solid rgba(31,31,31,0.10);display:flex;align-items:center;justify-content:space-between">
+        <h2 style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.02em">Mais filtros</h2>
+        <button type="button" onClick="{{ closeMore }}" aria-label="Fechar filtros" style="width:42px;height:42px;border:1px solid rgba(31,31,31,0.14);border-radius:11px;background:#FFFFFF;cursor:pointer;display:flex;align-items:center;justify-content:center">
+          <span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:22px;display:flex;flex-direction:column;gap:26px">
+        <sc-for list="{{ moreGroups }}" as="g" hint-placeholder-count="5">
+          <fieldset style="border:0;margin:0;padding:0">
+            <legend style="font-family:Sora,sans-serif;font-weight:700;font-size:15px;margin-bottom:11px;padding:0">{{ g.title }}</legend>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="3">
+                <button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height:42px;padding:0 15px;border-radius:10px;cursor:pointer;font-family:Inter,sans-serif;font-weight:700;font-size:13.5px;border:{{ o.border }};background:{{ o.bg }};color:#1F1F1F">{{ o.label }}</button>
+              </sc-for>
+            </div>
+          </fieldset>
+        </sc-for>
+      </div>
+      <div style="padding:16px 22px;border-top:1px solid rgba(31,31,31,0.10);display:flex;gap:10px">
+        <button type="button" onClick="{{ clearMore }}" style="flex:1;height:50px;border:1.5px solid rgba(31,31,31,0.16);border-radius:11px;background:#FFFFFF;font-family:Sora,sans-serif;font-weight:600;font-size:15px;cursor:pointer">Limpar</button>
+        <button type="button" onClick="{{ closeMore }}" style="flex:1.6;height:50px;border:0;border-radius:11px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:15px;cursor:pointer">{{ moreApply }}</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ copied }}" hint-placeholder-val="{{ false }}">
+  <div role="status" style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:120;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:14.5px;padding:14px 20px;border-radius:12px;box-shadow:0 12px 30px rgba(31,31,31,0.3);display:flex;align-items:center;gap:9px">
+    <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1;color:#FFB72B" aria-hidden="true">check_circle</span>Link copiado
+  </div>
+</sc-if>
+
+<dc-import name="Rodape" hint-size="100%,320px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200},&quot;sessao&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;deslogado&quot;,&quot;candidato&quot;,&quot;empresa&quot;],&quot;default&quot;:&quot;deslogado&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Sessão&quot;},&quot;forceLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;mobile&quot;,&quot;tablet&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Responsividade&quot;},&quot;demoState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;normal&quot;,&quot;carregando&quot;,&quot;vazio&quot;,&quot;erro&quot;],&quot;default&quot;:&quot;normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estados&quot;},&quot;showBanners&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estados&quot;}}">
+class Component extends DCLogic {
+  CATS = {
+    cozinha: { label: 'Cozinha', color: '#C94219', icon: 'soup_kitchen' },
+    salao: { label: 'Salão', color: '#1A7A5E', icon: 'room_service' },
+    bar: { label: 'Bar', color: '#922B3E', icon: 'local_bar' },
+    gestao: { label: 'Gestão', color: '#1E4D6B', icon: 'business_center' },
+    free: { label: 'Freelancer', color: '#7B4068', icon: 'schedule' },
+    estoque: { label: 'Estoque', color: '#8A5A22', icon: 'inventory_2' }
+  };
+
+  state = {
+    w: 1440,
+    q: '', aq: '', acity: '', sessao: null, contaOpen: false,
+    cat: null, cargos: [], contracts: [],
+    sal: [1200, 8000], salOn: false, salDraft: [1200, 8000],
+    more: { dist: null, data: null, esc: null, score: null },
+    moreOpen: false, pop: null, view: 'lista',
+    visible: 9, loading: false, error: false, booting: true,
+    shareId: null, copied: false,
+    marker: null, mapMoved: false, mapPan: { x: 0, y: 0 }, mapLoading: false
+  };
+
+  vagas = this.build();
+
+  build() {
+    const rows = [
+      ['Cozinheiro', 'Low BBQ', 'cozinha', 'Vila Madalena', 'São Paulo', 'SP', 5200, 6000, 'CLT', 'Turno jantar', 2, 91, 2, 1, 'Médio', 4],
+      ['Cozinheiro', 'Cantina da Mooca', 'cozinha', 'Mooca', 'São Paulo', 'SP', 3400, 4000, 'CLT', 'Turno jantar', 3, 89, 0, 1, 'Médio', 6],
+      ['Cozinheiro chefe de partida', 'Trattoria Bela Vista', 'cozinha', 'Mooca', 'São Paulo', 'SP', 4300, 0, 'CLT', 'Integral', 11, 82, 0, 0, 'Técnico', 7],
+      ['Auxiliar de cozinha', 'Empório Mooca', 'cozinha', 'Mooca', 'São Paulo', 'SP', 2200, 0, 'CLT', 'Manhã', 24, 77, 0, 0, 'Fundamental', 8],
+      ['Cozinheiro', 'Bar do Beco', 'cozinha', 'Pinheiros', 'São Paulo', 'SP', 3300, 3900, 'CLT', 'Turno noite', 16, 80, 0, 0, 'Médio', 5],
+      ['Garçom', 'Boteco Copa', 'salao', 'Copacabana', 'Rio de Janeiro', 'RJ', 2200, 2600, 'CLT', 'Turno noite', 8, 75, 0, 1, 'Médio', 9],
+      ['Garçom', 'Casa Botafogo', 'salao', 'Botafogo', 'Rio de Janeiro', 'RJ', 2300, 0, 'CLT', 'Tarde', 28, 71, 0, 0, 'Médio', 14],
+      ['Bartender', 'Clube Noturno Aurora', 'bar', 'Consolação', 'São Paulo', 'SP', 3400, 4100, 'PJ', 'Turno noite', 18, 84, 0, 0, 'Médio', 4],
+      ['Bartender', 'Rooftop Vista', 'bar', 'Boa Viagem', 'Recife', 'PE', 2900, 0, 'CLT', 'Turno noite', 36, 74, 0, 0, 'Médio', 10],
+      ['Auxiliar de cozinha', 'Padaria Estrela', 'cozinha', 'Tatuapé', 'São Paulo', 'SP', 2100, 0, 'CLT', 'Manhã', 5, 84, 2, 0, 'Fundamental', 7],
+      ['Garçom', 'Restaurante Terraço', 'salao', 'Ipanema', 'Rio de Janeiro', 'RJ', 2400, 2900, 'CLT', 'Turno noite', 6, 78, 1, 1, 'Médio', 12],
+      ['Bartender', 'Bar do Beco', 'bar', 'Pinheiros', 'São Paulo', 'SP', 3100, 0, 'CLT', 'Turno noite', 9, 88, 1, 1, 'Médio', 3],
+      ['Pizzaiolo', 'Forno de Pedra', 'cozinha', 'Moema', 'São Paulo', 'SP', 3600, 4200, 'CLT', 'Turno jantar', 14, 73, 0, 1, 'Fundamental', 9],
+      ['Atendente', 'Café Bica', 'salao', 'Savassi', 'Belo Horizonte', 'MG', 1800, 0, 'CLT', 'Tarde', 20, 69, 0, 0, 'Médio', 15],
+      ['Gerente de restaurante', 'Grupo Sabor', 'gestao', 'Batel', 'Curitiba', 'PR', 6500, 7800, 'CLT', 'Integral', 26, 64, 0, 1, 'Superior', 11],
+      ['Confeiteiro', 'Doce Ponto', 'cozinha', 'Boa Viagem', 'Recife', 'PE', 2800, 0, 'CLT', 'Manhã', 30, 81, 0, 0, 'Técnico', 6],
+      ['Barista', 'Café Matriz', 'bar', 'Cidade Baixa', 'Porto Alegre', 'RS', 2200, 2600, 'CLT', 'Manhã', 34, 76, 0, 0, 'Médio', 8],
+      ['Sushiman', 'Kome Sushi', 'cozinha', 'Jardins', 'São Paulo', 'SP', 4200, 0, 'CLT', 'Turno jantar', 40, 70, 0, 1, 'Médio', 5],
+      ['Padeiro', 'Pão da Esquina', 'cozinha', 'Santana', 'São Paulo', 'SP', 2600, 3000, 'CLT', 'Madrugada', 46, 87, 0, 0, 'Fundamental', 13],
+      ['Cumim', 'Bistrô Nove', 'salao', 'Leblon', 'Rio de Janeiro', 'RJ', 0, 0, 'CLT', 'Turno noite', 52, 62, 0, 0, 'Médio', 18],
+      ['Caixa', 'Lanchonete Vila', 'salao', 'Vila Mariana', 'São Paulo', 'SP', 1900, 0, 'CLT', 'Tarde', 58, 66, 0, 0, 'Médio', 10],
+      ['Chapeiro', 'Burger Cinco', 'cozinha', 'Setor Bueno', 'Goiânia', 'GO', 2300, 0, 'CLT', 'Turno noite', 66, 74, 0, 0, 'Fundamental', 22],
+      ['Balconista', 'Padaria Nova Luz', 'salao', 'Meireles', 'Fortaleza', 'CE', 1750, 0, 'CLT', 'Manhã', 74, 60, 0, 0, 'Médio', 25],
+      ['Sous chef', 'Casa Marés', 'cozinha', 'Barra', 'Salvador', 'BA', 5800, 0, 'CLT', 'Integral', 80, 83, 1, 1, 'Técnico', 16],
+      ['Garçom (freelancer)', 'Eventos Prato Cheio', 'free', 'Centro', 'São Paulo', 'SP', 220, 0, 'Freelancer', 'Fim de semana', 88, 79, 0, 0, 'Fundamental', 2],
+      ['Bartender (freelancer)', 'Buffet Colher', 'free', 'Asa Sul', 'Brasília', 'DF', 280, 0, 'Freelancer', 'Fim de semana', 96, 72, 0, 0, 'Médio', 30],
+      ['Assistente administrativo', 'Grupo Sabor', 'gestao', 'Batel', 'Curitiba', 'PR', 2900, 0, 'CLT', 'Integral', 104, 58, 0, 0, 'Superior', 12],
+      ['Auxiliar de cozinha', 'Cantina Bella', 'cozinha', 'Bela Vista', 'São Paulo', 'SP', 2050, 0, 'CLT', 'Tarde', 112, 85, 0, 0, 'Fundamental', 5],
+      ['Hostess', 'Restaurante Terraço', 'salao', 'Ipanema', 'Rio de Janeiro', 'RJ', 2500, 0, 'CLT', 'Turno noite', 122, 67, 0, 1, 'Médio', 14],
+      ['Cozinheiro', 'Cozinha Central Hotel Sul', 'cozinha', 'Moinhos', 'Porto Alegre', 'RS', 3900, 4400, 'CLT', 'Manhã', 130, 80, 0, 0, 'Técnico', 19],
+      ['Sommelier', 'Adega Doze', 'bar', 'Itaim Bibi', 'São Paulo', 'SP', 4800, 0, 'CLT', 'Turno jantar', 140, 61, 0, 0, 'Superior', 6],
+      ['Gerente de bar', 'Bar do Beco', 'gestao', 'Pinheiros', 'São Paulo', 'SP', 5200, 0, 'CLT', 'Turno noite', 150, 71, 0, 0, 'Médio', 4],
+      ['Auxiliar de confeitaria', 'Doce Ponto', 'cozinha', 'Boa Viagem', 'Recife', 'PE', 1900, 0, 'CLT', 'Manhã', 160, 77, 0, 0, 'Fundamental', 9],
+      ['Atendente de balcão', 'Café Bica', 'salao', 'Savassi', 'Belo Horizonte', 'MG', 1750, 0, 'Temporário', 'Tarde', 172, 63, 0, 0, 'Médio', 20],
+      ['Cozinheiro (PJ)', 'Cozinha Coletiva Norte', 'free', 'Aldeota', 'Fortaleza', 'CE', 3500, 0, 'PJ', 'Integral', 184, 68, 0, 0, 'Médio', 28],
+      ['Copeiro', 'Hotel Praia Mar', 'cozinha', 'Ponta Negra', 'Natal', 'RN', 1800, 0, 'CLT', 'Manhã', 196, 59, 0, 0, 'Fundamental', 33],
+      ['Garçom', 'Cantina Bella', 'salao', 'Bela Vista', 'São Paulo', 'SP', 2200, 0, 'CLT', 'Turno jantar', 208, 82, 0, 0, 'Médio', 5],
+      ['Supervisor de salão', 'Grupo Sabor', 'gestao', 'Centro', 'Curitiba', 'PR', 4100, 0, 'CLT', 'Integral', 220, 65, 0, 0, 'Superior', 11],
+      ['Estoquista', 'Grupo Sabor', 'estoque', 'Centro', 'Curitiba', 'PR', 2200, 0, 'CLT', 'Manhã', 18, 79, 0, 1, 'Médio', 10],
+      ['Auxiliar de estoque', 'Padaria Estrela', 'estoque', 'Tatuapé', 'São Paulo', 'SP', 1900, 0, 'CLT', 'Madrugada', 44, 72, 0, 0, 'Fundamental', 7],
+      ['Conferente de recebimento', 'Low BBQ', 'estoque', 'Vila Madalena', 'São Paulo', 'SP', 2600, 3000, 'CLT', 'Manhã', 96, 68, 0, 0, 'Médio', 4]
+    ];
+    return rows.map((r, i) => ({
+      id: 2608000 + i * 37,
+      cargo: r[0], empresa: r[1], cat: r[2], bairro: r[3], cidade: r[4], uf: r[5],
+      sal: r[6], salTo: r[7], contrato: r[8], turno: r[9], mins: r[10] * 60,
+      score: r[11], boost: r[12] === 2, destaque: r[12] === 1, hasLogo: r[13] === 1,
+      esc: r[14], km: r[15],
+      mx: 8 + ((i * 37) % 78), my: 12 + ((i * 53) % 68)
+    }));
+  }
+
+  componentDidMount() {
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+    this.onScroll = () => {
+      const s = this.state;
+      if (s.loading || s.error || s.view === 'mapa') return;
+      const total = this.sorted().length;
+      if (s.visible >= total) return;
+      if (window.innerHeight + window.scrollY > document.body.offsetHeight - 700) {
+        this.setState({ loading: true });
+        clearTimeout(this.t);
+        this.t = setTimeout(() => this.setState(p => ({ visible: p.visible + 9, loading: false })), 800);
+      }
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onDoc = e => { if (this.state.pop || this.state.shareId) this.setState({ pop: null, shareId: null }); };
+    setTimeout(() => this.setState({ w: window.innerWidth, booting: false }), 40);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  bp() { const f = this.props.forceLayout || 'auto'; if (f !== 'auto') return f; const raw = this.state.w; if (raw < 768) return 'mobile'; const w = raw / 0.8; return w < 1200 ? 'tablet' : 'desktop'; }
+  money(n) { return 'R$ ' + n.toLocaleString('pt-BR'); }
+  salLabelOf(v) {
+    if (!v.sal) return 'Salário não informado';
+    if (v.contrato === 'Freelancer') return this.money(v.sal) + ' por diária';
+    return v.salTo ? this.money(v.sal) + ' – ' + v.salTo.toLocaleString('pt-BR') : this.money(v.sal);
+  }
+  ago(m) {
+    if (m < 60) return 'Publicada há ' + m + ' minutos';
+    if (m < 1440) { const h = Math.round(m / 60); return 'Publicada há ' + h + (h === 1 ? ' hora' : ' horas'); }
+    const d = Math.round(m / 1440); return 'Publicada há ' + d + (d === 1 ? ' dia' : ' dias');
+  }
+
+  STOP = ['em','no','na','nos','nas','de','do','da','dos','das','o','a','os','as','um','uma','bairro','bairros','cidade','regiao','zona','vaga','vagas','emprego','empregos','para','com','e','perto','proximo'];
+
+  norm(str) {
+    return String(str || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  terms(str) {
+    return this.norm(str).split(' ').filter(t => t && t.length > 1 && this.STOP.indexOf(t) < 0);
+  }
+
+  HORARIOS = {
+    'Manhã': '07h às 15h',
+    'Tarde': '14h às 22h',
+    'Turno noite': '18h às 02h',
+    'Turno jantar': '17h às 01h',
+    'Integral': '09h às 18h',
+    'Madrugada': '23h às 07h'
+  };
+  horario(t) { return this.HORARIOS[t] || t; }
+
+  matchCount(v, terms) {
+    const hay = this.norm([v.cargo, v.empresa, v.id, v.bairro, v.cidade, v.uf, v.contrato, v.turno, this.CATS[v.cat].label].join(' '));
+    let n = 0;
+    for (let i = 0; i < terms.length; i++) if (hay.indexOf(terms[i]) >= 0) n++;
+    return n;
+  }
+
+  filtered() {
+    const s = this.state;
+    const terms = this.terms(s.aq);
+    // quantos termos precisam bater: todos; se nada bater, cai para maioria (busca tolerante)
+    let need = terms.length;
+    if (need > 1) {
+      const hits = this.vagas.filter(v => this.matchCount(v, terms) === need).length;
+      if (!hits) need = Math.max(1, Math.ceil(terms.length / 2));
+    }
+    return this.vagas.filter(v => {
+      if (terms.length && this.matchCount(v, terms) < need) return false;
+      if (s.cat && v.cat !== s.cat) return false;
+      if (s.cargos.length && s.cargos.indexOf(v.cargo) < 0) return false;
+      if (s.contracts.length && s.contracts.indexOf(v.contrato) < 0) return false;
+      if (s.salOn) { const base = v.sal || 0; if (base < s.sal[0] || (s.sal[1] < 8000 && base > s.sal[1])) return false; }
+      const m = s.more;
+      if (m.dist && v.km > m.dist) return false;
+      if (m.data && v.mins > m.data) return false;
+      if (m.score && v.score < m.score) return false;
+      if (m.esc && v.esc !== m.esc) return false;
+      return true;
+    });
+  }
+  sorted() {
+    return this.filtered().slice().sort((a, b) => {
+      const r = x => x.boost ? 0 : (x.destaque ? 1 : 2);
+      return r(a) - r(b) || a.mins - b.mins;
+    });
+  }
+
+  set(patch) { this.setState(patch); }
+  reset() { this.setState({ visible: 9, marker: null }); }
+
+  renderVals() {
+    const s = this.state, bp = this.bp(), P = this.props;
+    const demo = P.demoState || 'normal';
+    const list = this.sorted();
+    const mobile = bp === 'mobile';
+    const mapOn = s.view === 'mapa';
+    const showEmpty = demo === 'vazio' || (demo === 'normal' && list.length === 0);
+    const showError = demo === 'erro' || s.error;
+    const boot = demo === 'carregando';
+
+    const sessao = s.sessao !== null ? s.sessao : (P.sessao || 'deslogado');
+    const CONTAS = {
+      candidato: {
+        nome: 'Marina Alves', primeiro: 'Marina', iniciais: 'MA', sub: 'Conta de candidato', href: 'Painel Candidato.dc.html',
+        menu: [
+          { label: 'Minhas candidaturas', icon: 'work_history', href: 'Painel Candidato.dc.html' },
+          { label: 'Meu currículo', icon: 'description', href: 'Painel Candidato.dc.html' },
+          { label: 'Vagas salvas', icon: 'bookmark', href: 'Painel Candidato.dc.html' },
+          { label: 'Minha conta', icon: 'settings', href: 'Painel Candidato.dc.html' }
+        ]
+      },
+      empresa: {
+        nome: 'Grupo Sabor', primeiro: 'Grupo Sabor', iniciais: 'GS', sub: 'Conta de empresa · 2 créditos', href: 'Painel Empresa.dc.html',
+        menu: [
+          { label: 'Minhas vagas', icon: 'list_alt', href: 'Painel Empresa.dc.html' },
+          { label: 'Publicar vaga', icon: 'add_circle', href: 'Painel Empresa.dc.html#publicar' },
+          { label: 'Currículos recebidos', icon: 'folder_shared', href: 'Painel Empresa.dc.html' },
+          { label: 'Minha conta', icon: 'settings', href: 'Painel Empresa.dc.html' }
+        ]
+      }
+    };
+    const conta = CONTAS[sessao] || { nome: '', primeiro: '', iniciais: '', sub: '', href: 'Entrar e Cadastrar.dc.html', menu: [] };
+
+    const mkCat = (k, label, icon, color) => {
+      const on = k === null ? s.cat === null : s.cat === k;
+      return {
+        label: label, icon: icon, on: on,
+        icoBg: color, icoColor: '#FFFFFF',
+        ring: on ? '0 0 0 4px #FFB72B' : 'none',
+        fg: on ? '#1F1F1F' : '#6B6560',
+        weight: on ? 700 : 500,
+        pick: e => { e.stopPropagation(); this.setState({ cat: (k === null || on) ? null : k, visible: 9, marker: null }); }
+      };
+    };
+    const cats = [mkCat(null, 'Todas', 'apps', '#1F1F1F')].concat(
+      Object.keys(this.CATS).map(k => mkCat(k, this.CATS[k].label, this.CATS[k].icon, this.CATS[k].color))
+    );
+
+    const cargoNames = [];
+    this.vagas.forEach(v => { if (cargoNames.indexOf(v.cargo) < 0) cargoNames.push(v.cargo); });
+    cargoNames.sort();
+    const cargoOpts = cargoNames.map(n => {
+      const on = s.cargos.indexOf(n) >= 0;
+      return {
+        label: n, check: on ? 'check' : '', box: on ? '#FFB72B' : '#FFFFFF',
+        pick: e => { e.stopPropagation(); this.setState(p => ({ cargos: on ? p.cargos.filter(x => x !== n) : p.cargos.concat([n]), visible: 9 })); }
+      };
+    });
+    const ctrNames = ['CLT', 'PJ', 'Temporário', 'Freelancer'];
+    const ctrOpts = ctrNames.map(n => {
+      const on = s.contracts.indexOf(n) >= 0;
+      return {
+        label: n, check: on ? 'check' : '', box: on ? '#FFB72B' : '#FFFFFF',
+        pick: e => { e.stopPropagation(); this.setState(p => ({ contracts: on ? p.contracts.filter(x => x !== n) : p.contracts.concat([n]), visible: 9 })); }
+      };
+    });
+
+    const feed = [];
+    if (!showEmpty && !showError && !boot) {
+      const slice = list.slice(0, s.visible);
+      let n = 0;
+      slice.forEach(v => {
+        const cc = this.CATS[v.cat];
+        feed.push({
+          isVaga: true, isBanner: false, span: 'auto',
+          cargo: v.cargo, empresa: v.empresa, ref: String(v.id),
+          local: v.bairro + ', ' + v.cidade + '/' + v.uf,
+          salario: this.salLabelOf(v), salColor: v.sal ? '#1F1F1F' : '#9A938C',
+          contrato: v.contrato, turno: this.horario(v.turno), publicado: this.ago(v.mins),
+          scoreLabel: v.score + '% de compatibilidade', scoreW: v.score + '%',
+          catLabel: cc.label, catColor: cc.color,
+          boost: v.boost, destaque: v.destaque && !v.boost,
+          badgeH: '24px',
+          cardBorder: (v.destaque && !v.boost) ? '#FFB72B' : 'rgba(31,31,31,0.12)',
+          cardShadow: (v.destaque && !v.boost) ? '0 4px 16px rgba(255,183,43,0.28)' : '0 1px 2px rgba(31,31,31,0.04)',
+          logoText: v.hasLogo ? v.empresa.slice(0, 2).toLowerCase() : 'sc',
+          logoDot: v.hasLogo ? 'none' : 'inline',
+          logoBg: v.hasLogo ? '#FFF3DF' : '#1F1F1F',
+          logoFg: v.hasLogo ? '#1F1F1F' : '#FFF3DF',
+          sharing: s.shareId === v.id, bannerSlot: '', bannerH: '0px',
+          open: () => { window.location.href = 'Página da Vaga.dc.html'; },
+          share: e => {
+            e.stopPropagation(); e.preventDefault();
+            const url = 'https://www.seuchef.com.br/vagas/' + v.id;
+            if (mobile && navigator.share) { navigator.share({ title: v.cargo + ' · ' + v.empresa, url: url }).catch(() => { }); return; }
+            this.setState({ shareId: s.shareId === v.id ? null : v.id });
+          },
+          wpp: e => { e.stopPropagation(); this.setState({ shareId: null }); window.open('https://wa.me/?text=' + encodeURIComponent(v.cargo + ' — ' + v.empresa), '_blank'); },
+          copy: e => {
+            e.stopPropagation();
+            const url = 'https://www.seuchef.com.br/vagas/' + v.id;
+            if (navigator.clipboard) navigator.clipboard.writeText(url).catch(() => { });
+            this.setState({ shareId: null, copied: true });
+            clearTimeout(this.ct); this.ct = setTimeout(() => this.setState({ copied: false }), 2200);
+          }
+        });
+        n++;
+        if (n % 9 === 0 && P.showBanners !== false) {
+          feed.push({
+            isVaga: false, isBanner: true, sharing: false,
+            span: mobile ? '1 / -1' : '1',
+            bannerSlot: mobile ? 'banner mobile · 720×360' : 'banner grade · 400×420',
+            bannerH: mobile ? '150px' : '100%',
+            bannerMin: mobile ? '150px' : '245px'
+          });
+        }
+      });
+    }
+
+    const skelCount = (s.loading || boot) ? (mobile ? 2 : 3) : 0;
+    const skeletons = []; for (let i = 0; i < skelCount; i++) skeletons.push({ h: mobile ? '260px' : '340px' });
+
+    const markers = mapOn ? list.slice(0, 24).map(v => ({
+      x: v.mx + '%', y: v.my + '%', cargo: v.cargo, local: v.bairro,
+      pin: !v.sal ? this.CATS[v.cat].label : (v.contrato === 'Freelancer' ? this.money(v.sal) + '/dia' : (v.sal >= 1000 ? 'R$ ' + (Math.round(v.sal / 100) / 10).toLocaleString('pt-BR') + 'k' : this.money(v.sal))),
+      bg: s.marker === v.id ? '#1F1F1F' : '#FFB72B',
+      fg: s.marker === v.id ? '#FFB72B' : '#1F1F1F',
+      z: s.marker === v.id ? 12 : 5,
+      pick: e => { e.stopPropagation(); this.setState({ marker: v.id }); }
+    })) : [];
+    const selV = list.filter(v => v.id === s.marker)[0];
+
+    const chips = [];
+    if (s.acity) chips.push({ label: s.acity, aria: 'Remover filtro de localização', remove: () => this.setState({ acity: '', city: '', visible: 9 }) });
+    if (s.aq) chips.push({ label: '“' + s.aq + '”', aria: 'Remover busca', remove: () => this.setState({ aq: '', q: '', visible: 9 }) });
+    if (s.cat) chips.push({ label: this.CATS[s.cat].label, aria: 'Remover categoria', remove: () => this.setState({ cat: null, visible: 9 }) });
+    s.cargos.forEach(n => chips.push({ label: n, aria: 'Remover cargo ' + n, remove: () => this.setState(p => ({ cargos: p.cargos.filter(x => x !== n), visible: 9 })) }));
+    s.contracts.forEach(n => chips.push({ label: n, aria: 'Remover contrato ' + n, remove: () => this.setState(p => ({ contracts: p.contracts.filter(x => x !== n), visible: 9 })) }));
+    if (s.salOn) chips.push({ label: this.money(s.sal[0]) + ' – ' + (s.sal[1] >= 8000 ? 'R$ 8.000+' : this.money(s.sal[1])), aria: 'Remover filtro de salário', remove: () => this.setState({ salOn: false, visible: 9 }) });
+    const mLabels = { dist: { 5: 'Até 5 km', 10: 'Até 10 km', 25: 'Até 25 km' }, data: { 1440: 'Últimas 24h', 4320: 'Últimos 3 dias', 10080: 'Últimos 7 dias' }, score: { 60: 'Score 60%+', 75: 'Score 75%+', 85: 'Score 85%+' } };
+    ['dist', 'data', 'score'].forEach(k => { if (s.more[k]) chips.push({ label: mLabels[k][s.more[k]], aria: 'Remover filtro', remove: () => this.setState(p => ({ more: Object.assign({}, p.more, { [k]: null }), visible: 9 })) }); });
+    if (s.more.esc) chips.push({ label: s.more.esc, aria: 'Remover escolaridade', remove: () => this.setState(p => ({ more: Object.assign({}, p.more, { esc: null }), visible: 9 })) });
+
+    const moreN = ['dist', 'data', 'score', 'esc'].filter(k => s.more[k]).length;
+    const mkOpt = (k, val, label) => {
+      const on = s.more[k] === val;
+      return {
+        label: label, on: on, bg: on ? '#FFB72B' : '#FFFFFF',
+        border: on ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.16)',
+        pick: () => this.setState(p => ({ more: Object.assign({}, p.more, { [k]: on ? null : val }), visible: 9 }))
+      };
+    };
+    const moreGroups = [
+      { title: 'Distância', opts: [mkOpt('dist', 5, 'Até 5 km'), mkOpt('dist', 10, 'Até 10 km'), mkOpt('dist', 25, 'Até 25 km')] },
+      { title: 'Data da publicação', opts: [mkOpt('data', 1440, 'Últimas 24h'), mkOpt('data', 4320, 'Últimos 3 dias'), mkOpt('data', 10080, 'Últimos 7 dias')] },
+      { title: 'Tipo de contrato', opts: ctrNames.map(n => { const on = s.contracts.indexOf(n) >= 0; return { label: n, on: on, bg: on ? '#FFB72B' : '#FFFFFF', border: on ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.16)', pick: () => this.setState(p => ({ contracts: on ? p.contracts.filter(x => x !== n) : p.contracts.concat([n]), visible: 9 })) }; }) },
+      { title: 'Score de adequação', opts: [mkOpt('score', 60, '60% ou mais'), mkOpt('score', 75, '75% ou mais'), mkOpt('score', 85, '85% ou mais')] },
+      { title: 'Escolaridade', opts: ['Fundamental', 'Médio', 'Técnico', 'Superior'].map(n => mkOpt('esc', n, n)) }
+    ];
+
+    const pct = v => ((v - 1200) / 6800 * 100) + '%';
+    const setDraft = (i, val) => this.setState(p => { const d = p.salDraft.slice(); d[i] = val; if (d[0] > d[1] - 200) { if (i === 0) d[0] = d[1] - 200; else d[1] = d[0] + 200; } return { salDraft: d }; });
+    const fromClientX = cx => {
+      const el = this.track; if (!el) return 1200;
+      const r = el.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (cx - r.left) / r.width));
+      return Math.round((1200 + p * 6800) / 100) * 100;
+    };
+    const drag = i => e => {
+      e.stopPropagation(); e.preventDefault();
+      const move = ev => setDraft(i, fromClientX(ev.clientX));
+      const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+      window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
+    };
+    const keyStep = i => e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); setDraft(i, Math.min(8000, s.salDraft[i] + 100)); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); setDraft(i, Math.max(1200, s.salDraft[i] - 100)); }
+    };
+
+    const stop = fn => e => { e.stopPropagation(); fn(e); };
+    const togglePop = name => stop(() => this.setState({ pop: s.pop === name ? null : name, shareId: null }));
+
+    const enterMap = () => {
+      this.setState({ view: 'mapa', mapLoading: true, pop: null, marker: null, mapMoved: false });
+      clearTimeout(this.mt); this.mt = setTimeout(() => this.setState({ mapLoading: false }), 700);
+    };
+
+    const mapDown = e => {
+      const sx = e.clientX, sy = e.clientY, base = s.mapPan;
+      const move = ev => this.setState({ mapPan: { x: base.x + (ev.clientX - sx), y: base.y + (ev.clientY - sy) }, mapMoved: true });
+      const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+      window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
+    };
+
+    return {
+      // layout
+      navDisplay: mobile ? 'none' : 'flex',
+      burgerDisplay: mobile ? 'flex' : 'none',
+      showTopLinks: mobile ? 'none' : 'flex',
+      topbarJustify: mobile ? 'center' : 'space-between',
+      gapLg: mobile ? '18px' : '26px',
+      bannerRatio: mobile ? '2 / 1' : '4.5 / 1',
+      bannerSlot: mobile ? 'banner mobile · 720×360' : 'banner desktop · 1600×356 (4,5:1)',
+      bannerOk: P.bannerFallback !== true, bannerBroken: P.bannerFallback === true,
+      h1Size: mobile ? '21px' : (bp === 'tablet' ? '28px' : '34px'),
+      h1Wrap: mobile ? 'normal' : 'nowrap',
+      rootZoom: mobile ? 1 : 0.8,
+      headerH: mobile ? '72px' : '92px',
+      logoSize: mobile ? '28px' : '40px',
+      h2Size: mobile ? '22px' : '30px',
+      searchDir: bp === 'desktop' ? 'row' : 'column',
+      gridCols: mapOn ? ((mobile || bp === 'tablet') ? '1fr' : 'repeat(2,minmax(0,1fr))') : (mobile ? '1fr' : (bp === 'tablet' ? 'repeat(2,minmax(0,1fr))' : 'repeat(3,minmax(0,1fr))')),
+      footCols: mobile ? '1fr' : (bp === 'tablet' ? 'repeat(2,1fr)' : '1.4fr 1fr 1fr 1fr 1fr'),
+      drawerJustify: mobile ? 'center' : 'flex-end',
+      drawerAlign: mobile ? 'flex-end' : 'stretch',
+      drawerW: mobile ? '100%' : '440px',
+      drawerH: mobile ? 'auto' : '100%',
+      drawerRadius: mobile ? '20px 20px 0 0' : '20px 0 0 20px',
+
+      // header / nav
+      menuOpen: s.pop === 'menu', comoOpen: s.pop === 'como',
+      toggleMenu: togglePop('menu'), toggleComo: togglePop('como'),
+      goBusca: stop(() => { this.setState({ pop: null }); const el = document.getElementById('busca'); if (el) window.scrollTo({ top: el.offsetTop - 90, behavior: 'smooth' }); }),
+
+      // search
+      // sessão
+      deslogado: sessao === 'deslogado', logado: sessao !== 'deslogado',
+      isCandidato: sessao === 'candidato', isEmpresa: sessao === 'empresa',
+      contaNome: conta.nome, contaSub: conta.sub, contaIniciais: conta.iniciais,
+      contaHref: conta.href, contaMenu: conta.menu, primeiroNome: conta.primeiro,
+      alertaDot: sessao === 'deslogado' ? 'none' : 'block',
+      contaOpen: s.contaOpen,
+      toggleConta: stop(() => this.setState(p => ({ contaOpen: !p.contaOpen, pop: null }))),
+      sair: stop(() => this.setState({ sessao: 'deslogado', contaOpen: false, menuOpen: false })),
+
+      q: s.q, hasQ: !!s.q,
+      onQ: e => this.setState({ q: e.target.value }),
+      clearQ: stop(() => this.setState({ q: '', aq: '', visible: 9, marker: null })),
+      exemplos: ['Cozinheiro em São Paulo no bairro da Mooca', 'Garçom no Rio de Janeiro', 'Bartender turno noite'].map(t => ({
+        label: t, pick: e => { e.stopPropagation(); this.setState({ q: t, aq: t, visible: 9, pop: null, marker: null }); }
+      })),
+      onKey: e => { if (e.key === 'Enter') this.setState({ aq: s.q, visible: 9, pop: null }); },
+      doSearch: stop(() => this.setState({ aq: s.q, visible: 9, pop: null, marker: null })),
+      openMap: stop(enterMap),
+      goLista: stop(() => this.setState({ view: 'lista', pop: null })),
+      isLista: !mapOn, isMapa: mapOn,
+      listaBg: mapOn ? 'transparent' : '#FFFFFF', mapaBg: mapOn ? '#FFFFFF' : 'transparent',
+      listaShadow: mapOn ? 'none' : '0 1px 3px rgba(31,31,31,0.12)',
+      mapaShadow: mapOn ? '0 1px 3px rgba(31,31,31,0.12)' : 'none',
+
+      closePop: stop(() => this.setState({ pop: null })),
+      cats: cats,
+      catHSize: mobile ? '22px' : '28px',
+      catGap: mobile ? '14px' : '22px',
+      catJustify: 'center',
+      catW: mobile ? '86px' : '104px',
+      catIcoBox: mobile ? '62px' : '76px',
+      catIcoSize: mobile ? '30px' : '36px',
+      catLabelSize: mobile ? '13px' : '14px',
+      cargoOpts: cargoOpts, ctrOpts: ctrOpts,
+
+      // filter buttons
+      popLoc: togglePop('loc'), isLoc: s.pop === 'loc',
+      locLabel: s.acity || 'Localização',
+      locBg: s.acity ? '#FFF3DF' : '#FFFFFF',
+      locBorder: s.acity ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.14)',
+      popCargo: togglePop('cargo'), isCargo: s.pop === 'cargo',
+      cargoLabel: s.cargos.length ? 'Cargo · ' + s.cargos.length : 'Cargo',
+      cargoBg: s.cargos.length ? '#FFF3DF' : '#FFFFFF',
+      cargoBorder: s.cargos.length ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.14)',
+      popSal: stop(() => this.setState({ pop: s.pop === 'sal' ? null : 'sal', salDraft: s.sal })), isSal: s.pop === 'sal',
+      salLabel: s.salOn ? this.money(s.sal[0]) + ' – ' + (s.sal[1] >= 8000 ? '8.000+' : s.sal[1].toLocaleString('pt-BR')) : 'Salário',
+      salBg: s.salOn ? '#FFF3DF' : '#FFFFFF',
+      salBorder: s.salOn ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.14)',
+      salRangeLabel: this.money(s.salDraft[0]) + ' — ' + (s.salDraft[1] >= 8000 ? 'R$ 8.000+' : this.money(s.salDraft[1])),
+      salLeft: pct(s.salDraft[0]), salRight: (100 - parseFloat(pct(s.salDraft[1]))) + '%',
+      salMinV: s.salDraft[0], salMaxV: s.salDraft[1],
+      trackRef: el => { this.track = el; },
+      trackDown: e => { const v = fromClientX(e.clientX); const i = Math.abs(v - s.salDraft[0]) < Math.abs(v - s.salDraft[1]) ? 0 : 1; setDraft(i, v); },
+      downMin: drag(0), downMax: drag(1), keyMin: keyStep(0), keyMax: keyStep(1),
+      applySal: stop(() => this.setState({ sal: s.salDraft, salOn: true, pop: null, visible: 9 })),
+      clearSal: stop(() => this.setState({ salDraft: [1200, 8000], sal: [1200, 8000], salOn: false, pop: null, visible: 9 })),
+      popCtr: togglePop('ctr'), isCtr: s.pop === 'ctr',
+      ctrLabel: s.contracts.length ? 'Contrato · ' + s.contracts.length : 'Tipo de contrato',
+      ctrBg: s.contracts.length ? '#FFF3DF' : '#FFFFFF',
+      ctrBorder: s.contracts.length ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.14)',
+      openMore: stop(() => this.setState({ moreOpen: true, pop: null })),
+      closeMore: stop(() => this.setState({ moreOpen: false })),
+      clearMore: stop(() => this.setState({ more: { dist: null, data: null, esc: null, score: null }, contracts: [], visible: 9 })),
+      moreOpen: s.moreOpen, moreGroups: moreGroups,
+      moreCount: moreN ? ' · ' + moreN : '',
+      moreApply: 'Ver ' + list.length + ' vagas',
+      moreBg: moreN ? '#FFF3DF' : '#FFFFFF',
+      moreBorder: moreN ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.14)',
+
+      chips: chips, hasFilters: chips.length > 0,
+      clearAll: stop(() => this.setState({ q: '', city: '', aq: '', acity: '', cat: null, cargos: [], contracts: [], salOn: false, sal: [1200, 8000], salDraft: [1200, 8000], more: { dist: null, data: null, esc: null, score: null }, visible: 9 })),
+
+      countLabel: showError ? '' : (list.length === 1 ? '1 vaga encontrada' : list.length + ' vagas encontradas'),
+
+      // list / states
+      listDisplay: (mapOn && mobile) ? 'none' : 'block',
+      showGrid: !showEmpty && !showError,
+      showEmpty: showEmpty && !showError, showError: showError,
+      feed: feed, skeletons: skeletons,
+      sentinelRef: el => { this.sentinel = el; },
+      endLabel: s.loading ? 'Carregando mais vagas…' : (s.visible >= list.length && list.length > 0 ? 'Você viu todas as vagas com esses filtros.' : 'Role para ver mais vagas'),
+      retry: stop(() => this.setState({ error: false, visible: 9 })),
+
+      // map
+      mapDisplay: mapOn ? 'block' : 'none',
+      mapTop: mobile ? '118px' : '142px',
+      mapH: mobile ? '68vh' : 'calc(100vh - 170px)',
+      mapLoading: s.mapLoading, mapEmpty: !s.mapLoading && markers.length === 0,
+      mapCTA: mapOn && !s.mapLoading,
+      mapCTALabel: 'Buscar nesta região',
+      mapBgPos: s.mapPan.x + 'px ' + s.mapPan.y + 'px',
+      mapDown: mapDown, markers: markers,
+      hasSelected: !!selV,
+      sel: selV ? { cargo: selV.cargo, empresa: selV.empresa + ' · ' + selV.bairro, salario: this.salLabelOf(selV) } : { cargo: '', empresa: '', salario: '' },
+      closeSel: stop(() => this.setState({ marker: null })),
+      searchArea: stop(() => {
+        this.setState({ mapMoved: false, visible: 9, mapLoading: true, marker: null });
+        clearTimeout(this.mt); this.mt = setTimeout(() => this.setState({ mapLoading: false }), 600);
+      }),
+
+      copied: s.copied,
+
+      footGroups: [
+        { title: 'seuchef', links: [{ label: 'Sobre nós', href: 'Institucional.dc.html' }, { label: 'Como funciona', href: 'Como funciona.dc.html' }] },
+        { title: 'Candidatos', links: [{ label: 'Encontrar vagas', href: 'Home.dc.html' }, { label: 'Minhas vagas', href: 'Painel Candidato.dc.html' }, { label: 'Cadastro', href: 'Entrar e Cadastrar.dc.html?modo=cadastro' }] },
+        { title: 'Empresas', links: [{ label: 'Publicar vaga', href: 'Pacotes.dc.html' }, { label: 'Planos e pacotes', href: 'Pacotes.dc.html#pacotes' }, { label: 'Como funciona para empresas', href: '#como-empresas' }] },
+        { title: 'Institucional', links: [{ label: 'Termos de uso', href: '#termos' }, { label: 'Política de privacidade', href: '#privacidade' }] },
+        { title: 'Contato', links: [{ label: 'WhatsApp 11 92128-1639', href: 'https://api.whatsapp.com/send?phone=5511921281639' }, { label: 'Central de atendimento', href: '#atendimento' }] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1&display=block" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;-webkit-font-smoothing:antialiased;color:#1F1F1F}
+a{color:#1F1F1F;text-decoration:none}
+a:hover{color:#C94219}
+:focus-visible{outline:3px solid #FFB72B;outline-offset:2px;border-radius:6px}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#FFFFFF;font-family:Inter,system-ui,sans-serif;zoom:{{ rootZoom }}">
+<dc-import name="Cabecalho" perfil="publico" hint-size="100%,126px"></dc-import>
+
+<main style="max-width:1600px;margin:0 auto;padding:0 20px 70px">
+  <nav aria-label="Páginas institucionais" style="margin-top:{{ gap }};border-bottom:1px solid rgba(31,31,31,0.12);display:flex;gap:6px;overflow-x:auto">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+      <button type="button" onClick="{{ t.pick }}" aria-current="{{ t.on }}" style="flex:none;height:52px;padding:0 16px;border:0;background:none;cursor:pointer;font-family:Sora,sans-serif;font-weight:{{ t.weight }};font-size:15px;color:{{ t.color }};box-shadow:{{ t.underline }};white-space:nowrap">{{ t.label }}</button>
+    </sc-for>
+  </nav>
+
+  <div style="display:grid;grid-template-columns:{{ cols }};gap:24px;margin-top:26px;align-items:start">
+    <article style="max-width:760px">
+      <h1 style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};line-height:1.08;letter-spacing:-0.03em;text-wrap:pretty">{{ titulo }}</h1>
+      <p style="margin:10px 0 0;font-family:Inter,sans-serif;font-size:14px;color:#9A938C">{{ atualizado }}</p>
+
+      <sc-for list="{{ secoes }}" as="s" hint-placeholder-count="5">
+        <section id="{{ s.id }}" style="margin-top:34px">
+          <h2 style="margin:0 0 12px;font-family:Sora,sans-serif;font-weight:700;font-size:{{ h2 }};letter-spacing:-0.015em">{{ s.titulo }}</h2>
+          <sc-for list="{{ s.paragrafos }}" as="p" hint-placeholder-count="2">
+            <p style="margin:0 0 14px;font-family:Inter,sans-serif;font-size:16px;line-height:1.7;color:#1F1F1F;text-wrap:pretty">{{ p }}</p>
+          </sc-for>
+          <ul style="display:{{ s.listaDisplay }};list-style:none;margin:6px 0 0;padding:0;flex-direction:column;gap:10px">
+            <sc-for list="{{ s.itens }}" as="i" hint-placeholder-count="3">
+              <li style="display:flex;gap:10px;font-family:Inter,sans-serif;font-size:15.5px;line-height:1.6;color:#1F1F1F">
+                <span style="flex:none;width:7px;height:7px;border-radius:50%;background:#FFB72B;margin-top:9px" aria-hidden="true"></span>{{ i }}
+              </li>
+            </sc-for>
+          </ul>
+        </section>
+      </sc-for>
+
+      <div style="margin-top:38px;background:#FFF3DF;border-radius:18px;padding:{{ padBig }};display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between">
+        <div style="max-width:520px">
+          <h2 style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em">Ficou alguma dúvida?</h2>
+          <p style="margin:8px 0 0;font-family:Inter,sans-serif;font-size:15px;line-height:1.6;color:#6B6560">Fale com a nossa equipe pelo WhatsApp. Respondemos em horário comercial.</p>
+        </div>
+        <a href="https://api.whatsapp.com/send?phone=5511921281639" style="height:54px;padding:0 22px;border-radius:12px;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:16px;display:flex;align-items:center;gap:9px" style-hover="color:#FFB72B">
+          <span style="font-family:'Material Symbols Rounded';font-size:21px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">chat</span>11 92128-1639</a>
+      </div>
+    </article>
+
+    <aside style="display:{{ asideDisplay }};position:sticky;top:150px;flex-direction:column;gap:12px;border:1.5px solid rgba(31,31,31,0.12);border-radius:18px;padding:20px">
+      <h2 style="margin:0 0 6px;font-family:Sora,sans-serif;font-weight:700;font-size:14px;color:#6B6560;letter-spacing:0.02em">Nesta página</h2>
+      <sc-for list="{{ secoes }}" as="s" hint-placeholder-count="5">
+        <a href="#{{ s.id }}" style="font-family:Inter,sans-serif;font-size:14px;line-height:1.4;color:#6B6560;padding:7px 0" style-hover="color:#C94219">{{ s.titulo }}</a>
+      </sc-for>
+    </aside>
+  </div>
+</main>
+
+<dc-import name="Rodape" hint-size="100%,320px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1100},&quot;pagina&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;sobre&quot;,&quot;termos&quot;,&quot;privacidade&quot;],&quot;default&quot;:&quot;sobre&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Página&quot;}}">
+class Component extends DCLogic {
+  state = { w: 1440, tab: null };
+  componentDidMount() {
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+    const h = (window.location.hash || '').replace('#', '');
+    if (h === 'termos') this.setState({ tab: 'termos' });
+    if (h === 'privacidade') this.setState({ tab: 'privacidade' });
+    setTimeout(() => this.setState({ w: window.innerWidth }), 40);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); }
+  bp() { const raw = this.state.w; if (raw < 768) return 'mobile'; return raw / 0.8 < 1200 ? 'tablet' : 'desktop'; }
+
+  CONTEUDO = {
+    sobre: {
+      titulo: 'Sobre nós',
+      atualizado: 'Quem somos e por que o seuchef existe.',
+      secoes: [
+        { id: 'especialidade', titulo: 'Somos especializados no setor da alimentação', paragrafos: ['O seuchef é especializado em divulgar oportunidades de emprego em restaurantes, bares, lanchonetes, padarias e comércios da gastronomia. Recebemos diariamente vagas de garçom, auxiliar, chef de cozinha, cozinheiro, atendente, caixa, entre outras.'], itens: [] },
+        { id: 'candidato', titulo: 'Para o candidato é gratuito', paragrafos: ['No site, quem está procurando emprego faz o cadastro de maneira simples e rápida. E o melhor: não cobramos nada do candidato. Afinal, quem está procurando emprego não pode aumentar as suas despesas.', 'Ao se candidatar em vagas que giram em torno de um único setor, o candidato aos poucos vai se especializando nele, o que ajuda no desenvolvimento da sua carreira profissional.'], itens: [] },
+        { id: 'empresa', titulo: 'Para a empresa, menos tempo e menos custo', paragrafos: ['A equipe do seuchef acredita que a busca segmentada de vagas otimiza o processo de recrutamento e seleção. Sabemos da grande rotatividade de mão de obra nos bares e restaurantes e do custo desse processo. Oferecer um canal para encontrar candidatos que têm experiência ou querem entrar nessa área específica reduz drasticamente esse tempo.'], itens: [] },
+        { id: 'divulgacao', titulo: 'Comunicação rápida', paragrafos: ['Apostamos em uma comunicação rápida, divulgando as vagas no site e também nas redes sociais, como Instagram e Facebook. As vagas são postadas diariamente, então fica fácil acompanhar e não perder uma boa oportunidade.'], itens: [] },
+        { id: 'contato', titulo: 'Precisa falar com a gente?', paragrafos: ['Em caso de qualquer dificuldade, pode nos chamar por inbox ou no WhatsApp que será um prazer te atender. Estamos dispostos a trabalhar junto com os estabelecimentos e ajudar os candidatos a se recolocar da maneira mais rápida possível.'], itens: [] }
+      ]
+    },
+    termos: {
+      titulo: 'Termos de uso',
+      atualizado: 'Condições gerais de uso da plataforma seuchef.',
+      secoes: [
+        { id: 'objeto', titulo: '1. Objeto', paragrafos: ['Este documento estabelece as Condições Gerais de Uso do site. A finalidade do seuchef.com.br é disponibilizar uma plataforma que permite o encontro entre empresas e candidatos em um ambiente online, com publicação de vagas, inclusão de currículo pelo candidato e serviços relacionados ao setor do emprego.', 'Ao criar uma conta ou usar a plataforma, você concorda com estes Termos e declara ter mais de 18 anos completos. Menores de 18 anos não podem se cadastrar.'], itens: [] },
+        { id: 'informacao', titulo: '2. Informação', paragrafos: ['seuchef, sociedade empresária limitada, inscrita no CNPJ/MF sob o nº 46.267.716/0001-50, é denominada neste documento PLATAFORMA ou SEUCHEF.', 'São usuários: a pessoa física contratante, denominada CANDIDATO, e a pessoa jurídica contratante, denominada ESTABELECIMENTO, ambas cadastradas na base de dados por login e senha.'], itens: [] },
+        { id: 'servicos', titulo: '3. Sobre os serviços', paragrafos: ['A plataforma disponibiliza tecnologias e ferramentas que possibilitam o encontro entre candidatos e estabelecimentos, para que possam efetivar uma relação jurídica após a verificação das vagas anunciadas e dos perfis cadastrados.'], itens: ['O candidato deve estar cadastrado para se beneficiar dos serviços de intermediação.', 'O estabelecimento deve estar cadastrado e remunerar o seuchef pelos serviços de intermediação, conforme o preço acordado no momento da utilização.', 'Os usuários autorizam a publicação dos dados necessários à intermediação, nos termos da LGPD e da Política de Privacidade.'] },
+        { id: 'bloqueio', titulo: '4. Bloqueio, suspensão e cancelamento', paragrafos: ['O usuário se compromete a não informar login e senha a terceiros, assumindo responsabilidade integral pelo uso da sua conta e pelos dados fornecidos.'], itens: ['Informações cadastrais incorretas, inverídicas, desatualizadas ou inexatas podem gerar bloqueio ou suspensão do cadastro.', 'A não disponibilização de informações ou documentos requeridos pela plataforma pode gerar bloqueio.', 'Conteúdo ilícito, contrário à ordem pública ou enganoso pode gerar cancelamento do cadastro.', 'O descumprimento destes Termos ou da legislação aplicável pode gerar cancelamento a critério da plataforma.'] },
+        { id: 'gerais', titulo: '5. Condições gerais', paragrafos: ['O software e a plataforma estão sujeitos a mudanças destinadas a sanar problemas, trazer melhorias de confiabilidade e performance e adaptar funcionalidades.', 'O seuchef reserva-se o direito de modificar estas condições para adequá-las à legislação vigente e às práticas de mercado. Consulte esta página regularmente.'], itens: [] }
+      ]
+    },
+    privacidade: {
+      titulo: 'Política de privacidade',
+      atualizado: 'Como tratamos os seus dados pessoais.',
+      secoes: [
+        { id: 'coleta', titulo: '1. Dados que coletamos', paragrafos: ['Coletamos os dados necessários para a intermediação entre candidatos e estabelecimentos, com base na Lei Geral de Proteção de Dados (LGPD).'], itens: ['Dados pessoais: nome, escolaridade, telefone, endereço residencial e retrato em fotografia.', 'Dados cadastrais: currículo digital, experiências profissionais e pretensão salarial.', 'Dados de uso da plataforma, para melhorar a experiência e a segurança.'] },
+        { id: 'finalidade', titulo: '2. Para que usamos', paragrafos: ['Os dados são usados com a finalidade específica de prestação dos serviços de intermediação entre candidatos e estabelecimentos: exibir vagas compatíveis, permitir candidaturas e disponibilizar currículos às empresas que publicam vagas.'], itens: [] },
+        { id: 'compartilhamento', titulo: '3. Com quem compartilhamos', paragrafos: ['Ao se candidatar a uma vaga, o candidato autoriza que o estabelecimento responsável por aquela vaga acesse o seu currículo. Não vendemos dados pessoais.'], itens: [] },
+        { id: 'comunicacao', titulo: '4. Comunicações', paragrafos: ['O candidato autoriza o recebimento de comunicações da plataforma e dos estabelecimentos por e-mail, telefone, SMS, WhatsApp e notificações. É possível ajustar as preferências de comunicação na área da conta.'], itens: [] },
+        { id: 'direitos', titulo: '5. Seus direitos', paragrafos: ['O titular pode solicitar acesso, correção, atualização ou exclusão dos seus dados pessoais, além do cancelamento da conta.'], itens: ['Solicitações podem ser feitas pelo WhatsApp 11 92128-1639.', 'Dados podem ser mantidos quando houver obrigação legal de retenção.'] }
+      ]
+    }
+  };
+
+  renderVals() {
+    const bp = this.bp(), mobile = bp === 'mobile';
+    const tab = this.state.tab || this.props.pagina || 'sobre';
+    const c = this.CONTEUDO[tab];
+    const mkTab = (key, label) => {
+      const on = tab === key;
+      return {
+        label: label, on: on ? 'page' : 'false',
+        weight: on ? 700 : 500, color: on ? '#1F1F1F' : '#6B6560',
+        underline: on ? 'inset 0 -3px 0 #C94219' : 'none',
+        pick: () => this.setState({ tab: key })
+      };
+    };
+    return {
+      rootZoom: mobile ? 1 : 0.8,
+      gap: mobile ? '18px' : '26px',
+      padBig: mobile ? '22px' : '28px',
+      h1: mobile ? '30px' : '40px',
+      h2: mobile ? '20px' : '24px',
+      cols: bp === 'desktop' ? '1fr 300px' : '1fr',
+      asideDisplay: bp === 'desktop' ? 'flex' : 'none',
+      tabs: [mkTab('sobre', 'Sobre nós'), mkTab('termos', 'Termos de uso'), mkTab('privacidade', 'Política de privacidade')],
+      titulo: c.titulo,
+      atualizado: c.atualizado,
+      secoes: c.secoes.map(s => ({
+        id: s.id, titulo: s.titulo, paragrafos: s.paragrafos, itens: s.itens,
+        listaDisplay: s.itens.length ? 'flex' : 'none'
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

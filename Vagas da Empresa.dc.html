@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1&amp;display=block" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;-webkit-font-smoothing:antialiased;color:#1F1F1F}
+a{color:#1F1F1F;text-decoration:none}
+a:hover{color:#C94219}
+:focus-visible{outline:3px solid #FFB72B;outline-offset:2px;border-radius:6px}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#FFFFFF;font-family:Inter,system-ui,sans-serif;zoom:{{ rootZoom }}">
+<dc-import name="Cabecalho" perfil="{{ perfil }}" hint-size="100%,126px"></dc-import>
+
+<main style="max-width:1600px;margin:0 auto;padding:0 20px 70px">
+  <nav aria-label="Você está aqui" style="margin-top:{{ gap }};display:flex;align-items:center;gap:8px;font-family:Inter,sans-serif;font-size:13.5px;color:#9A938C">
+    <a href="Home.dc.html" style="color:#9A938C">Início</a>
+    <span aria-hidden="true">/</span>
+    <a href="Home.dc.html" style="color:#9A938C">Empresas</a>
+    <span aria-hidden="true">/</span>
+    <span style="color:#1F1F1F;font-weight:700">{{ empresaNome }}</span>
+  </nav>
+
+  <section aria-labelledby="emp-h" style="margin-top:14px;background:#FFF3DF;border-radius:18px;padding:{{ padBig }};display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;justify-content:space-between">
+    <div style="display:flex;gap:14px;align-items:flex-start;min-width:280px;flex:1">
+      <span aria-hidden="true" style="flex:none;width:{{ logoSize }};height:{{ logoSize }};border-radius:14px;background:#1F1F1F;color:#FFB72B;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:800;font-size:{{ logoFont }};letter-spacing:-0.04em">sc.</span>
+      <div>
+        <h1 id="emp-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};line-height:1.04;letter-spacing:-0.03em">{{ empresaNome }}</h1>
+        <p style="margin:5px 0 0;font-family:Inter,sans-serif;font-weight:700;font-size:14.5px;color:#6B6560">{{ empresaTipo }}</p>
+        <ul style="list-style:none;margin:11px 0 0;padding:0;display:flex;gap:7px;flex-wrap:wrap">
+          <sc-for list="{{ selos }}" as="s" hint-placeholder-count="3">
+            <li style="display:flex;align-items:center;gap:6px;background:#FFFFFF;border-radius:8px;padding:7px 10px;font-family:Inter,sans-serif;font-weight:700;font-size:12.5px">
+              <span style="font-family:'Material Symbols Rounded';font-size:16px;font-variation-settings:'FILL' 1;line-height:1;color:{{ s.cor }}" aria-hidden="true">{{ s.icon }}</span>{{ s.label }}
+            </li>
+          </sc-for>
+        </ul>
+        <p style="margin:12px 0 0;font-family:Inter,sans-serif;font-size:14.5px;line-height:1.55;color:#6B6560;max-width:540px;text-wrap:pretty">{{ empresaSobre }}</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:{{ contatoCols }};gap:7px;min-width:250px;align-content:start">
+      <sc-for list="{{ contatos }}" as="c" hint-placeholder-count="4">
+        <a href="{{ c.href }}" style="display:flex;align-items:center;gap:9px;background:#FFFFFF;border:1px solid rgba(31,31,31,0.1);border-radius:10px;padding:9px 12px;min-width:0" style-hover="border-color:#FFB72B">
+          <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C;flex:none" aria-hidden="true">{{ c.icon }}</span>
+          <span style="font-family:Inter,sans-serif;font-weight:700;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.valor }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-labelledby="vagas-h" style="margin-top:{{ gap }}">
+    <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;justify-content:space-between">
+      <div>
+        <h2 id="vagas-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em">Vagas abertas</h2>
+        <p style="margin:6px 0 0;font-family:Inter,sans-serif;font-weight:700;font-size:14.5px;color:#6B6560">{{ contador }}</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ filtros }}" as="f" hint-placeholder-count="4">
+          <button type="button" onClick="{{ f.pick }}" aria-pressed="{{ f.on }}" style="height:44px;padding:0 16px;border:{{ f.border }};border-radius:11px;background:{{ f.bg }};cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:14px">{{ f.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:{{ cardCols }};gap:16px;margin-top:20px">
+      <sc-for list="{{ vagas }}" as="v" hint-placeholder-count="6">
+        <article style="height:100%;background:#FFFFFF;border:1.5px solid {{ v.cardBorder }};border-radius:16px;padding:15px;display:flex;flex-direction:column;gap:11px;position:relative;box-shadow:{{ v.cardShadow }};transition:box-shadow .15s,transform .15s" style-hover="box-shadow:0 12px 28px rgba(31,31,31,0.12);transform:translateY(-2px)">
+          <span title="Código da vaga" style="position:absolute;top:13px;right:14px;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;font-weight:700;letter-spacing:0.02em;color:#9A938C">{{ v.ref }}</span>
+          <div style="display:flex;align-items:flex-start;gap:11px">
+            <div style="width:64px;height:64px;border-radius:14px;flex:none;background:#1F1F1F;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.049em;color:#FFF3DF;overflow:hidden">sc<span style="color:#FFB72B">.</span></div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px;padding-right:62px;min-height:24px">
+                <sc-if value="{{ v.destaque }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:flex;align-items:center;gap:4px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:700;font-size:11px;padding:4px 8px;border-radius:6px;letter-spacing:0.02em">
+                    <span style="font-family:'Material Symbols Rounded';font-size:14px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">star</span>Destaque</span>
+                </sc-if>
+                <span style="display:flex;align-items:center;gap:5px;font-family:Inter,sans-serif;font-weight:700;font-size:11px;padding:4px 8px;border-radius:6px;background:{{ v.catColor }};color:#FFFFFF">{{ v.catLabel }}</span>
+              </div>
+              <h3 style="margin:0;font-family:Sora,sans-serif;font-weight:700;font-size:18.5px;line-height:1.2;letter-spacing:-0.015em;text-wrap:pretty">
+                <a href="Página da Vaga.dc.html" style="color:#1F1F1F">{{ v.titulo }}</a>
+              </h3>
+              <p style="margin:4px 0 0;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">{{ v.empresa }}</p>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;gap:7px;font-family:Inter,sans-serif;font-size:13.5px;color:#1F1F1F">
+              <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">location_on</span>{{ v.local }}
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;font-family:Inter,sans-serif;font-weight:700;font-size:14px;color:#1F1F1F">
+              <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">payments</span>{{ v.salario }}
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;font-family:Inter,sans-serif;font-size:13px;color:#6B6560">
+              <span style="font-family:'Material Symbols Rounded';font-size:17px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">schedule</span>{{ v.horario }}
+            </div>
+          </div>
+
+          <div style="margin-top:auto;padding-top:11px;border-top:1px solid rgba(31,31,31,0.09);display:flex;align-items:center;gap:10px;justify-content:space-between">
+            <p style="margin:0;font-family:Inter,sans-serif;font-size:12px;color:#9A938C">{{ v.publicada }}</p>
+            <a href="Página da Vaga.dc.html" style="flex:none;height:40px;padding:0 16px;border-radius:10px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:14px;display:flex;align-items:center;color:#1F1F1F" style-hover="background:#FFC94F">Ver vaga</a>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+
+    <div style="display:{{ vazioDisplay }};flex-direction:column;align-items:flex-start;gap:12px;margin-top:20px;border:1.5px dashed rgba(31,31,31,0.2);border-radius:18px;padding:34px">
+      <span style="font-family:'Material Symbols Rounded';font-size:34px;font-variation-settings:'FILL' 1;line-height:1;color:#9A938C" aria-hidden="true">work_off</span>
+      <h3 style="margin:0;font-family:Sora,sans-serif;font-weight:700;font-size:18px">Nenhuma vaga neste filtro</h3>
+      <p style="margin:0;font-family:Inter,sans-serif;font-size:15px;color:#6B6560">Tente outra área ou veja todas as vagas abertas da empresa.</p>
+      <button type="button" onClick="{{ verTodas }}" style="height:48px;padding:0 18px;border:1.5px solid rgba(31,31,31,0.18);border-radius:11px;background:#FFFFFF;font-family:Sora,sans-serif;font-weight:600;font-size:15px;cursor:pointer">Ver todas as vagas</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="alerta-h" style="margin-top:{{ gapBig }};background:#1F1F1F;color:#FFF3DF;border-radius:22px;padding:{{ padBig }};display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+    <div style="max-width:560px">
+      <h2 id="alerta-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em;text-wrap:pretty">Receba um alerta quando {{ empresaNome }} publicar uma vaga</h2>
+      <p style="margin:10px 0 0;font-family:Inter,sans-serif;font-size:15.5px;line-height:1.6;color:rgba(255,243,223,0.78)">Crie sua conta, monte o currículo uma vez e candidate-se com um clique.</p>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="Entrar e Cadastrar.dc.html?modo=cadastro" style="height:56px;padding:0 24px;border-radius:12px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;display:flex;align-items:center" style-hover="background:#FFC94F">Criar conta grátis</a>
+      <a href="Home.dc.html" style="height:56px;padding:0 20px;border:1.5px solid rgba(255,243,223,0.32);border-radius:12px;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:16px;display:flex;align-items:center" style-hover="border-color:#FFB72B;color:#FFB72B">Ver outras vagas</a>
+    </div>
+  </section>
+</main>
+
+<dc-import name="Rodape" hint-size="100%,320px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200},&quot;empresa&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Café Bica&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Empresa&quot;},&quot;perfil&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;publico&quot;,&quot;candidato&quot;,&quot;empresa&quot;],&quot;default&quot;:&quot;publico&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Empresa&quot;}}">
+class Component extends DCLogic {
+  state = { w: 1440, filtro: 'Todas', copiado: false };
+  componentDidMount() {
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+    setTimeout(() => this.setState({ w: window.innerWidth }), 40);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); }
+  bp() { const raw = this.state.w; if (raw < 768) return 'mobile'; return raw / 0.8 < 1200 ? 'tablet' : 'desktop'; }
+  VAGAS = [
+    { titulo: 'Barista', area: 'Bar', local: 'Pinheiros · São Paulo/SP', salario: 'R$ 2.100 + gorjeta', horario: 'Seg a sáb, 7h às 15h', destaque: true, publicada: 'Publicada há 2 dias' },
+    { titulo: 'Atendente de balcão', area: 'Salão', local: 'Pinheiros · São Paulo/SP', salario: 'R$ 1.850 + gorjeta', horario: 'Seg a sex, 12h às 20h', destaque: true, publicada: 'Publicada há 3 dias' },
+    { titulo: 'Auxiliar de cozinha', area: 'Cozinha', local: 'Mooca · São Paulo/SP', salario: 'R$ 1.960', horario: 'Ter a dom, 8h às 16h', destaque: false, publicada: 'Publicada há 6 dias' },
+    { titulo: 'Confeiteiro(a)', area: 'Cozinha', local: 'Pinheiros · São Paulo/SP', salario: 'R$ 2.700', horario: 'Seg a sáb, 6h às 14h', destaque: false, publicada: 'Publicada há 8 dias' },
+    { titulo: 'Caixa', area: 'Salão', local: 'Mooca · São Paulo/SP', salario: 'R$ 1.780 + gorjeta', horario: 'Qua a dom, 14h às 22h', destaque: false, publicada: 'Publicada há 11 dias' },
+    { titulo: 'Encarregado de loja', area: 'Gestão', local: 'Pinheiros · São Paulo/SP', salario: 'R$ 3.400', horario: 'Escala 6x1, 10h às 18h', destaque: false, publicada: 'Publicada há 14 dias' }
+  ];
+  renderVals() {
+    const bp = this.bp(), mobile = bp === 'mobile', s = this.state;
+    const nome = this.props.empresa ?? 'Café Bica';
+    const filtro = s.filtro;
+    const areas = ['Todas'].concat(this.VAGAS.map(v => v.area).filter((a, i, arr) => arr.indexOf(a) === i));
+    const lista = filtro === 'Todas' ? this.VAGAS : this.VAGAS.filter(v => v.area === filtro);
+    const link = 'seuchef.com.br/empresa/cafe-bica';
+
+    return {
+      rootZoom: mobile ? 1 : 0.8,
+      perfil: this.props.perfil ?? 'publico',
+      gap: mobile ? '18px' : '26px',
+      gapBig: mobile ? '38px' : '56px',
+      padBig: mobile ? '20px' : '26px',
+      contatoCols: mobile ? '1fr' : 'repeat(2,minmax(0,1fr))',
+      h1: mobile ? '26px' : '32px',
+      h2: mobile ? '22px' : '28px',
+      logoSize: mobile ? '56px' : '68px',
+      logoFont: mobile ? '19px' : '23px',
+      cardCols: bp === 'desktop' ? 'repeat(3,minmax(0,1fr))' : (bp === 'tablet' ? 'repeat(2,minmax(0,1fr))' : '1fr'),
+
+      empresaNome: nome,
+      empresaTipo: 'Cafeteria · São Paulo/SP',
+      empresaSobre: 'Cafeteria de bairro com três unidades em São Paulo. Trabalhamos com café especial, padaria própria e equipe fixa — a maioria das promoções vem de dentro de casa.',
+      selos: [
+        { label: this.VAGAS.length + (this.VAGAS.length === 1 ? ' vaga aberta' : ' vagas abertas'), icon: 'work', cor: '#1F1F1F' },
+        { label: 'Assinante seuchef', icon: 'workspace_premium', cor: '#C94219' }
+      ],
+      linkPublico: link,
+      contatos: [
+        { label: 'Site', valor: 'cafebica.com.br', icon: 'language', href: 'https://cafebica.com.br' },
+        { label: 'Instagram', valor: '@cafebica', icon: 'photo_camera', href: 'https://instagram.com/cafebica' },
+        { label: 'Telefone / WhatsApp', valor: '(11) 92128-1639', icon: 'call', href: 'https://api.whatsapp.com/send?phone=5511921281639' },
+        { label: 'E-mail', valor: 'vagas@cafebica.com.br', icon: 'mail', href: 'mailto:vagas@cafebica.com.br' }
+      ],
+      copiarLabel: s.copiado ? 'Link copiado' : 'Copiar link da página',
+      copiarIcon: s.copiado ? 'check_circle' : 'link',
+      copiarLink: () => {
+        if (navigator.clipboard) navigator.clipboard.writeText('https://' + link);
+        this.setState({ copiado: true });
+        setTimeout(() => this.setState({ copiado: false }), 2600);
+      },
+      whatsHref: 'https://api.whatsapp.com/send?phone=5511921281639',
+
+      contador: lista.length === 0
+        ? 'Nenhuma vaga neste filtro'
+        : (lista.length === 1 ? '1 vaga aberta agora' : lista.length + ' vagas abertas agora'),
+      filtros: areas.map(a => ({
+        label: a, on: filtro === a,
+        bg: filtro === a ? '#1F1F1F' : '#FFFFFF',
+        border: filtro === a ? '1.5px solid #1F1F1F' : '1.5px solid rgba(31,31,31,0.16)',
+        pick: () => this.setState({ filtro: a })
+      })).map(f => Object.assign(f, { bg: f.on ? '#FFF3DF' : '#FFFFFF', border: f.on ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.16)' })),
+
+      vagas: lista.map((v, i) => ({
+        titulo: v.titulo,
+        empresa: 'Café Bica',
+        ref: String(2608100 + this.VAGAS.indexOf(v) * 17 + 8),
+        destaque: v.destaque,
+        catLabel: v.area,
+        catColor: { Bar: '#8A5A2B', 'Salão': '#1F7A4D', Cozinha: '#C94219', 'Gestão': '#3B4C8A' }[v.area] || '#6B6560',
+        cardBorder: v.destaque ? '#FFB72B' : 'rgba(31,31,31,0.12)',
+        cardShadow: v.destaque ? '0 4px 16px rgba(255,183,43,0.28)' : '0 1px 2px rgba(31,31,31,0.04)',
+        local: v.local,
+        salario: v.salario,
+        horario: v.horario,
+        publicada: v.publicada
+      })),
+      vazioDisplay: lista.length === 0 ? 'flex' : 'none',
+      verTodas: () => this.setState({ filtro: 'Todas' })
+    };
+  }
+}
+</script>
+</body>
+</html>

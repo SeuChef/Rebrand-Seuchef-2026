@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1&display=block" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;-webkit-font-smoothing:antialiased;color:#1F1F1F}
+a{color:#1F1F1F;text-decoration:none}
+a:hover{color:#C94219}
+:focus-visible{outline:3px solid #FFB72B;outline-offset:2px;border-radius:6px}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#FFFFFF;font-family:Inter,system-ui,sans-serif;zoom:{{ rootZoom }}">
+<dc-import name="Cabecalho" perfil="{{ perfil }}" hint-size="100%,126px"></dc-import>
+
+<main style="max-width:1600px;margin:0 auto;padding:0 20px 70px">
+  <a href="#campanha" aria-label="Banner: campanha seuchef" style="display:block;margin-top:{{ gap }};border-radius:16px;overflow:hidden;background:#FFF3DF;background-image:repeating-linear-gradient(135deg,rgba(31,31,31,0.055) 0 10px,rgba(31,31,31,0) 10px 20px)">
+    <div style="aspect-ratio:{{ bannerRatio }};display:flex;align-items:center;justify-content:center">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#9A938C">{{ bannerSlot }} · arte cadastrada no painel</span>
+    </div>
+  </a>
+
+  <section id="pacotes" aria-labelledby="pac-h" style="margin-top:{{ gap }}">
+    <h1 id="pac-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h1 }};line-height:1.06;letter-spacing:-0.03em;text-wrap:pretty">Publique sua vaga e receba candidatos do setor</h1>
+    <p style="margin:12px 0 0;font-family:Inter,sans-serif;font-size:16.5px;line-height:1.6;color:#6B6560;max-width:660px">Escolha uma vaga avulsa, um pacote com desconto progressivo ou a assinatura mensal. Toda vaga publicada fica ativa por 30 dias.</p>
+
+    <h2 style="margin:{{ h2Top }} 0 16px;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em">Nossos pacotes promocionais</h2>
+    <div style="display:grid;grid-template-columns:{{ pacCols }};gap:16px">
+      <sc-for list="{{ pacotes }}" as="p" hint-placeholder-count="4">
+        <div style="position:relative;border:1.5px solid {{ p.border }};border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:7px;box-shadow:{{ p.shadow }}">
+          <span style="display:{{ p.selo }};position:absolute;top:-11px;left:20px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:700;font-size:11px;letter-spacing:0.03em;padding:5px 9px;border-radius:6px">MAIS ESCOLHIDO</span>
+          <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="font-family:Sora,sans-serif;font-weight:700;font-size:17px">{{ p.nome }}</span>
+            <span style="display:{{ p.descontoDisplay }};align-items:center;background:{{ p.descontoBg }};color:#FFFFFF;font-family:Sora,sans-serif;font-weight:700;font-size:11px;letter-spacing:0.02em;padding:4px 8px;border-radius:6px">{{ p.desconto }}</span>
+          </span>
+          <span style="font-family:Inter,sans-serif;font-size:13.5px;color:#6B6560">{{ p.detalhe }}</span>
+          <span style="margin-top:14px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap">
+            <span style="font-family:Sora,sans-serif;font-weight:800;font-size:{{ precoSize }};letter-spacing:-0.02em">{{ p.preco }}</span>
+            <span style="display:{{ p.antesDisplay }};font-family:Inter,sans-serif;font-size:14px;color:#9A938C;text-decoration:line-through">{{ p.antes }}</span>
+          </span>
+          <span style="font-family:Inter,sans-serif;font-size:12.5px;color:#9A938C">{{ p.obs }}</span>
+          <ul style="list-style:none;margin:16px 0 20px;padding:0;display:flex;flex-direction:column;gap:9px">
+            <sc-for list="{{ p.itens }}" as="i" hint-placeholder-count="3">
+              <li style="display:flex;gap:9px;font-family:Inter,sans-serif;font-size:14px;line-height:1.45;color:#1F1F1F">
+                <span style="font-family:'Material Symbols Rounded';font-size:19px;font-variation-settings:'FILL' 1;line-height:1.3;color:#FFB72B;flex:none" aria-hidden="true">check_circle</span>{{ i }}
+              </li>
+            </sc-for>
+          </ul>
+          <button type="button" onClick="{{ p.comprar }}" style="margin-top:auto;height:50px;flex:none;border:0;border-radius:11px;background:{{ p.btnBg }};color:{{ p.btnFg }};font-family:Sora,sans-serif;font-weight:600;font-size:15px;cursor:pointer">{{ p.btnLabel }}</button>
+        </div>
+      </sc-for>
+    </div>
+
+  </section>
+
+  <div style="margin-top:{{ gapBig }};border:1.5px solid rgba(31,31,31,0.12);border-radius:16px;padding:22px">
+    <h3 style="margin:0 0 12px;font-family:Sora,sans-serif;font-weight:700;font-size:16px">Sem contrato, sem mensalidade, sem regras escondidas</h3>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ regrasCols }};gap:11px">
+      <sc-for list="{{ regrasPacote }}" as="r" hint-placeholder-count="4">
+        <li style="display:flex;gap:9px;font-family:Inter,sans-serif;font-size:14.5px;line-height:1.5;color:#6B6560">
+          <span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;line-height:1.35;color:#9A938C;flex:none" aria-hidden="true">radio_button_checked</span>{{ r }}
+        </li>
+      </sc-for>
+    </ul>
+  </div>
+
+  <section id="assinatura" aria-labelledby="ass-h" style="margin-top:{{ gapBig }};background:#1F1F1F;color:#FFF3DF;border-radius:22px;padding:{{ padBig }}">
+    <h2 id="ass-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h2 }};letter-spacing:-0.02em">Seja assinante e tenha benefícios especiais</h2>
+    <p style="margin:10px 0 0;font-family:Inter,sans-serif;font-size:16px;color:rgba(255,243,223,0.78)">Para quem contrata com frequência e quer mais visibilidade.</p>
+
+    <div style="display:grid;grid-template-columns:{{ assCols }};gap:24px;margin-top:26px;align-items:start">
+      <div style="background:rgba(255,243,223,0.07);border:1px solid rgba(255,243,223,0.18);border-radius:18px;padding:24px">
+        <span style="display:block;font-family:Sora,sans-serif;font-weight:800;font-size:{{ assPreco }};letter-spacing:-0.03em;color:#FFB72B">R$ 129<span style="font-family:Inter,sans-serif;font-weight:400;font-size:16px;color:rgba(255,243,223,0.7)"> /mês</span></span>
+        <button type="button" onClick="{{ contratar }}" style="margin-top:20px;width:100%;height:56px;border:0;border-radius:12px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;cursor:pointer" style-hover="background:#FFC94F">Contratar agora</button>
+        <p style="margin:14px 0 0;font-family:Inter,sans-serif;font-size:13px;color:rgba(255,243,223,0.62);text-align:center">Renovação automática. Cancele quando quiser.</p>
+      </div>
+      <div>
+        <h3 style="margin:0 0 14px;font-family:Sora,sans-serif;font-weight:700;font-size:17px">O que está incluído:</h3>
+        <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ assListCols }};gap:12px">
+          <sc-for list="{{ beneficios }}" as="b" hint-placeholder-count="8">
+            <li style="display:flex;gap:10px;font-family:Inter,sans-serif;font-size:15px;line-height:1.45">
+              <span style="font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1;line-height:1.3;color:#FFB72B;flex:none" aria-hidden="true">check_circle</span>{{ b }}
+            </li>
+          </sc-for>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,243,223,0.16)">
+      <h3 style="margin:0 0 14px;font-family:Sora,sans-serif;font-weight:700;font-size:15px;color:#FFB72B;letter-spacing:0.02em">SEM REGRAS ESCONDIDAS</h3>
+      <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ assListCols }};gap:11px">
+        <sc-for list="{{ regrasAssinatura }}" as="r" hint-placeholder-count="7">
+          <li style="display:flex;gap:9px;font-family:Inter,sans-serif;font-size:14px;line-height:1.5;color:rgba(255,243,223,0.75)">
+            <span aria-hidden="true" style="flex:none;width:6px;height:6px;border-radius:50%;background:rgba(255,243,223,0.5);margin-top:8px"></span>{{ r }}
+          </li>
+        </sc-for>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="ajuda2-h" style="margin-top:{{ gapBig }};background:#FFF3DF;border-radius:20px;padding:{{ padBig }};display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between">
+    <div style="max-width:560px">
+      <h2 id="ajuda2-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:{{ h3 }};letter-spacing:-0.02em">Vamos construir algo incrível juntos</h2>
+      <p style="margin:10px 0 0;font-family:Inter,sans-serif;font-size:15.5px;line-height:1.6;color:#6B6560">Tem dúvidas sobre qual plano escolher? Fale com a nossa equipe pelo WhatsApp.</p>
+    </div>
+    <a href="https://api.whatsapp.com/send?phone=5511921281639" style="height:56px;padding:0 24px;border-radius:12px;background:#1F1F1F;color:#FFF3DF;font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;display:flex;align-items:center;gap:9px" style-hover="color:#FFB72B">
+      <span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">chat</span>11 92128-1639</a>
+  </section>
+</main>
+
+<sc-if value="{{ erroOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-labelledby="erro-h" style="position:fixed;inset:0;z-index:120;background:rgba(31,31,31,0.5);display:flex;align-items:center;justify-content:center;padding:20px">
+    <div style="background:#FFFFFF;border-radius:20px;max-width:460px;width:100%;padding:28px;box-shadow:0 24px 60px rgba(31,31,31,0.3)">
+      <span style="display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:rgba(233,64,42,0.1)">
+        <span style="font-family:'Material Symbols Rounded';font-size:28px;font-variation-settings:'FILL' 1;line-height:1;color:#E9402A" aria-hidden="true">error</span>
+      </span>
+      <h2 id="erro-h" style="margin:18px 0 8px;font-family:Sora,sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.02em">Não foi possível continuar</h2>
+      <p style="margin:0;font-family:Inter,sans-serif;font-size:15.5px;line-height:1.6;color:#6B6560">{{ erroTexto }}</p>
+      <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap">
+        <a href="Entrar e Cadastrar.dc.html" style="flex:1;min-width:160px;height:52px;border-radius:12px;background:#FFB72B;color:#1F1F1F;font-family:Sora,sans-serif;font-weight:600;font-size:16px;display:flex;align-items:center;justify-content:center">Entrar como estabelecimento</a>
+        <button type="button" onClick="{{ fecharErro }}" style="height:52px;padding:0 20px;border:1.5px solid rgba(31,31,31,0.16);border-radius:12px;background:#FFFFFF;font-family:Sora,sans-serif;font-weight:600;font-size:16px;cursor:pointer">Fechar</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ checkoutOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-labelledby="check-h" style="position:fixed;inset:0;z-index:120;background:rgba(31,31,31,0.5);display:flex;align-items:{{ drawerAlign }};justify-content:{{ drawerJustify }}">
+    <div style="background:#FFFFFF;width:{{ drawerW }};max-width:100%;height:{{ drawerH }};max-height:94vh;border-radius:{{ drawerRadius }};display:flex;flex-direction:column">
+      <div style="padding:20px 24px;border-bottom:1px solid rgba(31,31,31,0.10);display:flex;align-items:center;justify-content:space-between">
+        <h2 id="check-h" style="margin:0;font-family:Sora,sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.02em">Finalizar compra</h2>
+        <button type="button" onClick="{{ fecharCheckout }}" aria-label="Fechar checkout" style="width:42px;height:42px;border:1px solid rgba(31,31,31,0.14);border-radius:11px;background:#FFFFFF;cursor:pointer;display:flex;align-items:center;justify-content:center">
+          <span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:20px">
+        <div style="background:#FFF3DF;border-radius:14px;padding:18px">
+          <span style="display:block;font-family:Inter,sans-serif;font-weight:700;font-size:12.5px;color:#6B6560;letter-spacing:0.03em;text-transform:uppercase">Item selecionado</span>
+          <span style="display:block;margin-top:7px;font-family:Sora,sans-serif;font-weight:700;font-size:18px">{{ itemNome }}</span>
+          <span style="display:block;margin-top:4px;font-family:Inter,sans-serif;font-size:14px;color:#6B6560">{{ itemDetalhe }}</span>
+        </div>
+        <fieldset style="border:0;margin:0;padding:0">
+          <legend style="font-family:Sora,sans-serif;font-weight:700;font-size:15px;margin-bottom:11px;padding:0">Forma de pagamento</legend>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <sc-for list="{{ metodos }}" as="m" hint-placeholder-count="2">
+              <button type="button" onClick="{{ m.pick }}" aria-pressed="{{ m.on }}" style="flex:1;min-width:140px;height:52px;border-radius:12px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;font-size:15px;border:{{ m.border }};background:{{ m.bg }};color:#1F1F1F;display:flex;align-items:center;justify-content:center;gap:8px">
+                <span style="font-family:'Material Symbols Rounded';font-size:21px;font-variation-settings:'FILL' 1;line-height:1" aria-hidden="true">{{ m.icon }}</span>{{ m.label }}
+              </button>
+            </sc-for>
+          </div>
+        </fieldset>
+        <p style="margin:0;font-family:Inter,sans-serif;font-size:13.5px;line-height:1.55;color:#6B6560">{{ metodoNota }}</p>
+      </div>
+      <div style="padding:18px 24px;border-top:1px solid rgba(31,31,31,0.10);display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <span style="flex:1;font-family:Sora,sans-serif;font-weight:800;font-size:20px">{{ itemPreco }}</span>
+        <button type="button" onClick="{{ fecharCheckout }}" style="height:52px;padding:0 24px;border:0;border-radius:12px;background:#FFB72B;font-family:Sora,sans-serif;font-weight:600;font-size:16px;cursor:pointer">Pagar</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<dc-import name="Rodape" hint-size="100%,320px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1200},&quot;perfil&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;publico&quot;,&quot;candidato&quot;,&quot;empresa&quot;],&quot;default&quot;:&quot;publico&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estado do usuário&quot;}}">
+class Component extends DCLogic {
+  state = { w: 1440, erro: false, checkout: null, metodo: 'pix', cupom: '', cupomMsg: '', cupomOk: false };
+  componentDidMount() {
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+    setTimeout(() => this.setState({ w: window.innerWidth }), 40);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); }
+  bp() { const raw = this.state.w; if (raw < 768) return 'mobile'; return raw / 0.8 < 1200 ? 'tablet' : 'desktop'; }
+  renderVals() {
+    const bp = this.bp(), mobile = bp === 'mobile', s = this.state;
+    const perfil = this.props.perfil || 'publico';
+    const podeComprar = perfil === 'empresa';
+    const erroTexto = perfil === 'candidato'
+      ? 'A compra de vagas e pacotes é exclusiva para estabelecimentos. Sua conta está logada como candidato.'
+      : 'Para contratar um dos nossos pacotes, realize o login do seu estabelecimento.';
+    const itens = [
+      { nome: 'Vaga avulsa', detalhe: 'R$ 99,00 por vaga', preco: 'R$ 99,00', antes: '', desconto: '', obs: '1 cargo por vaga · ativa por 30 dias', itens: ['1 crédito de vaga', 'Ativa por 30 dias', 'Divulgação nas redes sociais'], selo: 'none' },
+      { nome: 'Pacote 3 vagas', detalhe: 'R$ 84,15 por vaga', preco: 'R$ 252,45', antes: 'R$ 297,00', desconto: '15% de desconto', obs: '1 ano para publicar as vagas', itens: ['3 créditos de vaga', '15% de desconto', 'Publique quando quiser, em até 1 ano'], selo: 'none' },
+      { nome: 'Pacote 5 vagas', detalhe: 'R$ 74,25 por vaga', preco: 'R$ 371,25', antes: 'R$ 495,00', desconto: '20% de desconto', obs: '1 ano para publicar as vagas', itens: ['5 créditos de vaga', '20% de desconto', 'Publique quando quiser, em até 1 ano'], selo: 'block' },
+      { nome: 'Pacote 10 vagas', detalhe: 'R$ 64,35 por vaga', preco: 'R$ 643,50', antes: 'R$ 990,00', desconto: '35% de desconto', obs: '1 ano para publicar as vagas', itens: ['10 créditos de vaga', '35% de desconto', 'Publique quando quiser, em até 1 ano'], selo: 'none' }
+    ];
+    const CHAVES = { 'Vaga avulsa': 'vaga-avulsa', 'Pacote 3 vagas': 'pacote-3', 'Pacote 5 vagas': 'pacote-5', 'Pacote 10 vagas': 'pacote-10' };
+    const irCheckout = chave => { window.location.href = 'Checkout.dc.html?item=' + chave; };
+    const abrir = it => () => podeComprar ? irCheckout(CHAVES[it.nome] || 'pacote-5') : this.setState({ erro: true });
+    const pacotes = itens.map((it, i) => ({
+      nome: it.nome, detalhe: it.detalhe, preco: it.preco, obs: it.obs, itens: it.itens, selo: it.selo,
+      antes: it.antes, antesDisplay: it.antes ? 'inline' : 'none',
+      desconto: it.desconto, descontoDisplay: it.desconto ? 'inline-flex' : 'none',
+      descontoBg: ['', '#C92A46', '#7A8F3C', '#1A7A6B'][i] || '#1F1F1F',
+      border: it.selo === 'block' ? '#FFB72B' : 'rgba(31,31,31,0.12)',
+      shadow: it.selo === 'block' ? '0 8px 24px rgba(255,183,43,0.24)' : 'none',
+      btnBg: it.selo === 'block' ? '#FFB72B' : '#1F1F1F',
+      btnFg: it.selo === 'block' ? '#1F1F1F' : '#FFF3DF',
+      btnLabel: i === 0 ? 'Comprar vaga' : 'Comprar pacote',
+      comprar: abrir(it)
+    }));
+    const metodos = [
+      { key: 'pix', label: 'PIX', icon: 'qr_code_2' },
+      { key: 'cartao', label: 'Cartão de crédito', icon: 'credit_card' }
+    ].map(m => ({
+      label: m.label, icon: m.icon, on: s.metodo === m.key,
+      bg: s.metodo === m.key ? '#FFF3DF' : '#FFFFFF',
+      border: s.metodo === m.key ? '1.5px solid #FFB72B' : '1.5px solid rgba(31,31,31,0.16)',
+      pick: () => this.setState({ metodo: m.key })
+    }));
+    return {
+      rootZoom: mobile ? 1 : 0.8,
+      perfil: perfil,
+      gap: mobile ? '18px' : '26px',
+      gapBig: mobile ? '38px' : '56px',
+      padBig: mobile ? '22px' : '32px',
+      h2Top: mobile ? '32px' : '46px',
+      bannerRatio: mobile ? '3.2 / 1' : '8 / 1',
+      bannerSlot: mobile ? 'banner mobile · 720×225' : 'banner desktop · 1600×200',
+      h1: mobile ? '30px' : '42px',
+      h2: mobile ? '24px' : '32px',
+      h3: mobile ? '20px' : '24px',
+      precoSize: mobile ? '26px' : '30px',
+      assPreco: mobile ? '34px' : '44px',
+      pacCols: mobile ? '1fr' : (bp === 'tablet' ? 'repeat(2,1fr)' : 'repeat(4,1fr)'),
+      regrasCols: mobile ? '1fr' : 'repeat(2,1fr)',
+      assCols: bp === 'desktop' ? '340px 1fr' : '1fr',
+      assListCols: mobile ? '1fr' : 'repeat(2,1fr)',
+      pagCols: mobile ? '1fr' : 'repeat(2,1fr)',
+      pacotes: pacotes,
+      regrasPacote: [
+        'Sem contrato, sem mensalidade, sem regras escondidas.',
+        'Nos pacotes, você tem 1 ano a partir da data da compra para publicar as vagas.',
+        'Depois de publicada, a vaga tem duração de 30 dias.',
+        'Um cargo por vaga.',
+        'O desconto cresce conforme o tamanho do pacote: 15%, 20% e 35%.',
+        'A compra é liberada apenas para contas de estabelecimento.'
+      ],
+      beneficios: [
+        '1 vaga por mês', 'Desconto de 10% em qualquer compra',
+        'Selo Destaque em todas as vagas', '2 boosts por mês — vaga no topo do site por 48h',
+        'Atendimento exclusivo', 'Revisão de todos os seus anúncios',
+        'Prioridade em promoções gerais do site', 'Collab nas redes sociais'
+      ],
+      regrasAssinatura: [
+        '1 vaga por mês, não acumulativa.',
+        'Desconto de 10% na compra de vagas avulsas e pacotes.',
+        'O boost coloca a vaga no topo do site por 48 horas, a partir da ativação.',
+        'Inclui 2 boosts por mês; cada boost reposiciona a vaga no topo do site por 48 horas.',
+        'Atendimento exclusivo por reunião online, ligação, WhatsApp e e-mail.',
+        'Renovação automática; você pode cancelar a qualquer momento.',
+        'Ao cancelar, os benefícios são removidos, mas as vagas já publicadas continuam ativas sem destaques até o fim do período contratado.'
+      ],
+      contratar: () => podeComprar ? irCheckout('assinatura') : this.setState({ erro: true }),
+      erroOpen: s.erro, erroTexto: erroTexto,
+      fecharErro: () => this.setState({ erro: false }),
+      checkoutOpen: !!s.checkout,
+      itemNome: s.checkout ? s.checkout.nome : '',
+      itemDetalhe: s.checkout ? s.checkout.detalhe : '',
+      itemPreco: s.checkout ? s.checkout.preco : '',
+      metodos: s.checkout && s.checkout.nome === 'Assinatura mensal' ? metodos.slice(1) : metodos,
+      metodoNota: s.checkout && s.checkout.nome === 'Assinatura mensal'
+        ? 'A assinatura aceita apenas cartão de crédito, porque a renovação é automática.'
+        : 'No PIX, os créditos entram na conta assim que o pagamento é confirmado.',
+      fecharCheckout: () => this.setState({ checkout: null }),
+      drawerJustify: mobile ? 'center' : 'flex-end',
+      drawerAlign: mobile ? 'flex-end' : 'stretch',
+      drawerW: mobile ? '100%' : '460px',
+      drawerH: mobile ? 'auto' : '100%',
+      drawerRadius: mobile ? '20px 20px 0 0' : '20px 0 0 20px',
+      cupom: s.cupom,
+      onCupom: e => this.setState({ cupom: e.target.value }),
+      aplicarCupom: () => this.setState(p => ({
+        cupomOk: p.cupom.trim().length > 3,
+        cupomMsg: p.cupom.trim().length > 3 ? 'Cupom aplicado. O desconto aparece no checkout.' : 'Digite um código de cupom válido.'
+      })),
+      cupomMsg: s.cupomMsg || 'Se você recebeu um cupom, aplique antes de finalizar a compra.',
+      cupomColor: s.cupomMsg ? (s.cupomOk ? '#1A7A5E' : '#E9402A') : '#6B6560'
+    };
+  }
+}
+</script>
+</body>
+</html>
